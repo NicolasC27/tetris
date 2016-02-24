@@ -1,0 +1,50 @@
+##
+## Makefile for tetris in /home/cheval_8/rendu/PSU_2015_tetris
+## 
+## Made by Chevalier Nicolas
+## Login   <cheval_8@epitech.net>
+## 
+## Started on  Wed Feb 24 16:02:04 2016 Chevalier Nicolas
+## Last update Wed Feb 24 16:02:04 2016 Chevalier Nicolas
+##
+
+
+NAME		= tetris
+
+SRC		= src/main.c
+
+MOD		= $(SRC:.c=.o)
+
+LIB		= -Llib/
+LIB		+= -Ilib/include -Llib/ -lmyutils
+
+LIBMYUTILS_MAKE	= make -C lib/
+LIBMYUTILS	= lib/libmyutils.a
+
+CFLAGS		= -W -Wall -Werror -Wextra
+CFLAGS		+= -ansi -pedantic
+CFLAGS		+= -Iinclude/
+CFLAGS		+= -D_BSD_SOURCE -D_POSIX_SOURCE
+CFLAGS		+= $(LIB)
+
+LDFLAGS		= $(LIB)
+
+all:		$(LIBMYUTILS) $(NAME)
+
+$(NAME):	$(MOD)
+		gcc $(MOD) -o $(NAME) $(LDFLAGS)
+
+$(LIBMYUTILS):
+	 	$(LIBMYUTILS_MAKE)
+
+clean		:
+		 rm -rf $(MOD)
+		 $(LIBMYUTILS_MAKE) clean
+
+fclean		: clean
+		  rm -rf $(NAME)
+		  $(LIBMYUTILS_MAKE) fclean
+
+re:		fclean all
+
+.PHONY:		all clean fclean re
