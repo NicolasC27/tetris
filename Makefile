@@ -5,15 +5,17 @@
 ## Login   <cheval_8@epitech.net>
 ## 
 ## Started on  Wed Feb 24 16:02:04 2016 Chevalier Nicolas
-## Last update Wed Feb 24 16:02:04 2016 Chevalier Nicolas
+## Last update Fri Feb 26 15:39:35 2016 Chevalier Nicolas
 ##
 
 
 NAME		= tetris
 
-SRC		= src/main.c
+SRC		= main.c \
+		  init.c \
+		  display.c
 
-MOD		= $(SRC:.c=.o)
+MOD		= $(addprefix src/, $(SRC:.c=.o))
 
 LIB		= -Llib/
 LIB		+= -Ilib/include -Llib/ -lmyutils
@@ -21,8 +23,8 @@ LIB		+= -Ilib/include -Llib/ -lmyutils
 LIBMYUTILS_MAKE	= make -C lib/
 LIBMYUTILS	= lib/libmyutils.a
 
-CFLAGS		= -W -Wall -Werror -Wextra
-CFLAGS		+= -ansi -pedantic
+# CFLAGS		= -W -Wall -Werror -Wextra
+# CFLAGS		+= -ansi -pedantic
 CFLAGS		+= -Iinclude/
 CFLAGS		+= -D_BSD_SOURCE -D_POSIX_SOURCE
 CFLAGS		+= $(LIB)
@@ -32,7 +34,7 @@ LDFLAGS		= $(LIB)
 all:		$(LIBMYUTILS) $(NAME)
 
 $(NAME):	$(MOD)
-		gcc $(MOD) -o $(NAME) $(LDFLAGS)
+		gcc $(MOD) -o $(NAME) $(LDFLAGS) -lncurses
 
 $(LIBMYUTILS):
 	 	$(LIBMYUTILS_MAKE)

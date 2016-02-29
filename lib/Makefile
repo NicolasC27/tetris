@@ -5,7 +5,7 @@
 ## Login   <cheval_8@epitech.net>
 ## 
 ## Started on  Thu Feb 18 19:58:40 2016 Chevalier Nicolas
-## Last update Sun Feb 21 01:43:19 2016 Chevalier Nicolas
+## Last update Fri Feb 26 17:28:52 2016 Chevalier Nicolas
 ##
 
 NAME	= libmyutils.a
@@ -18,7 +18,8 @@ SRCS	= my_putchar.c \
 	  my_write.c \
 	  my_realloc.c \
 	  my_memset.c \
-	  get_next_line.c
+	  get_next_line.c \
+	  concat.c
 
 MOD	= $(addprefix src/, $(SRCS:.c=.o))
 
