@@ -5,7 +5,7 @@
 ** Login   <cheval_8@epitech.net>
 **
 ** Started on  Thu Feb 18 20:07:00 2016 Chevalier Nicolas
-// Last update Fri Feb 26 17:28:44 2016 Chevalier Nicolas
+// Last update Mon Feb 29 23:48:54 2016 Chevalier Nicolas
 */
 
 #ifndef LIB_H_
@@ -17,7 +17,6 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
-# include "gnl.h"
 
 /*
 ** Defines

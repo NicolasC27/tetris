@@ -5,7 +5,7 @@
 ** Login   <cheval_8@epitech.net>
 **
 ** Started on  Wed Feb 24 16:04:04 2016 Chevalier Nicolas
-// Last update Fri Feb 26 16:35:18 2016 Chevalier Nicolas
+// Last update Tue Mar  1 22:28:20 2016 Chevalier Nicolas
 */
 
 #ifndef TETRIS_H_
@@ -61,10 +61,17 @@ typedef struct		s_scene
 
 typedef struct		s_tetriminos
 {
-  int			**coord;
+  int			coord[4][3];
+  int			nb;
   struct s_tetriminos	*next;
   struct s_tetriminos	*prev;
 }			t_tetriminos;
+
+typedef struct		s_list
+{
+  t_tetriminos	*first;
+  t_tetriminos	*last;
+}		        t_list;
 
 typedef struct		s_tetris
 {
@@ -72,6 +79,7 @@ typedef struct		s_tetris
   t_scene		*scene;
   t_tetriminos		*shape;
   t_key			*keys;
+  t_list		*list;
   int			help;
   int			debug;
 }			t_tetris;

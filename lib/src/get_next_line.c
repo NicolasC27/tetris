@@ -5,10 +5,10 @@
 ** Login   <cheval_8@epitech.net>
 **
 ** Started on  Tue Nov 18 19:52:00 2014 Nicolas Chevalier
-** Last update Sun Feb 21 01:43:34 2016 Chevalier Nicolas
+** Last update Tue Mar  1 00:14:10 2016 Chevalier Nicolas
 */
 
-#include	"lib.h"
+#include	"gnl.h"
 
 int		read_gnl(int fd, int *len, int *i, char *buff)
 {
