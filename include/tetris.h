@@ -5,7 +5,7 @@
 ** Login   <cheval_8@epitech.net>
 **
 ** Started on  Wed Feb 24 16:04:04 2016 Chevalier Nicolas
-// Last update Tue Mar  1 22:28:20 2016 Chevalier Nicolas
+// Last update Sat Mar  5 18:38:17 2016 Chevalier Nicolas
 */
 
 #ifndef TETRIS_H_
@@ -61,7 +61,7 @@ typedef struct		s_scene
 
 typedef struct		s_tetriminos
 {
-  int			coord[4][3];
+  int			**coord;
   int			nb;
   struct s_tetriminos	*next;
   struct s_tetriminos	*prev;
@@ -69,9 +69,19 @@ typedef struct		s_tetriminos
 
 typedef struct		s_list
 {
-  t_tetriminos	*first;
-  t_tetriminos	*last;
+  t_tetriminos		*first;
+  t_tetriminos		*last;
 }		        t_list;
+
+typedef struct		s_parser
+{
+  int			**tmp;
+  int			tmp_colums;
+  int			first;
+  int			colums;
+  int			line;
+  int			star;
+}			t_parser;
 
 typedef struct		s_tetris
 {
@@ -80,23 +90,45 @@ typedef struct		s_tetris
   t_tetriminos		*shape;
   t_key			*keys;
   t_list		*list;
+  int		        **tmp;
   int			help;
   int			debug;
 }			t_tetris;
 
 /*
+** debug.c
+*/
+void			debug_display_list(t_list );
+
+/*
 ** init.c
 */
-
 int			initialize_ncurses();
 t_windows		*initialize_windows(t_tetris *);
 t_scene			*initialize_scene(t_tetris *);
 void			initialize_struct(t_tetris *);
 
 /*
+** list.c
+*/
+void			init_list(t_list *);
+void			push_back(t_list *,  int **);
+void			push_front(t_list *, int **);
+void			init_parser(t_parser *);
+/*
 ** display.c
 */
 void			display_scene(t_tetris *);
 void			display_score(t_tetris *);
+
+/*
+** parser.c
+*/
+int			parser_tetriminos(t_parser *, t_tetris *, t_list *, char *);
+
+/*
+** free.c
+*/
+void			my_free(t_list *);
 
 #endif /* !TETRIS_H_ */

@@ -5,7 +5,7 @@
 ## Login   <cheval_8@epitech.net>
 ## 
 ## Started on  Wed Feb 24 16:02:04 2016 Chevalier Nicolas
-## Last update Fri Feb 26 15:39:35 2016 Chevalier Nicolas
+## Last update Sat Mar  5 18:37:51 2016 Chevalier Nicolas
 ##
 
 
@@ -13,7 +13,11 @@ NAME		= tetris
 
 SRC		= main.c \
 		  init.c \
-		  display.c
+		  display.c \
+		  parser.c \
+		  debug.c \
+		  list.c \
+		  free.c
 
 MOD		= $(addprefix src/, $(SRC:.c=.o))
 
