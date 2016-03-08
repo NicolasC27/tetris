@@ -5,10 +5,13 @@
 ** Login   <cheval_8@epitech.net>
 **
 ** Started on  Mon Mar  7 18:15:23 2016 Chevalier Nicolas
-** Last update Tue Mar  8 18:09:14 2016 Chevalier Nicolas
+** Last update Tue Mar  8 22:40:32 2016 Chevalier Nicolas
 */
 
-#include	"tetris.h"
+# include	"tetris.h"
+# include	<termios.h>
+# include	<unistd.h>
+# include	<sys/ioctl.h>
 
 int			is_help(char **argv, int *i)
 {
@@ -24,9 +27,48 @@ int			is_level(char **argv, int *i)
   return (0);
 }
 
+int			mode(int i)
+{
+  static struct termios	oldT;
+  static struct termios	newT;
+  char			c;
+
+  if (i == 0)
+    {
+      ioctl(0, TCGETS, &oldT);
+      ioctl(0, TCGETS, &newT);
+
+      newT.c_lflag &= ~ECHO; /* echo off */
+      newT.c_lflag &= ~ICANON; /* one char @ a time */
+      newT.c_cc[VMIN] = 0;
+      newT.c_cc[VTIME] = 1;
+      ioctl(0, TCSETS, &newT);
+    }
+  if (i == 1)
+    ioctl(0, TCSETS, &oldT);
+
+  /* my_putstr("KEY LEFT\n"); */
+  /* my_putstr(&argv[0][0]); */
+
+}
 int			is_keyleft(char **argv, int *i)
 {
-  my_putstr("KEY LEFT");
+  int		       ret;
+  int			x;
+  char			*s;
+  char			buff[10];
+
+  x = setupterm(NULL, 1, &ret);
+  /* exit (0); */
+  s = tigetstr("smkx");
+  if (s != 0)
+    printf("smkx trouver %s", s);
+
+  mode(0);
+
+  read(0, buff, 10);
+  printf("%d %d %d\n", buff[0], buff[1], buff[2]);
+  mode(1);
   exit (0);
   return (0);
 }
