@@ -5,7 +5,7 @@
 ** Login   <cheval_8@epitech.net>
 **
 ** Started on  Fri Mar  4 15:57:57 2016 Chevalier Nicolas
-** Last update Sat Mar  5 17:06:06 2016 Chevalier Nicolas
+** Last update Tue Mar  8 18:10:29 2016 Chevalier Nicolas
 */
 
 #include "tetris.h"
@@ -68,6 +68,10 @@ void		 search_star(t_parser *parser, t_tetris *game, char *str)
     }
 }
 
+/*
+** End line
+** Put informations in the list
+*/
 void		put_int_tab(t_tetris *game, t_parser *parser, int *loop, t_list *list)
 {
   int		star;

@@ -5,7 +5,7 @@
 ** Login   <cheval_8@epitech.net>
 **
 ** Started on  Wed Feb 24 16:03:44 2016 Chevalier Nicolas
-** Last update Sun Mar  6 02:30:24 2016 Chevalier Nicolas
+** Last update Tue Mar  8 13:50:03 2016 Chevalier Nicolas
 */
 
 #include	"tetris.h"
@@ -61,7 +61,7 @@ int		initialize_files(t_tetris *game, t_list *list)
      }
 }
 
-int		main()
+int		main(int argc, char **argv)
 {
   t_tetris	game;
   t_tetriminos	shape;
@@ -69,11 +69,11 @@ int		main()
   int		i;
 
   i = 0;
+  if (argc > 1)
+    options(argc, argv);
   init_list(&list);
   initialize_files(&game, &list);
   debug_display_list(list);
-  printf("%d", key_defined("^[[A"));
-  exit (0);
   initialize_game(&game);
   endwin();
   return (0);

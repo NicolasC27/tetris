@@ -5,7 +5,7 @@
 ** Login   <cheval_8@epitech.net>
 **
 ** Started on  Wed Feb 24 16:04:04 2016 Chevalier Nicolas
-// Last update Sat Mar  5 18:38:17 2016 Chevalier Nicolas
+// Last update Tue Mar  8 17:54:06 2016 Chevalier Nicolas
 */
 
 #ifndef TETRIS_H_
@@ -29,6 +29,18 @@
 */
 # define ROWS	40
 # define COL	20
+# define HELP	"Usage: ./tetris [options]\nOptions:\n\
+--help			Display this help\n\
+-l --level={num}	Start Tetris at level num\n\
+-kl --key-left={K}	Move tetrimino on LEFT with key K\n\
+-kr --key-right={K}	Move tetrimino on RIGHT with key K\n\
+-kt --key-turn={K}	Turn tetrimino with key K\n\
+-kd --key-drop={K}	Set default DROP on key K\n\
+-kq --key-quit={K}	Quit program when press key K\n\
+-kp --key-pause={K}	Pause and restart game when press key K\n\
+--map-size={row,col}	Set game size at row, col\n\
+-w --without-next	Hide next tetrimino\n\
+-d --debug		Debug mode\n"
 
 typedef struct		s_windows
 {
@@ -94,6 +106,13 @@ typedef struct		s_tetris
   int			help;
   int			debug;
 }			t_tetris;
+
+typedef struct		s_flags
+{
+  char			*flag;
+  int			(*redirection)(char **, int *);
+}			t_flags;
+
 
 /*
 ** debug.c

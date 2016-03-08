@@ -5,7 +5,7 @@
 ** Login   <cheval_8@epitech.net>
 **
 ** Started on  Thu Feb 18 20:07:00 2016 Chevalier Nicolas
-// Last update Mon Feb 29 23:48:54 2016 Chevalier Nicolas
+// Last update Tue Mar  8 15:35:08 2016 Chevalier Nicolas
 */
 
 #ifndef LIB_H_
@@ -78,5 +78,10 @@ void		*my_memset(void *, int, int);
 ** concat.c
 */
 char		*concat(char *, char *);
+
+/*
+** my_strncmp.c
+*/
+char		my_strncmp(char *, char *, int);
 
 #endif /* !LIB_H_ */
