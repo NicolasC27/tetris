@@ -5,7 +5,7 @@
 ** Login   <cheval_8@epitech.net>
 **
 ** Started on  Wed Feb 24 16:04:04 2016 Chevalier Nicolas
-// Last update Tue Mar  8 17:54:06 2016 Chevalier Nicolas
+// Last update Thu Mar 10 20:04:43 2016 Chevalier Nicolas
 */
 
 #ifndef TETRIS_H_
@@ -27,8 +27,8 @@
 /*
 ** Defines
 */
-# define ROWS	40
-# define COL	20
+# define ROWS 20
+# define COL  10
 # define HELP	"Usage: ./tetris [options]\nOptions:\n\
 --help			Display this help\n\
 -l --level={num}	Start Tetris at level num\n\
@@ -52,12 +52,12 @@ typedef struct		s_windows
 
 typedef struct		s_keys
 {
-  int			key_left;
-  int			key_right;
-  int			key_turn;
-  int			key_drop;
-  int			key_quit;
-  int			key_pause;
+  char			*key_left;
+  char			*key_right;
+  char			*key_turn;
+  char			*key_drop;
+  char			*key_quit;
+  char			*key_pause;
 }			t_key;
 
 typedef struct		s_scene
@@ -67,7 +67,7 @@ typedef struct		s_scene
   int			points;
   int			level;
   int			timer;
-  bool			next_w;
+  bool			boolnext;
   int			next;
 }			t_scene;
 
@@ -104,15 +104,34 @@ typedef struct		s_tetris
   t_list		*list;
   int		        **tmp;
   int			help;
-  int			debug;
+  bool			debug;
 }			t_tetris;
 
 typedef struct		s_flags
 {
   char			*flag;
-  int			(*redirection)(char **, int *);
+  int			(*redirection)(char *, t_tetris *, char **, int *);
 }			t_flags;
 
+/*
+** options
+*/
+int			is_help(char *, t_tetris *, char **, int *);
+int			is_level(char *, t_tetris *, char **, int *);
+int			is_keyleft(char *, t_tetris *, char **, int *);
+int			is_keyright(char *, t_tetris *, char **, int *);
+int			is_keyturn(char *, t_tetris *, char **, int *);
+int			is_keydrop(char *, t_tetris *, char **, int *);
+int			is_keyquit(char *, t_tetris *, char **, int *);
+int			is_keypause(char *, t_tetris *, char **, int *);
+int			is_mapsize(char *, t_tetris *, char **, int *);
+int			is_next(char *, t_tetris *, char **, int *);
+int			is_debug(char *, t_tetris *, char **, int *);
+
+/*
+** Options.c
+*/
+void			options(t_tetris *, int, char **);
 
 /*
 ** debug.c
@@ -122,7 +141,7 @@ void			debug_display_list(t_list );
 /*
 ** init.c
 */
-int			initialize_ncurses();
+void			initialize_value(t_tetris *);
 t_windows		*initialize_windows(t_tetris *);
 t_scene			*initialize_scene(t_tetris *);
 void			initialize_struct(t_tetris *);
@@ -149,5 +168,11 @@ int			parser_tetriminos(t_parser *, t_tetris *, t_list *, char *);
 ** free.c
 */
 void			my_free(t_list *);
+
+/*
+** main.c
+*/
+int			initialize_ncurses();
+void			exit_tetris(char *, int);
 
 #endif /* !TETRIS_H_ */

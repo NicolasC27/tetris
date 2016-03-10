@@ -5,22 +5,27 @@
 ** Login   <cheval_8@epitech.net>
 **
 ** Started on  Wed Feb 24 19:00:31 2016 Chevalier Nicolas
-** Last update Sun Mar  6 17:50:05 2016 Chevalier Nicolas
+** Last update Thu Mar 10 20:02:23 2016 Chevalier Nicolas
 */
 
 #include	"tetris.h"
 
 /*
-** Function which initialize terminal in ncurses
+** Initialize default value of game
 */
-int		initialize_ncurses()
+void		initialize_value(t_tetris *game)
 {
-  initscr();
-  cbreak();
-  noecho();
-  keypad(stdscr, TRUE);
-  curs_set(0);
-  timeout(0);
+  game->scene->rows = ROWS;
+  game->scene->colums = COL;
+  game->scene->level = 1;
+  game->scene->points = 0;
+  game->keys->key_quit = "q";
+  game->keys->key_right = "\e0C";
+  game->keys->key_left = "\e0D";
+  game->keys->key_turn = "\e0A";
+  game->keys->key_pause = "\e0A";
+  game->scene->boolnext = false;
+  game->debug = false;
 }
 
 t_windows	*initialize_windows(t_tetris *game)
@@ -37,9 +42,19 @@ t_scene		*initialize_scene(t_tetris *game)
   return (game->scene);
 }
 
+t_key		*initialize_key(t_tetris *game)
+{
+  if ((game->keys = malloc(sizeof(t_key))) == NULL)
+    exit_tetris("Error with memory allocation\n", -1);
+  return (game->keys);
+}
 
+/*
+** Initialize structure from game
+*/
 void     	initialize_struct(t_tetris *game)
 {
   game->windows = initialize_windows(game);
   game->scene = initialize_scene(game);
+  game->keys = initialize_key(game);
 }
