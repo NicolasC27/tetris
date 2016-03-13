@@ -5,7 +5,7 @@
 ** Login   <cheval_8@epitech.net>
 **
 ** Started on  Fri Mar  4 15:57:57 2016 Chevalier Nicolas
-** Last update Tue Mar  8 18:10:29 2016 Chevalier Nicolas
+** Last update Sat Mar 12 19:09:25 2016 Chevalier Nicolas
 */
 
 #include "tetris.h"
@@ -79,10 +79,11 @@ void		put_int_tab(t_tetris *game, t_parser *parser, int *loop, t_list *list)
   star = (*loop);
   if (parser->colums == star - 1)
    {
-     push_back(list, parser->tmp);
+     push_back(list, parser);
      parser->first = 0;
      parser->tmp_colums = 0;
      parser->line = 0;
+     parser->colums = 0;
      parser->star = 0;
      (*loop) = 0;
    }
@@ -113,6 +114,8 @@ int		parser_tetriminos(t_parser *parser, t_tetris *game, t_list *list,
 		parser->line = nb;
 	      if (i == 2)
 		parser->colums = nb;
+	      if (i == 2)
+		parser->color = nb;
 	    }
 	  i++;
 	}

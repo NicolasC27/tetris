@@ -5,7 +5,7 @@
 ## Login   <cheval_8@epitech.net>
 ## 
 ## Started on  Wed Feb 24 16:02:04 2016 Chevalier Nicolas
-## Last update Thu Mar 10 19:40:19 2016 Chevalier Nicolas
+## Last update Sat Mar 12 14:33:45 2016 Chevalier Nicolas
 ##
 
 
@@ -17,11 +17,11 @@ SRC		= main.c \
 		  parser.c \
 		  debug.c \
 		  list.c \
-		  flags.c \
 		  free.c \
 		  options.c \
 		  options_remaining.c \
-		  options_key.c
+		  options_key.c \
+		  options_utils.c
 
 MOD		= $(addprefix src/, $(SRC:.c=.o))
 

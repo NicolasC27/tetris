@@ -5,7 +5,7 @@
 ** Login   <cheval_8@epitech.net>
 **
 ** Started on  Mon Mar  7 18:15:23 2016 Chevalier Nicolas
-** Last update Thu Mar 10 19:51:15 2016 Chevalier Nicolas
+** Last update Fri Mar 11 22:49:23 2016 Chevalier Nicolas
 */
 
 #include	"tetris.h"
@@ -60,48 +60,9 @@ int			mode(int i)
     ioctl(0, TCSETS, &oldT);
 }
 
-int			is_debug(char *options, t_tetris *game, char **argv, int *i)
+int		is_debug(char *options, t_tetris *game, char **argv, int *i)
 {
   game->debug = true;
-}
-
-
-char			*str(char *argv)
-{
-  char			*tmp;
-  int			len;
-  int			i;
-
-  if ((tmp = malloc(sizeof(char) * my_strlen(argv) + 1)) == NULL)
-    return (NULL);
-  len = my_strlen(argv);
-  i = 0;
-  while (i < len && argv[i - 1] != '=')
-    {
-      tmp[i] = argv[i];
-      i++;
-    }
-  tmp[i] = '\0';
-  return (tmp);
-}
-
-char		*get_arg_options(char **argv, int *i)
-{
-  int			x;
-  int			y;
-
-  y = 0;
-  x = -1;
-  while (argv[y][++x] && argv[y][x] != '=');
-  if (argv[y][x] && argv[y][x] == '=')
-    x++;
-  else
-    {
-      (*i)++;
-      y++;
-      x = 0;
-    }
-  return ((argv[y]) ? &argv[y][x] : &argv[0][0]);
 }
 
 int		list_option(t_tetris *game, int argc, char **argv, int *i)
@@ -113,7 +74,7 @@ int		list_option(t_tetris *game, int argc, char **argv, int *i)
 
   x = -1;
   c = str(&(argv[0][1]));
-  while (++x < 17)
+  while (++x < 19)
     if ((nb = my_strncmp(c, flags[x].flag, 0)))
       {
 	options = get_arg_options(argv, i);
@@ -132,11 +93,12 @@ void		options(t_tetris *game, int argc, char **argv)
     {
       if (argv[i][0] != '-')
       	{
-      	  flags[0].redirection(NULL, game, argv, &i);
+     	  flags[0].redirection(NULL, game, argv, &i);
       	  exit (0);
       	}
       if (!(list_option(game, argc, &argv[i], &i)))
 	{
+	  my_putstr("test");
 	  flags[0].redirection(NULL, game, argv, &i);
 	}
     }

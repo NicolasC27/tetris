@@ -5,7 +5,7 @@
 ** Login   <cheval_8@epitech.net>
 **
 ** Started on  Sat Mar  5 17:16:51 2016 Chevalier Nicolas
-** Last update Sat Mar  5 17:19:05 2016 Chevalier Nicolas
+** Last update Sat Mar 12 19:11:01 2016 Chevalier Nicolas
 */
 
 #include	"tetris.h"
@@ -16,14 +16,18 @@ void		init_list(t_list *list)
   list->last = NULL;
 }
 
-void		push_back(t_list *list, int **tab)
+void		push_back(t_list *list, t_parser *parser)
 {
   t_tetriminos *tmp;
 
   if ((tmp = malloc(sizeof(t_tetriminos))) == NULL)
     exit_tetris("Error with malloc", -1);
-  tmp->coord = tab;
-  tmp->prev = list->last;
+  tmp->name = parser->name;
+  tmp->coord = parser->tmp;
+  tmp->next = list->first;
+  tmp->width = parser->line;
+  tmp->height = parser->colums;
+  tmp->color = parser->color;
   tmp->next = NULL;
   if (list->last)
     list->last->next = tmp;
@@ -32,14 +36,18 @@ void		push_back(t_list *list, int **tab)
   list->last = tmp;
 }
 
-void		push_front(t_list *list, int **tab)
+void		push_front(t_list *list, t_parser *parser)
 {
   t_tetriminos *tmp;
 
   if ((tmp = malloc(sizeof(t_tetriminos))) == NULL)
     exit_tetris("Error with malloc", -1);
-  tmp->coord = tab;
+  tmp->name = parser->name;
+  tmp->coord = parser->tmp;
   tmp->next = list->first;
+  tmp->width = parser->line;
+  tmp->height = parser->colums;
+  tmp->color = parser->color;
   tmp->prev = NULL;
   if (list->first)
     list->first->prev = tmp;

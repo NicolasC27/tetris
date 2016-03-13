@@ -5,7 +5,7 @@
 ** Login   <cheval_8@epitech.net>
 **
 ** Started on  Wed Feb 24 16:04:04 2016 Chevalier Nicolas
-// Last update Thu Mar 10 20:04:43 2016 Chevalier Nicolas
+// Last update Sat Mar 12 19:10:33 2016 Chevalier Nicolas
 */
 
 #ifndef TETRIS_H_
@@ -27,9 +27,10 @@
 /*
 ** Defines
 */
-# define ROWS 20
-# define COL  10
-# define HELP	"Usage: ./tetris [options]\nOptions:\n\
+# define ROWS		20
+# define COL		10
+# define DEBUG		"*** DEBUG MODE ***\n"
+# define HELP		"Usage: ./tetris [options]\nOptions:\n\
 --help			Display this help\n\
 -l --level={num}	Start Tetris at level num\n\
 -kl --key-left={K}	Move tetrimino on LEFT with key K\n\
@@ -73,8 +74,11 @@ typedef struct		s_scene
 
 typedef struct		s_tetriminos
 {
+  char			*name;
   int			**coord;
-  int			nb;
+  int			width;
+  int			height;
+  int			color;
   struct s_tetriminos	*next;
   struct s_tetriminos	*prev;
 }			t_tetriminos;
@@ -87,10 +91,12 @@ typedef struct		s_list
 
 typedef struct		s_parser
 {
+  char			*name;
   int			**tmp;
   int			tmp_colums;
   int			first;
   int			colums;
+  int			color;
   int			line;
   int			star;
 }			t_parser;
@@ -114,19 +120,10 @@ typedef struct		s_flags
 }			t_flags;
 
 /*
-** options
+** utils_op.c
 */
-int			is_help(char *, t_tetris *, char **, int *);
-int			is_level(char *, t_tetris *, char **, int *);
-int			is_keyleft(char *, t_tetris *, char **, int *);
-int			is_keyright(char *, t_tetris *, char **, int *);
-int			is_keyturn(char *, t_tetris *, char **, int *);
-int			is_keydrop(char *, t_tetris *, char **, int *);
-int			is_keyquit(char *, t_tetris *, char **, int *);
-int			is_keypause(char *, t_tetris *, char **, int *);
-int			is_mapsize(char *, t_tetris *, char **, int *);
-int			is_next(char *, t_tetris *, char **, int *);
-int			is_debug(char *, t_tetris *, char **, int *);
+char			*str(char *);
+char			*get_arg_options(char **, int *);
 
 /*
 ** Options.c
@@ -150,8 +147,8 @@ void			initialize_struct(t_tetris *);
 ** list.c
 */
 void			init_list(t_list *);
-void			push_back(t_list *,  int **);
-void			push_front(t_list *, int **);
+void			push_back(t_list *, t_parser *);
+void			push_front(t_list *, t_parser *);
 void			init_parser(t_parser *);
 /*
 ** display.c
@@ -174,5 +171,20 @@ void			my_free(t_list *);
 */
 int			initialize_ncurses();
 void			exit_tetris(char *, int);
+
+/*
+** options
+*/
+int			is_help(char *, t_tetris *, char **, int *);
+int			is_level(char *, t_tetris *, char **, int *);
+int			is_keyleft(char *, t_tetris *, char **, int *);
+int			is_keyright(char *, t_tetris *, char **, int *);
+int			is_keyturn(char *, t_tetris *, char **, int *);
+int			is_keydrop(char *, t_tetris *, char **, int *);
+int			is_keyquit(char *, t_tetris *, char **, int *);
+int			is_keypause(char *, t_tetris *, char **, int *);
+int			is_mapsize(char *, t_tetris *, char **, int *);
+int			is_next(char *, t_tetris *, char **, int *);
+int			is_debug(char *, t_tetris *, char **, int *);
 
 #endif /* !TETRIS_H_ */
