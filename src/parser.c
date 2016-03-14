@@ -5,7 +5,7 @@
 ** Login   <cheval_8@epitech.net>
 **
 ** Started on  Fri Mar  4 15:57:57 2016 Chevalier Nicolas
-** Last update Sat Mar 12 19:09:25 2016 Chevalier Nicolas
+** Last update Mon Mar 14 18:42:32 2016 Chevalier Nicolas
 */
 
 #include "tetris.h"
@@ -24,10 +24,12 @@ int		**create_tab(t_parser *parser)
 
   colums = 2;
   lines = (parser->line * parser->colums) + 1;
-  tab = malloc(sizeof(*tab) * lines);
+  if ((tab = malloc(sizeof(*tab) * lines)) == NULL)
+    return (NULL);
   i = -1;
   while (++i < lines)
-    tab[i] = malloc(sizeof(**tab) * colums);
+    if ((tab[i] = malloc(sizeof(**tab) * colums)) == NULL)
+      return (NULL);
   i = -1;
   while (++i < lines)
     {

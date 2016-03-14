@@ -5,7 +5,7 @@
 ** Login   <cheval_8@epitech.net>
 **
 ** Started on  Wed Feb 24 16:04:04 2016 Chevalier Nicolas
-// Last update Sat Mar 12 19:10:33 2016 Chevalier Nicolas
+// Last update Mon Mar 14 15:44:50 2016 Chevalier Nicolas
 */
 
 #ifndef TETRIS_H_
@@ -76,6 +76,7 @@ typedef struct		s_tetriminos
 {
   char			*name;
   int			**coord;
+  bool			valid;
   int			width;
   int			height;
   int			color;
@@ -186,5 +187,10 @@ int			is_keypause(char *, t_tetris *, char **, int *);
 int			is_mapsize(char *, t_tetris *, char **, int *);
 int			is_next(char *, t_tetris *, char **, int *);
 int			is_debug(char *, t_tetris *, char **, int *);
+
+/*
+** debug.c
+*/
+void			mode_debug(t_tetris *, t_list *);
 
 #endif /* !TETRIS_H_ */

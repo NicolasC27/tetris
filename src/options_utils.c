@@ -5,7 +5,7 @@
 ** Login   <cheval_8@epitech.net>
 **
 ** Started on  Fri Mar 11 18:16:57 2016 Chevalier Nicolas
-** Last update Fri Mar 11 18:32:19 2016 Chevalier Nicolas
+** Last update Mon Mar 14 18:44:59 2016 Chevalier Nicolas
 */
 
 #include "tetris.h"
@@ -29,6 +29,9 @@ char		*str(char *argv)
   return (tmp);
 }
 
+/*
+** Get arguments options such -kl (--key-turn={GET})
+*/
 char		*get_arg_options(char **argv, int *i)
 {
   int		x;

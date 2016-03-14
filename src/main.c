@@ -5,7 +5,7 @@
 ** Login   <cheval_8@epitech.net>
 **
 ** Started on  Wed Feb 24 16:03:44 2016 Chevalier Nicolas
-** Last update Sat Mar 12 19:11:16 2016 Chevalier Nicolas
+** Last update Mon Mar 14 15:18:36 2016 Chevalier Nicolas
 */
 
 #include	"tetris.h"
@@ -42,6 +42,23 @@ void		initialize_game(t_tetris *game)
 }
 
 /*
+** Remove the end of the filename (".tetrimino")
+*/
+char		*separate_name(char *dirent)
+{
+  char		*name;
+  int		i;
+
+  if ((name = malloc(sizeof(char) * my_strlen(dirent) + 1)) == NULL)
+    return (NULL);
+  i = -1;
+  while (dirent[++i] && dirent[i] != '.')
+    name[i] = dirent[i];
+  name[i] = '\0';
+  return (name);
+}
+
+/*
 ** Get all tetriminos from dir tetriminos
 */
 int		initialize_files(t_tetris *game, t_list *list)
@@ -61,7 +78,7 @@ int		initialize_files(t_tetris *game, t_list *list)
 	fd = open(concat("./tetriminos/", dirent->d_name), O_RDONLY);
 	while ((s = get_next_line(fd)))
 	  {
-	    parser.name = dirent->d_name;
+	    parser.name = separate_name(dirent->d_name);
 	    parser_tetriminos(&parser, game, list, s);
 	    free(s);
 	  }
@@ -73,63 +90,6 @@ void		exit_tetris(char *str, int constant)
 {
   my_putstr(str);
   exit ((constant == -1) ? (-1) : (0));
-}
-
-void		mode_debug(t_tetris *game, t_list *list)
-{
-  t_tetriminos	*tmp;
-  int		i;
-  int		nb;
-
-  tmp = list->first;
-  my_putstr(DEBUG);
-  my_putstr("Key Left : ");
-  my_putstr(game->keys->key_left);
-  my_putstr("\nKey Right : ");
-  my_putstr(game->keys->key_right);
-  my_putstr("\nKey Turn : ");
-  my_putstr(game->keys->key_turn);
-  my_putstr("\nKey Drop : ");
-  my_putstr(game->keys->key_drop);
-  my_putstr("\nKey Quit : ");
-  my_putstr(game->keys->key_quit);
-  my_putstr("\nKey Pause : ");
-  my_putstr(game->keys->key_pause);
-  my_putstr("\nNext : ");
-  my_putstr((game->scene->boolnext) ? "Yes" : "No");
-  my_putstr("\nLevel : ");
-  my_put_nbr(game->scene->level);
-  my_putstr("\nSize : ");
-  my_put_nbr(game->scene->rows);
-  my_putstr("*");
-  my_put_nbr(game->scene->colums);
-  i = 0;
-  nb = 0;
-  while (tmp)
-   {
-     nb++;
-     tmp = tmp->next;
-   }
-  tmp = list->first;
-  my_putstr("\nTetriminos : ");
-  my_put_nbr(nb);
-  my_putchar('\n');
-  while (tmp)
-    {
-      my_putstr("Tetriminos : ");
-      my_putstr(tmp->name);
-      my_putstr(" : ");
-      my_putstr("Size ");
-      my_put_nbr(tmp->width);
-      my_putchar('*');
-      my_put_nbr(tmp->width);
-      my_putstr(" : ");
-      my_putstr("Color ");
-      my_put_nbr(tmp->color);
-      my_putstr(" :\n");
-      tmp = tmp->next;
-    };
-  exit (0);
 }
 
 int		main(int argc, char **argv)
