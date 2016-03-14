@@ -5,7 +5,7 @@
 ** Login   <cheval_8@epitech.net>
 **
 ** Started on  Fri Mar  4 15:57:57 2016 Chevalier Nicolas
-** Last update Mon Mar 14 18:42:32 2016 Chevalier Nicolas
+** Last update Mon Mar 14 21:17:17 2016 Chevalier Nicolas
 */
 
 #include "tetris.h"
@@ -22,7 +22,7 @@ int		**create_tab(t_parser *parser)
   int		colums;
   int		a;
 
-  colums = 2;
+  colums = 3;
   lines = (parser->line * parser->colums) + 1;
   if ((tab = malloc(sizeof(*tab) * lines)) == NULL)
     return (NULL);
@@ -61,7 +61,6 @@ void		 search_star(t_parser *parser, t_tetris *game, char *str)
 	    {
 	      parser->tmp[parser->tmp_colums][0] = parser->first;
 	      parser->tmp[parser->tmp_colums][1] = i + 1;
-	      parser->tmp[parser->tmp_colums][2] = 0;
 	      parser->tmp_colums += 1;
 	      parser->star += 1;
 	    }
@@ -126,4 +125,5 @@ int		parser_tetriminos(t_parser *parser, t_tetris *game, t_list *list,
   parser->first += 1;
   loop++;
   put_int_tab(game, parser, &loop, list);
+
 }

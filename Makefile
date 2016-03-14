@@ -5,7 +5,7 @@
 ## Login   <cheval_8@epitech.net>
 ## 
 ## Started on  Wed Feb 24 16:02:04 2016 Chevalier Nicolas
-## Last update Mon Mar 14 18:47:53 2016 Chevalier Nicolas
+## Last update Mon Mar 14 19:31:00 2016 Chevalier Nicolas
 ##
 
 
@@ -34,6 +34,7 @@ LIBMYUTILS	= lib/libmyutils.a
 
 # CFLAGS		= -W -Wall -Werror -Wextra
 # CFLAGS		+= -ansi -pedantic
+CFLAGS		+= -g
 CFLAGS		+= -Iinclude/
 CFLAGS		+= -D_BSD_SOURCE -D_POSIX_SOURCE
 CFLAGS		+= $(LIB)

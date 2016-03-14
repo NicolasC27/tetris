@@ -5,7 +5,7 @@
 ** Login   <cheval_8@epitech.net>
 **
 ** Started on  Wed Feb 24 16:03:44 2016 Chevalier Nicolas
-** Last update Mon Mar 14 15:18:36 2016 Chevalier Nicolas
+** Last update Mon Mar 14 21:11:19 2016 Chevalier Nicolas
 */
 
 #include	"tetris.h"
@@ -63,10 +63,11 @@ char		*separate_name(char *dirent)
 */
 int		initialize_files(t_tetris *game, t_list *list)
 {
-  t_parser	parser;
   struct dirent	*dirent;
+  t_parser	parser;
   DIR		*dir;
   char		*s;
+  char		*link;
   int		fd;
 
   init_parser(&parser);
@@ -75,14 +76,18 @@ int		initialize_files(t_tetris *game, t_list *list)
   while (dirent = readdir(dir))
     if (dirent->d_type == DT_REG)
       {
-	fd = open(concat("./tetriminos/", dirent->d_name), O_RDONLY);
+	fd = open((link = concat("./tetriminos/", dirent->d_name)), O_RDONLY);
 	while ((s = get_next_line(fd)))
 	  {
 	    parser.name = separate_name(dirent->d_name);
 	    parser_tetriminos(&parser, game, list, s);
+	    free(parser.name);
 	    free(s);
 	  }
+	free(link);
+	close(fd);
      }
+  closedir(dir);
   return (0);
 }
 
@@ -96,6 +101,7 @@ int		main(int argc, char **argv)
 {
   t_tetris	game;
   t_list	list;
+  t_parser	parser;
 
   initialize_struct(&game);
   initialize_value(&game);
@@ -106,7 +112,11 @@ int		main(int argc, char **argv)
   if (game.debug == true)
     mode_debug(&game, &list);
   debug_display_list(list);
-  initialize_game(&game);
+  /* initialize_game(&game); */
+  my_free(&list);
+  free(game.windows);
+  free(game.scene);
+  free(game.keys);
   endwin();
   return (0);
 }
