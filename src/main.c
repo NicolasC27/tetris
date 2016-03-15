@@ -5,7 +5,7 @@
 ** Login   <cheval_8@epitech.net>
 **
 ** Started on  Wed Feb 24 16:03:44 2016 Chevalier Nicolas
-** Last update Tue Mar 15 16:05:56 2016 Chevalier Nicolas
+** Last update Tue Mar 15 16:41:29 2016 romain samuel
 */
 
 #include	<sys/types.h>
@@ -19,29 +19,22 @@
 */
 int		initialize_ncurses()
 {
+  int		i;
+
+  i = 1;
   initscr();
+  start_color();
+  while (i < COLORS && i < COLOR_PAIRS)
+    {
+      init_pair(i, i, COLOR_BLACK);
+      i++;
+    }
   cbreak();
   noecho();
   keypad(stdscr, TRUE);
   curs_set(0);
   timeout(0);
   return (0);
-}
-
-/*
-** Initialize windows scene and score for the moment
-*/
-void		initialize_game(t_tetris *game)
-{
-  initialize_ncurses();
-  game->windows->scene = newwin(game->scene->rows,
-				game->scene->colums, 0, game->scene->colums * 1.9);
-  game->windows->score = newwin(game->scene->rows / 2,
-				game->scene->colums * (1.8),
-				game->scene->rows / 3, 0);
-  display_scene(game);
-  display_score(game);
-  while (42);
 }
 
 /*
@@ -113,6 +106,7 @@ int		main(int argc, char **argv)
   if (game.debug == true)
     mode_debug(&game, &list);
   debug_display_list(list);
+  game.list = list;
   initialize_game(&game);
   my_free(&game, &list);
   endwin();

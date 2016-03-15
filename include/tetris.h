@@ -5,7 +5,7 @@
 ** Login   <cheval_8@epitech.net>
 **
 ** Started on  Wed Feb 24 16:04:04 2016 Chevalier Nicolas
-// Last update Tue Mar 15 16:05:57 2016 Chevalier Nicolas
+** Last update Tue Mar 15 16:42:32 2016 romain samuel
 */
 
 #ifndef TETRIS_H_
@@ -19,6 +19,7 @@
 # include <ncurses.h>
 # include <curses.h>
 # include <string.h>
+# include <time.h>
 # include "lib.h"
 
 /*
@@ -99,11 +100,28 @@ typedef struct		s_parser
   int			star;
 }			t_parser;
 
+typedef struct		s_compartment
+{
+  int			color;
+  bool			filled;
+}			t_compartment;
+
+typedef struct		s_game
+{
+  t_tetriminos		current;
+  t_tetriminos		*next;
+  t_compartment		**scene;
+  t_compartment		**tetrimino;
+  int			direction;
+}			t_game;
+
 typedef struct		s_tetris
 {
   t_windows		*windows;
   t_scene		*scene;
   t_key			*keys;
+  t_list		list;
+  t_game		game;
   int		        **tmp;
   int			help;
   bool			debug;
@@ -147,11 +165,61 @@ void			init_list(t_list *);
 void			push_back(t_list *, t_parser *);
 void			push_front(t_list *, t_parser *);
 void			init_parser(t_parser *);
+
 /*
 ** display.c
 */
 void			display_scene(t_tetris *);
 void			display_score(t_tetris *);
+void			display_name(t_tetris *game);
+void			display_next(t_tetris *game);
+
+/*
+** display_matrix.c
+*/
+void			display_compartment(WINDOW *win,
+					    t_compartment **matrix,
+					    int i,
+					    int j);
+void			display_matrix(t_tetris *s, t_compartment **matrix);
+
+/*
+** display_termitrino.c
+*/
+void			display_tetrimino(WINDOW *win, t_tetriminos tetri);
+
+/*
+** move_tetrimino.c
+*/
+int			move_tetrimino(t_tetris *s, int x, int y);
+
+/*
+** game.c
+*/
+int			create_compartments(t_tetris *s);
+int			game(t_tetris *s);
+
+/*
+** get_max_size.c
+*/
+int			get_max_termitrino_width(t_tetriminos *root);
+int			get_max_termitrino_height(t_tetriminos *root);
+
+/*
+** get_next_tetrimino.c
+*/
+void			get_next_tetrimino(t_tetris *s);
+void			get_current_tetrimino(t_tetris *s);
+
+/*
+** init_tetrimino_pos.c
+*/
+int			init_tetrimino_pos(t_tetris *s);
+
+/*
+** initialize_game.c
+*/
+void			initialize_game(t_tetris *game);
 
 /*
 ** parser.c
