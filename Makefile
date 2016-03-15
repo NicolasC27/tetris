@@ -5,18 +5,21 @@
 ## Login   <cheval_8@epitech.net>
 ##
 ## Started on  Wed Feb 24 16:02:04 2016 Chevalier Nicolas
-## Last update Tue Mar 15 16:44:07 2016 romain samuel
+## Last update Tue Mar 15 20:21:48 2016 romain samuel
 ##
 
 
 NAME		=	tetris
 
 SRC		=	main.c \
+			check_complete_line.c \
 			init.c \
+			delete_line.c \
 			display.c \
 			display_matrix.c \
 			display_tetrimino.c \
 			game.c \
+			fill_matrix_with_tetrimino.c \
 			get_max_size.c \
 			get_next_tetrimino.c \
 			initialize_game.c \
@@ -30,7 +33,8 @@ SRC		=	main.c \
 			options_remaining.c \
 			options_key.c \
 			options_utils.c \
-			debug_code.c
+			debug_code.c \
+			rotation.c
 
 MOD		=	$(addprefix src/, $(SRC:.c=.o))
 

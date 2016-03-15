@@ -5,7 +5,7 @@
 ** Login   <samuel_r@epitech.net>
 **
 ** Started on  Mon Mar 14 01:53:41 2016 romain samuel
-** Last update Tue Mar 15 16:48:34 2016 romain samuel
+** Last update Tue Mar 15 18:57:08 2016 romain samuel
 */
 
 #include "tetris.h"
@@ -47,7 +47,6 @@ int	game(t_tetris *s)
   get_current_tetrimino(s);
   init_tetrimino_pos(s);
   display_tetrimino(s->windows->scene, s->game.current);
-  /*display_matrix(s, s->game.scene);*/
   while (1);
   return (0);
 }

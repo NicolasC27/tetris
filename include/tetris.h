@@ -5,7 +5,7 @@
 ** Login   <cheval_8@epitech.net>
 **
 ** Started on  Wed Feb 24 16:04:04 2016 Chevalier Nicolas
-** Last update Tue Mar 15 16:42:32 2016 romain samuel
+** Last update Tue Mar 15 20:33:01 2016 romain samuel
 */
 
 #ifndef TETRIS_H_
@@ -134,6 +134,11 @@ typedef struct		s_flags
 }			t_flags;
 
 /*
+** delete_line.c
+*/
+int			del_line(t_tetris *s, int line);
+
+/*
 ** utils_op.c
 */
 char			*str(char *);
@@ -144,6 +149,12 @@ char			*get_arg_options(char **, int *);
 */
 void			options(t_tetris *, int, char **);
 int			mode(int);
+
+/*
+** check_complete_line.c
+*/
+int			check_complete_line(t_tetris *s, t_compartment *line);
+int			check_complete_lines(t_tetris *s);
 
 /*
 ** debug.c
@@ -182,6 +193,11 @@ void			display_compartment(WINDOW *win,
 					    int i,
 					    int j);
 void			display_matrix(t_tetris *s, t_compartment **matrix);
+
+/*
+** fill_matrix_with_tetrimino.c
+*/
+int			fill_matrix_with_tetrimino(t_tetris *s);
 
 /*
 ** display_termitrino.c
@@ -256,5 +272,10 @@ int			is_debug(char *, t_tetris *, char **, int *);
 ** debug.c
 */
 void			mode_debug(t_tetris *, t_list *);
+
+/*
+** rotations.c
+*/
+int			rotate_tetrimino(t_tetriminos tetri);
 
 #endif /* !TETRIS_H_ */

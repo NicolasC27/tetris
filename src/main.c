@@ -5,7 +5,7 @@
 ** Login   <cheval_8@epitech.net>
 **
 ** Started on  Wed Feb 24 16:03:44 2016 Chevalier Nicolas
-** Last update Tue Mar 15 18:02:14 2016 Chevalier Nicolas
+** Last update Tue Mar 15 18:38:35 2016 romain samuel
 */
 
 #include	<sys/types.h>
@@ -114,7 +114,7 @@ int		main(int argc, char **argv)
     mode_debug(&game, &list);
   debug_display_list(list);
   game.list = list;
-  /* initialize_game(&game); */
+  initialize_game(&game);
   my_free(&game, &list);
   endwin();
   return (0);
