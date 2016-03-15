@@ -5,7 +5,7 @@
 ** Login   <cheval_8@epitech.net>
 **
 ** Started on  Wed Feb 24 16:03:44 2016 Chevalier Nicolas
-** Last update Tue Mar 15 18:00:30 2016 Chevalier Nicolas
+** Last update Tue Mar 15 18:02:14 2016 Chevalier Nicolas
 */
 
 #include	<sys/types.h>
@@ -46,24 +46,18 @@ char		*separate_name(char *dirent)
   int		i;
   int		nb;
 
-  i = 0;
+  i = -1;
   nb = 0;
-  while (dirent[i] && dirent[i] != '.')
-    {
-      i++;
-      nb++;
-    }
+  while (dirent[++i] && dirent[i] != '.')
+    nb++;
   if ((name = malloc(sizeof(*name) * (nb + 1))) == NULL)
     return (NULL);
   i = 0;
   while (i < nb + 1)
     name[i++] = '\0';
-  i = 0;
-  while (i < nb)
-    {
-      name[i] = dirent[i];
-      i++;
-    }
+  i = -1;
+  while (++i < nb)
+    name[i] = dirent[i];
   name[i] = '\0';
   return (name);
 }
