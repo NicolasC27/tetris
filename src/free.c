@@ -5,7 +5,7 @@
 ** Login   <cheval_8@epitech.net>
 **
 ** Started on  Sat Mar  5 18:37:19 2016 Chevalier Nicolas
-** Last update Mon Mar 14 21:29:49 2016 Chevalier Nicolas
+** Last update Tue Mar 15 17:44:57 2016 Chevalier Nicolas
 */
 
 #include "tetris.h"
@@ -32,6 +32,7 @@ void		my_free(t_tetris *game, t_list *list)
       tmp = tmp2;
       free_tab(tmp);
       tmp2 = tmp2->next;
+      free(tmp->name);
       free(tmp);
     }
   list->first = NULL;

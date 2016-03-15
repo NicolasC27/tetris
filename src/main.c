@@ -5,7 +5,7 @@
 ** Login   <cheval_8@epitech.net>
 **
 ** Started on  Wed Feb 24 16:03:44 2016 Chevalier Nicolas
-** Last update Tue Mar 15 16:41:29 2016 romain samuel
+** Last update Tue Mar 15 18:00:30 2016 Chevalier Nicolas
 */
 
 #include	<sys/types.h>
@@ -44,12 +44,26 @@ char		*separate_name(char *dirent)
 {
   char		*name;
   int		i;
+  int		nb;
 
-  if ((name = malloc(sizeof(char) * my_strlen(dirent) + 1)) == NULL)
+  i = 0;
+  nb = 0;
+  while (dirent[i] && dirent[i] != '.')
+    {
+      i++;
+      nb++;
+    }
+  if ((name = malloc(sizeof(*name) * (nb + 1))) == NULL)
     return (NULL);
-  i = -1;
-  while (dirent[++i] && dirent[i] != '.')
-    name[i] = dirent[i];
+  i = 0;
+  while (i < nb + 1)
+    name[i++] = '\0';
+  i = 0;
+  while (i < nb)
+    {
+      name[i] = dirent[i];
+      i++;
+    }
   name[i] = '\0';
   return (name);
 }
@@ -73,11 +87,10 @@ void		initialize_files(t_list *list)
     if (dirent->d_type == DT_REG)
       {
 	fd = open((link = concat("./tetriminos/", dirent->d_name)), O_RDONLY);
+	parser.name = separate_name(dirent->d_name);
 	while ((s = get_next_line(fd)))
 	  {
-	    parser.name = separate_name(dirent->d_name);
 	    parser_tetriminos(&parser, list, s);
-	    free(parser.name);
 	    free(s);
 	  }
 	free(link);
@@ -107,7 +120,7 @@ int		main(int argc, char **argv)
     mode_debug(&game, &list);
   debug_display_list(list);
   game.list = list;
-  initialize_game(&game);
+  /* initialize_game(&game); */
   my_free(&game, &list);
   endwin();
   return (0);
