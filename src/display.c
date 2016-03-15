@@ -5,7 +5,7 @@
 ** Login   <cheval_8@epitech.net>
 **
 ** Started on  Fri Feb 26 15:37:26 2016 Chevalier Nicolas
-** Last update Fri Feb 26 15:37:40 2016 Chevalier Nicolas
+** Last update Mon Mar 14 21:25:49 2016 Chevalier Nicolas
 */
 
 #include	"tetris.h"
@@ -18,10 +18,6 @@ void		display_score(t_tetris *game)
 
 void		display_scene(t_tetris *game)
 {
-  int		i;
-  int		j;
-
-  i = 0;
   box(game->windows->scene, 0, 0);
   /* TEST */
   wmove(game->windows->scene, 5, 2);

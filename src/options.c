@@ -5,16 +5,14 @@
 ** Login   <cheval_8@epitech.net>
 **
 ** Started on  Mon Mar  7 18:15:23 2016 Chevalier Nicolas
-** Last update Fri Mar 11 22:49:23 2016 Chevalier Nicolas
+** Last update Mon Mar 14 21:47:26 2016 Chevalier Nicolas
 */
 
-#include	"tetris.h"
 #include	<termios.h>
 #include	<unistd.h>
 #include	<sys/ioctl.h>
-#include	<sys/types.h>
 #include	<sys/stat.h>
-#include	<fcntl.h>
+#include	"tetris.h"
 
 static t_flags	flags[] =
 {
@@ -58,14 +56,19 @@ int			mode(int i)
     }
   if (i == 1)
     ioctl(0, TCSETS, &oldT);
+  return (0);
 }
 
 int		is_debug(char *options, t_tetris *game, char **argv, int *i)
 {
+  (void)(*i);
+  (void)(**argv);
+  (void)(*options);
   game->debug = true;
+  return (0);
 }
 
-int		list_option(t_tetris *game, int argc, char **argv, int *i)
+int		list_option(t_tetris *game, char **argv, int *i)
 {
   int		x;
   int		nb;
@@ -96,7 +99,7 @@ void		options(t_tetris *game, int argc, char **argv)
      	  flags[0].redirection(NULL, game, argv, &i);
       	  exit (0);
       	}
-      if (!(list_option(game, argc, &argv[i], &i)))
+      if (!(list_option(game, &argv[i], &i)))
 	{
 	  my_putstr("test");
 	  flags[0].redirection(NULL, game, argv, &i);

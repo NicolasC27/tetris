@@ -5,7 +5,7 @@
 ** Login   <cheval_8@epitech.net>
 **
 ** Started on  Wed Feb 24 19:00:31 2016 Chevalier Nicolas
-** Last update Fri Mar 11 23:44:53 2016 Chevalier Nicolas
+** Last update Mon Mar 14 21:49:11 2016 Chevalier Nicolas
 */
 
 #include	"tetris.h"
@@ -19,12 +19,12 @@ void		initialize_value(t_tetris *game)
   game->scene->colums = COL;
   game->scene->level = 1;
   game->scene->points = 0;
-  game->keys->key_quit = "q";
-  game->keys->key_right = "^EOC";
-  game->keys->key_left = "^E0D";
-  game->keys->key_drop = "^E0A";
-  game->keys->key_turn = "^E0A";
-  game->keys->key_pause = "p";
+  game->keys->keyquit = "q";
+  game->keys->keyright = "^EOC";
+  game->keys->keyleft = "^E0D";
+  game->keys->keydrop = "^E0A";
+  game->keys->keyturn = "^E0A";
+  game->keys->keypause = "p";
   game->scene->boolnext = false;
   game->debug = false;
 }

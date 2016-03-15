@@ -5,9 +5,12 @@
 ** Login   <cheval_8@epitech.net>
 **
 ** Started on  Wed Feb 24 16:03:44 2016 Chevalier Nicolas
-** Last update Mon Mar 14 21:11:19 2016 Chevalier Nicolas
+** Last update Tue Mar 15 16:05:56 2016 Chevalier Nicolas
 */
 
+#include	<sys/types.h>
+#include	<dirent.h>
+#include	<fcntl.h>
 #include	"tetris.h"
 #include	"gnl.h"
 
@@ -61,7 +64,7 @@ char		*separate_name(char *dirent)
 /*
 ** Get all tetriminos from dir tetriminos
 */
-int		initialize_files(t_tetris *game, t_list *list)
+void		initialize_files(t_list *list)
 {
   struct dirent	*dirent;
   t_parser	parser;
@@ -73,14 +76,14 @@ int		initialize_files(t_tetris *game, t_list *list)
   init_parser(&parser);
   if ((dir = opendir("./tetriminos/")) == NULL)
     exit_tetris("Error with opendir", -1);
-  while (dirent = readdir(dir))
+  while ((dirent = readdir(dir)))
     if (dirent->d_type == DT_REG)
       {
 	fd = open((link = concat("./tetriminos/", dirent->d_name)), O_RDONLY);
 	while ((s = get_next_line(fd)))
 	  {
 	    parser.name = separate_name(dirent->d_name);
-	    parser_tetriminos(&parser, game, list, s);
+	    parser_tetriminos(&parser, list, s);
 	    free(parser.name);
 	    free(s);
 	  }
@@ -88,7 +91,6 @@ int		initialize_files(t_tetris *game, t_list *list)
 	close(fd);
      }
   closedir(dir);
-  return (0);
 }
 
 void		exit_tetris(char *str, int constant)
@@ -101,22 +103,18 @@ int		main(int argc, char **argv)
 {
   t_tetris	game;
   t_list	list;
-  t_parser	parser;
 
   initialize_struct(&game);
   initialize_value(&game);
   if (argc > 1)
     options(&game, argc, argv);
   init_list(&list);
-  initialize_files(&game, &list);
+  initialize_files(&list);
   if (game.debug == true)
     mode_debug(&game, &list);
   debug_display_list(list);
-  /* initialize_game(&game); */
-  my_free(&list);
-  free(game.windows);
-  free(game.scene);
-  free(game.keys);
+  initialize_game(&game);
+  my_free(&game, &list);
   endwin();
   return (0);
 }

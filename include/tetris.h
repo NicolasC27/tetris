@@ -5,7 +5,7 @@
 ** Login   <cheval_8@epitech.net>
 **
 ** Started on  Wed Feb 24 16:04:04 2016 Chevalier Nicolas
-// Last update Mon Mar 14 15:44:50 2016 Chevalier Nicolas
+// Last update Tue Mar 15 16:05:57 2016 Chevalier Nicolas
 */
 
 #ifndef TETRIS_H_
@@ -18,9 +18,6 @@
 # include <stdlib.h>
 # include <ncurses.h>
 # include <curses.h>
-# include <sys/types.h>
-# include <dirent.h>
-# include <fcntl.h>
 # include <string.h>
 # include "lib.h"
 
@@ -51,14 +48,14 @@ typedef struct		s_windows
   WINDOW		*name;
 }			t_windows;
 
-typedef struct		s_keys
+typedef struct		s_key
 {
-  char			*key_left;
-  char			*key_right;
-  char			*key_turn;
-  char			*key_drop;
-  char			*key_quit;
-  char			*key_pause;
+  char			*keyleft;
+  char			*keyright;
+  char			*keyturn;
+  char			*keydrop;
+  char			*keyquit;
+  char			*keypause;
 }			t_key;
 
 typedef struct		s_scene
@@ -106,9 +103,7 @@ typedef struct		s_tetris
 {
   t_windows		*windows;
   t_scene		*scene;
-  t_tetriminos		*shape;
   t_key			*keys;
-  t_list		*list;
   int		        **tmp;
   int			help;
   bool			debug;
@@ -127,9 +122,10 @@ char			*str(char *);
 char			*get_arg_options(char **, int *);
 
 /*
-** Options.c
+** options.c
 */
 void			options(t_tetris *, int, char **);
+int			mode(int);
 
 /*
 ** debug.c
@@ -160,12 +156,12 @@ void			display_score(t_tetris *);
 /*
 ** parser.c
 */
-int			parser_tetriminos(t_parser *, t_tetris *, t_list *, char *);
+int			parser_tetriminos(t_parser *, t_list *, char *);
 
 /*
 ** free.c
 */
-void			my_free(t_list *);
+void			my_free(t_tetris *, t_list *);
 
 /*
 ** main.c

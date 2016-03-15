@@ -5,7 +5,7 @@
 ** Login   <cheval_8@epitech.net>
 **
 ** Started on  Sat Mar  5 17:22:19 2016 Chevalier Nicolas
-** Last update Mon Mar 14 18:40:44 2016 Chevalier Nicolas
+** Last update Tue Mar 15 15:29:53 2016 Chevalier Nicolas
 */
 
 #include	<stdlib.h>
@@ -18,17 +18,17 @@ void		shortcuts(t_tetris *game)
 {
   my_putstr(DEBUG);
   my_putstr("Key Left : ");
-  my_putstr(game->keys->key_left);
+  my_putstr(game->keys->keyleft);
   my_putstr("\nKey Right : ");
-  my_putstr(game->keys->key_right);
+  my_putstr(game->keys->keyright);
   my_putstr("\nKey Turn : ");
-  my_putstr(game->keys->key_turn);
+  my_putstr(game->keys->keyturn);
   my_putstr("\nKey Drop : ");
-  my_putstr(game->keys->key_drop);
+  my_putstr(game->keys->keydrop);
   my_putstr("\nKey Quit : ");
-  my_putstr(game->keys->key_quit);
+  my_putstr(game->keys->keyquit);
   my_putstr("\nKey Pause : ");
-  my_putstr(game->keys->key_pause);
+  my_putstr(game->keys->keypause);
   my_putstr("\nNext : ");
   my_putstr((game->scene->boolnext) ? "Yes" : "No");
   my_putstr("\nLevel : ");
@@ -42,16 +42,12 @@ void		shortcuts(t_tetris *game)
 /*
 ** Calcul width line for display
 */
-int		width_line(int **tab, int a, int nb)
+int		width_line(int **tmp, int a, int nb)
 {
-  int		i;
-  int		y;
-
-  i = 0;
   a = 0;
-  while (tab[a][0] != '\0' && tab[a][0] == nb)
+  while (tmp[a][0] != '\0' && tmp[a][0] == nb)
     a++;
-  return (tab[a - 1][1]);
+  return (tmp[a - 1][1]);
 }
 
 /*
@@ -111,11 +107,9 @@ void		shape_list(t_tetriminos *tmp)
 void		mode_debug(t_tetris *game, t_list *list)
 {
   t_tetriminos	*tmp;
-  int		i;
   int		nb;
 
   tmp = list->first;
-  i = 0;
   nb = 0;
   while (tmp)
    {

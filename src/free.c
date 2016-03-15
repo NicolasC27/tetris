@@ -5,25 +5,23 @@
 ** Login   <cheval_8@epitech.net>
 **
 ** Started on  Sat Mar  5 18:37:19 2016 Chevalier Nicolas
-** Last update Mon Mar 14 21:20:07 2016 Chevalier Nicolas
+** Last update Mon Mar 14 21:29:49 2016 Chevalier Nicolas
 */
 
 #include "tetris.h"
 
 void		free_tab(t_tetriminos *tmp)
 {
-  int		i;
   int		a;
 
   a = 0;
-  i = 0;
   while (tmp->coord[a][0])
     free(tmp->coord[a++]);
   free(tmp->coord[a]);
   free(tmp->coord);
 }
 
-void		my_free(t_list *list)
+void		my_free(t_tetris *game, t_list *list)
 {
   t_tetriminos	*tmp;
   t_tetriminos	*tmp2;
@@ -38,4 +36,7 @@ void		my_free(t_list *list)
     }
   list->first = NULL;
   list->last = NULL;
+  free(game->windows);
+  free(game->scene);
+  free(game->keys);
 }

@@ -5,7 +5,7 @@
 ** Login   <cheval_8@epitech.net>
 **
 ** Started on  Fri Mar  4 15:57:57 2016 Chevalier Nicolas
-** Last update Mon Mar 14 21:17:17 2016 Chevalier Nicolas
+** Last update Tue Mar 15 15:51:11 2016 Chevalier Nicolas
 */
 
 #include "tetris.h"
@@ -44,7 +44,7 @@ int		**create_tab(t_parser *parser)
 ** Search star in the files
 ** put in the tab temporarily
 */
-void		 search_star(t_parser *parser, t_tetris *game, char *str)
+void		 search_star(t_parser *parser, char *str)
 {
   int		i;
 
@@ -73,7 +73,7 @@ void		 search_star(t_parser *parser, t_tetris *game, char *str)
 ** End line
 ** Put informations in the list
 */
-void		put_int_tab(t_tetris *game, t_parser *parser, int *loop, t_list *list)
+void		put_int_tab(t_parser *parser, int *loop, t_list *list)
 {
   int		star;
 
@@ -90,13 +90,11 @@ void		put_int_tab(t_tetris *game, t_parser *parser, int *loop, t_list *list)
    }
 }
 
-int		parser_tetriminos(t_parser *parser, t_tetris *game, t_list *list,
-				  char *str)
+int		parser_tetriminos(t_parser *parser, t_list *list, char *str)
 {
   static int	loop;
   int		i;
   int		nb;
-  int		a;
 
   i = 0;
   if (parser->first == 0)
@@ -121,9 +119,9 @@ int		parser_tetriminos(t_parser *parser, t_tetris *game, t_list *list,
 	  i++;
 	}
     }
-  search_star(parser, game, str);
+  search_star(parser, str);
   parser->first += 1;
   loop++;
-  put_int_tab(game, parser, &loop, list);
-
+  put_int_tab(parser, &loop, list);
+  return (0);
 }

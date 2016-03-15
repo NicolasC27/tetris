@@ -5,7 +5,7 @@
 ** Login   <cheval_8@epitech.net>
 **
 ** Started on  Mon Mar 14 18:34:37 2016 Chevalier Nicolas
-** Last update Mon Mar 14 19:28:52 2016 Chevalier Nicolas
+** Last update Tue Mar 15 15:32:14 2016 Chevalier Nicolas
 */
 
 #include "tetris.h"
@@ -14,10 +14,8 @@ void		aff_list(int *tmp)
 {
   static int	k;
   int		i;
-  int		a;
 
   k = 1;
-  a = 1;
   i = 0;
   while (tmp[i])
     {
