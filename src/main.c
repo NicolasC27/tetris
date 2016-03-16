@@ -5,7 +5,7 @@
 ** Login   <cheval_8@epitech.net>
 **
 ** Started on  Wed Feb 24 16:03:44 2016 Chevalier Nicolas
-** Last update Tue Mar 15 18:38:35 2016 romain samuel
+** Last update Wed Mar 16 17:53:49 2016 romain samuel
 */
 
 #include	<sys/types.h>
@@ -19,19 +19,17 @@
 */
 int		initialize_ncurses()
 {
-  int		i;
-
-  i = 1;
   initscr();
   start_color();
-  while (i < COLORS && i < COLOR_PAIRS)
+  /*while (i < COLORS && i < COLOR_PAIRS)
     {
       init_pair(i, i, COLOR_BLACK);
       i++;
-    }
-  cbreak();
+      }*/
+  /*cbreak();*/
+  halfdelay(2);
   noecho();
-  keypad(stdscr, TRUE);
+  /*keypad(stdscr, TRUE);*/
   curs_set(0);
   timeout(0);
   return (0);

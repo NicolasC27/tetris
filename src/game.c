@@ -5,7 +5,7 @@
 ** Login   <samuel_r@epitech.net>
 **
 ** Started on  Mon Mar 14 01:53:41 2016 romain samuel
-** Last update Tue Mar 15 18:57:08 2016 romain samuel
+** Last update Wed Mar 16 17:59:29 2016 romain samuel
 */
 
 #include "tetris.h"
@@ -36,17 +36,81 @@ int	create_compartments(t_tetris *s)
   return (0);
 }
 
+int		time_drop(t_tetris *s)
+{
+  if (move_tetrimino(s, 0, 1) == -1)
+    {
+      fill_matrix_with_tetrimino(s);
+      if (get_current_tetrimino(s) == -1)
+	return (-2);
+      get_next_tetrimino(s);
+      clear_next(s);
+      display_tetrimino(s->windows->next, *s->game.next);
+      if (init_tetrimino_pos(s) == -1)
+	return (-2);
+      if (check_complete_lines(s) > 0)
+	{
+	  /*changer score*/
+	  return (-1);
+	}
+      return (-1);
+    }
+  else
+    return (0);
+}
+
+int		handle_keyboard_input(t_tetris *s)
+{
+  int		key;
+
+  if ((key = wgetch(s->windows->name)) == -1)
+    return (0);
+  else
+    {
+      wprintw(s->windows->name, "%c", key);
+      wrefresh(s->windows->name);
+    }
+  return (0);
+}
+
+int		main_loop(t_tetris *s)
+{
+  time_t	new_time;
+
+  s->game.save_time = s->game.stime;
+  while (42)
+    {
+      handle_keyboard_input(s);
+      new_time = time(NULL) - s->game.stime;
+      if (new_time > s->game.save_time)
+	{
+	  if (time_drop(s) == -2)
+	    return (-1);
+	  display_matrix(s, s->game.scene);
+	  display_tetrimino(s->windows->scene, s->game.current);
+	}
+      s->game.save_time = new_time;
+    }
+  return (0);
+}
+
 int	game(t_tetris *s)
 {
   srand(time(NULL));
+  s->game.stime = time(NULL);
+  wprintw(s->windows->name, "%u\n", s->game.stime);
+  wrefresh(s->windows->name);
   if (create_compartments(s) == -1)
     return (-1);
-  s->game.scene[0][0].filled = true;
-  s->game.scene[0][0].color = 3;
   get_next_tetrimino(s);
-  get_current_tetrimino(s);
+  if (get_current_tetrimino(s) == -1)
+    return (-1);
+  get_next_tetrimino(s);
+  clear_next(s);
+  display_tetrimino(s->windows->next, *s->game.next);
   init_tetrimino_pos(s);
   display_tetrimino(s->windows->scene, s->game.current);
-  while (1);
+  if (main_loop(s) == -1)
+    return (-1);
   return (0);
 }

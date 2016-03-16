@@ -5,7 +5,7 @@
 ## Login   <cheval_8@epitech.net>
 ##
 ## Started on  Wed Feb 24 16:02:04 2016 Chevalier Nicolas
-## Last update Tue Mar 15 20:21:48 2016 romain samuel
+## Last update Wed Mar 16 16:35:40 2016 romain samuel
 ##
 
 
@@ -13,6 +13,8 @@ NAME		=	tetris
 
 SRC		=	main.c \
 			check_complete_line.c \
+			clear_next.c \
+			copy_coord_tab.c \
 			init.c \
 			delete_line.c \
 			display.c \

@@ -5,7 +5,7 @@
 ** Login   <samuel_r@epitech.net>
 **
 ** Started on  Tue Mar 15 14:58:32 2016 romain samuel
-** Last update Tue Mar 15 17:58:20 2016 romain samuel
+** Last update Wed Mar 16 14:41:16 2016 romain samuel
 */
 
 #include "tetris.h"
@@ -33,5 +33,7 @@ int	move_tetrimino(t_tetris *s, int x, int y)
       s->game.current.coord[i][1] += x;
       i++;
     }
+  s->game.current.x_translation += x;
+  s->game.current.y_translation += y;
   return (0);
 }

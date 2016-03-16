@@ -5,7 +5,7 @@
 ** Login   <cheval_8@epitech.net>
 **
 ** Started on  Wed Feb 24 16:04:04 2016 Chevalier Nicolas
-** Last update Tue Mar 15 20:33:01 2016 romain samuel
+** Last update Wed Mar 16 18:33:15 2016 romain samuel
 */
 
 #ifndef TETRIS_H_
@@ -66,6 +66,7 @@ typedef struct		s_scene
   int			points;
   int			level;
   int			timer;
+  int			highscore;
   bool			boolnext;
   int			next;
 }			t_scene;
@@ -78,6 +79,9 @@ typedef struct		s_tetriminos
   int			width;
   int			height;
   int			color;
+  int			**simple_coord;
+  int			x_translation;
+  int			y_translation;
   struct s_tetriminos	*next;
   struct s_tetriminos	*prev;
 }			t_tetriminos;
@@ -113,6 +117,12 @@ typedef struct		s_game
   t_compartment		**scene;
   t_compartment		**tetrimino;
   int			direction;
+  int			score;
+  int			level;
+  time_t		stime;
+  time_t		save_time;
+  int			max_next_height;
+  int			max_next_width;
 }			t_game;
 
 typedef struct		s_tetris
@@ -151,10 +161,20 @@ void			options(t_tetris *, int, char **);
 int			mode(int);
 
 /*
+** copy_coord_tab.c
+*/
+int			**copy_coord_tab(t_tetriminos *tetri);
+
+/*
 ** check_complete_line.c
 */
 int			check_complete_line(t_tetris *s, t_compartment *line);
 int			check_complete_lines(t_tetris *s);
+
+/*
+** clear_next.c
+*/
+void			clear_next(t_tetris *s);
 
 /*
 ** debug.c
@@ -222,10 +242,15 @@ int			get_max_termitrino_width(t_tetriminos *root);
 int			get_max_termitrino_height(t_tetriminos *root);
 
 /*
+** my_puterr.c
+*/
+int			my_puterr(char *str);
+
+/*
 ** get_next_tetrimino.c
 */
 void			get_next_tetrimino(t_tetris *s);
-void			get_current_tetrimino(t_tetris *s);
+int			get_current_tetrimino(t_tetris *s);
 
 /*
 ** init_tetrimino_pos.c

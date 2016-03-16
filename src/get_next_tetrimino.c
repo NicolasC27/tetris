@@ -5,7 +5,7 @@
 ** Login   <samuel_r@epitech.net>
 **
 ** Started on  Mon Mar 14 17:08:16 2016 romain samuel
-** Last update Tue Mar 15 16:43:01 2016 romain samuel
+** Last update Wed Mar 16 16:44:15 2016 romain samuel
 */
 
 #include "tetris.h"
@@ -42,11 +42,17 @@ void		get_next_tetrimino(t_tetris *s)
   s->game.next = it;
 }
 
-void	get_current_tetrimino(t_tetris *s)
+int	get_current_tetrimino(t_tetris *s)
 {
   s->game.current.name = s->game.next->name;
-  s->game.current.coord = s->game.next->coord;
+  if ((s->game.current.coord = copy_coord_tab(s->game.next)) == NULL)
+    return (-1);
   s->game.current.width = s->game.next->width;
   s->game.current.height = s->game.next->height;
   s->game.current.color = s->game.next->color;
+  if ((s->game.current.simple_coord = copy_coord_tab(s->game.next)) == NULL)
+    return (-1);
+  s->game.current.x_translation = 0;
+  s->game.current.y_translation = 0;
+  return (0);
 }
