@@ -5,7 +5,7 @@
 ** Login   <samuel_r@epitech.net>
 **
 ** Started on  Mon Mar 14 17:08:16 2016 romain samuel
-** Last update Thu Mar 17 15:27:31 2016 romain samuel
+** Last update Thu Mar 17 15:42:10 2016 romain samuel
 */
 
 #include "tetris.h"
@@ -38,12 +38,12 @@ void		get_next_tetrimino(t_tetris *s)
     {
       it = it->next;
       i++;
-    }
+    }/*
   if (it->valid == false)
     {
       get_next_tetrimino(s);
       return;
-    }
+      }*/
   s->game.next = it;
 }
 

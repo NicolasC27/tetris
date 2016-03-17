@@ -5,7 +5,7 @@
 ** Login   <cheval_8@epitech.net>
 **
 ** Started on  Wed Feb 24 16:04:04 2016 Chevalier Nicolas
-** Last update Thu Mar 17 15:21:43 2016 romain samuel
+** Last update Thu Mar 17 16:05:12 2016 romain samuel
 */
 
 #ifndef TETRIS_H_
@@ -122,8 +122,6 @@ typedef struct		s_game
   t_compartment		**scene;
   t_compartment		**tetrimino;
   int			direction;
-  int			score;
-  int			level;
   time_t		stime;
   time_t		save_time;
   int			max_next_height;
@@ -167,6 +165,22 @@ int			del_line(t_tetris *s, int line);
 */
 char			*str(char *);
 char			*get_arg_options(char **, int *);
+
+/*
+** display_tetris.c
+*/
+void			display_t_letter(WINDOW *win, int x, int color);
+void			display_e_letter(WINDOW *win, int x, int color);
+void			display_r_letter(WINDOW *win, int x, int color);
+void			display_i_letter(WINDOW *win, int x, int color);
+void			display_s_letter(WINDOW *win, int x, int color);
+
+/*
+** display_scores.c
+*/
+int			my_intlen(int nb);
+int			display_timer(t_tetris *s, time_t timer);
+int			display_scores(t_tetris *s, time_t timer);
 
 /*
 ** options.c

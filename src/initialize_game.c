@@ -5,7 +5,7 @@
 ** Login   <samuel_r@epitech.net>
 **
 ** Started on  Tue Mar 15 15:26:53 2016 romain samuel
-** Last update Wed Mar 16 18:34:38 2016 romain samuel
+** Last update Thu Mar 17 15:51:27 2016 romain samuel
 */
 
 #include "tetris.h"
@@ -25,7 +25,7 @@ void		initialize_game(t_tetris *s)
   if (s->scene->boolnext == true)
     {
       s->windows->next = newwin(4 + max_width, 4 + max_height,
-				0, 28 + s->scene->colums);
+				0, 29 + s->scene->colums);
       display_next(s);
     }
   s->game.max_next_height = 2 + max_height;

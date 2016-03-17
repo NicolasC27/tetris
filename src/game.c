@@ -5,7 +5,7 @@
 ** Login   <samuel_r@epitech.net>
 **
 ** Started on  Mon Mar 14 01:53:41 2016 romain samuel
-** Last update Thu Mar 17 01:30:04 2016 romain samuel
+** Last update Thu Mar 17 15:59:07 2016 romain samuel
 */
 
 #include "tetris.h"
@@ -88,6 +88,7 @@ int		main_loop(t_tetris *s)
 	    return (-1);
 	  display_matrix(s, s->game.scene);
 	  display_tetrimino(s->windows->scene, s->game.current);
+	  display_scores(s, new_time);
 	}
       s->game.save_time = new_time;
     }
@@ -109,6 +110,7 @@ int	game(t_tetris *s)
   display_tetrimino(s->windows->next, *s->game.next);
   init_tetrimino_pos(s);
   display_tetrimino(s->windows->scene, s->game.current);
+  display_scores(s, 0);
   if (main_loop(s) == -1)
     return (-1);
   return (0);

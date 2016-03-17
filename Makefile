@@ -5,7 +5,7 @@
 ## Login   <cheval_8@epitech.net>
 ##
 ## Started on  Wed Feb 24 16:02:04 2016 Chevalier Nicolas
-## Last update Thu Mar 17 14:52:35 2016 romain samuel
+## Last update Thu Mar 17 16:05:34 2016 romain samuel
 ##
 
 
@@ -17,7 +17,9 @@ SRC		=	main.c \
 			copy_coord_tab.c \
 			init.c \
 			delete_line.c \
+			display_scores.c \
 			display.c \
+			display_tetris.c \
 			display_matrix.c \
 			display_tetrimino.c \
 			game.c \
