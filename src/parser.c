@@ -5,9 +5,10 @@
 ** Login   <cheval_8@epitech.net>
 **
 ** Started on  Fri Mar  4 15:57:57 2016 Chevalier Nicolas
-** Last update Tue Mar 15 17:55:23 2016 romain samuel
+** Last update Thu Mar 17 15:29:38 2016 romain samuel
 */
 
+#include <stdbool.h>
 #include "tetris.h"
 
 /*
@@ -44,19 +45,24 @@ int		**create_tab(t_parser *parser)
 ** Search star in the files
 ** put in the tab temporarily
 */
-void		 search_star(t_parser *parser, char *str)
+int		 search_star(t_parser *parser, char *str)
 {
   int		i;
+  int		count;
 
-  i = 0;
+  count = 0;
+  i = -1;
   if (parser->first > 0 && parser->first < parser->colums + 1)
     {
       if (parser->first == 1)
 	parser->tmp = create_tab(parser);
-      while (str[i])
+      while (str[++i])
 	{
 	  if (str[i] != ' ' && str[i] != '*')
-	    exit (0);
+	    {
+	      parser->valid = 0;
+	      return (0);
+	    }
 	  if (str[i] == '*')
 	    {
 	      parser->tmp[parser->tmp_colums][0] = parser->first;
@@ -64,30 +70,69 @@ void		 search_star(t_parser *parser, char *str)
 	      parser->tmp_colums += 1;
 	      parser->star += 1;
 	    }
-	  i++;
+	  count++;
 	}
     }
+  /*if (count > parser->star_line)
+    parser->star_line = count;
+  if (parser->star_line > parser->line)
+    {
+      parser->valid = 0;
+      return (0);
+      }*/
+  return (1);
 }
 
 /*
 ** End line
 ** Put informations in the list
 */
-void		put_int_tab(t_parser *parser, int *loop, t_list *list)
+int		put_int_tab(t_parser *parser, int *loop, t_list *list)
 {
-  int		star;
+  int		height;
 
-  star = (*loop);
-  if (parser->colums == star - 1)
-   {
-     push_back(list, parser);
-     parser->first = 0;
-     parser->tmp_colums = 0;
-     parser->line = 0;
-     parser->colums = 0;
-     parser->star = 0;
-     (*loop) = 0;
-   }
+  height = (*loop);
+  if (parser->valid == 0)
+    push_back(list, parser);
+  else if ((parser->colums == height - 1))
+    {
+      /*if ((parser->valid != 0) && (parser->star_line != parser->line))
+	{
+	  parser->valid = 0;
+	  put_int_tab(parser, loop, list);
+	  }*/
+      if (parser->valid != 0)
+	push_back(list, parser);
+    }
+  if (parser->valid == 0 || parser->colums == height - 1)
+    {
+      parser->first = 0;
+      parser->tmp_colums = 0;
+      parser->star = 0;
+      parser->star_line = 0;
+      (*loop) = 0;
+    }
+}
+
+int		parser_error(t_parser *parser, int nb, int i, char *str)
+{
+  if (i % 2 == 0)
+    if (nb == 0 || nb > 9)
+      return (0);
+    else if (i == 0)
+      parser->line = nb;
+    else if (i == 2)
+      {
+	if (nb != parser->count_height)
+	  return (0);
+	parser->colums = nb;
+      }
+    else if (i == 4)
+      parser->color = nb;
+  if (i % 2 == 1)
+    if (str[i] != ' ')
+      return (0);
+  return (1);
 }
 
 int		parser_tetriminos(t_parser *parser, t_list *list, char *str)
@@ -96,32 +141,24 @@ int		parser_tetriminos(t_parser *parser, t_list *list, char *str)
   int		i;
   int		nb;
 
-  i = 0;
+  i = -1;
+  parser->valid = 1;
   if (parser->first == 0)
-    {
-      while (str[i] != '\0')
-	{
-	  if ((nb = my_getnbr(&str[i])) == 0 && nb > 9)
-	      return (0);
-	  else if (str[i] != ' ' && (nb == 0 || nb > 9))
-	      return (0);
-	  else if ((nb == 0 || nb > 9) && (str[i + 1] == 32 && str[i + 1] == '\t'))
-	      return (0);
-	  if (i % 2 == 0)
-	    {
-	      if (i == 0)
-		parser->line = nb;
-	      if (i == 2)
-		parser->colums = nb;
-	      if (i == 2)
-		parser->color = nb;
-	    }
-	  i++;
-	}
-    }
-  search_star(parser, str);
+    while (str[++i] != '\0')
+      {
+	nb = my_getnbr(&str[i]);
+	if (!(parser_error(parser, nb, i, str)))
+	  {
+	    parser->valid = 0;
+	    put_int_tab(parser, &loop, list);
+	  }
+      }
+  if (!(search_star(parser, str)))
+    put_int_tab(parser, &loop, list);
+  if (parser->valid == 0)
+    return (0);
   parser->first += 1;
   loop++;
   put_int_tab(parser, &loop, list);
-  return (0);
+  return (1);
 }

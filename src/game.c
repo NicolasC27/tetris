@@ -5,7 +5,7 @@
 ** Login   <samuel_r@epitech.net>
 **
 ** Started on  Mon Mar 14 01:53:41 2016 romain samuel
-** Last update Wed Mar 16 17:59:29 2016 romain samuel
+** Last update Thu Mar 17 01:30:04 2016 romain samuel
 */
 
 #include "tetris.h"
@@ -98,7 +98,6 @@ int	game(t_tetris *s)
 {
   srand(time(NULL));
   s->game.stime = time(NULL);
-  wprintw(s->windows->name, "%u\n", s->game.stime);
   wrefresh(s->windows->name);
   if (create_compartments(s) == -1)
     return (-1);

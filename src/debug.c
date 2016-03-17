@@ -5,7 +5,7 @@
 ** Login   <cheval_8@epitech.net>
 **
 ** Started on  Sat Mar  5 17:22:19 2016 Chevalier Nicolas
-** Last update Tue Mar 15 15:29:53 2016 Chevalier Nicolas
+** Last update Wed Mar 16 23:51:06 2016 Chevalier Nicolas
 */
 
 #include	<stdlib.h>
@@ -85,18 +85,23 @@ void		shape_list(t_tetriminos *tmp)
   my_putstr("Name ");
   my_putstr(tmp->name);
   my_putstr(" : ");
-  my_putstr("Size ");
-  my_put_nbr(tmp->width);
-  my_putchar('*');
-  my_put_nbr(tmp->width);
-  my_putstr(" : ");
-  my_putstr("Color ");
-  my_put_nbr(tmp->color);
-  my_putstr(" :\n");
-  a = 0;
-  nb = 1;
-  while (tmp->coord[a][0] != '\0')
-    aff_shape(tmp, &nb, &a);
+  if (tmp->valid == 1)
+    {
+      my_putstr("Size ");
+      my_put_nbr(tmp->width);
+      my_putchar('*');
+      my_put_nbr(tmp->height);
+      my_putstr(" : ");
+      my_putstr("Color ");
+      my_put_nbr(tmp->color);
+      my_putstr(" :\n");
+      a = 0;
+      nb = 1;
+      while (tmp->coord[a][0] != '\0')
+	aff_shape(tmp, &nb, &a);
+    }
+  else
+      my_putstr("Error\n");
 }
 
 /*

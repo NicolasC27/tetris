@@ -5,7 +5,7 @@
 ** Login   <cheval_8@epitech.net>
 **
 ** Started on  Wed Feb 24 19:00:31 2016 Chevalier Nicolas
-** Last update Wed Mar 16 18:38:07 2016 romain samuel
+** Last update Thu Mar 17 01:29:25 2016 romain samuel
 */
 
 #include	"tetris.h"
@@ -27,7 +27,7 @@ void		initialize_value(t_tetris *game)
   game->keys->keyturn = "^E0A";
   game->keys->keypause = "p";
   game->scene->boolnext = true;
-  game->scene->lines = 0;
+  game->scene->line = 0;
   game->debug = false;
 }
 

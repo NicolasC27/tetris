@@ -5,11 +5,10 @@
 ** Login   <cheval_8@epitech.net>
 **
 ** Started on  Wed Feb 24 16:03:44 2016 Chevalier Nicolas
-** Last update Wed Mar 16 17:53:49 2016 romain samuel
+** Last update Thu Mar 17 15:23:02 2016 romain samuel
 */
 
 #include	<sys/types.h>
-#include	<dirent.h>
 #include	<fcntl.h>
 #include	"tetris.h"
 #include	"gnl.h"
@@ -19,17 +18,20 @@
 */
 int		initialize_ncurses()
 {
+  int		i;
+
+  i = 0;
   initscr();
   start_color();
-  /*while (i < COLORS && i < COLOR_PAIRS)
+  while (i < COLORS && i < COLOR_PAIRS)
     {
-      init_pair(i, i, COLOR_BLACK);
+      init_pair(i, COLOR_BLACK, i);
       i++;
-      }*/
+      }
   /*cbreak();*/
   halfdelay(2);
   noecho();
-  /*keypad(stdscr, TRUE);*/
+  keypad(stdscr, TRUE);
   curs_set(0);
   timeout(0);
   return (0);
@@ -60,35 +62,59 @@ char		*separate_name(char *dirent)
   return (name);
 }
 
+void		count_height(t_files *file, t_parser *parser)
+{
+  char		*tmp;
+  int		fd;
+
+  parser->count_height = -1;
+  fd = file->fd;
+  while ((tmp = get_next_line(fd)))
+    {
+      parser->count_height += 1;
+      free(tmp);
+    }
+  close(fd);
+  file->fd = open((file->link = concat("./tetriminos/", file->dirent->d_name)),
+  		 O_RDONLY);
+}
+
+void		initialize_parser(t_files *file, t_parser *parser, t_list *list)
+{
+  file->fd = open((file->link = concat("./tetriminos/", file->dirent->d_name)),
+		 O_RDONLY);
+  parser->name = separate_name(file->dirent->d_name);
+  count_height(file, parser);
+  parser->valid = 1;
+  while ((file->s = get_next_line(file->fd)))
+    {
+      if (parser->valid == 1)
+	parser_tetriminos(parser, list, file->s);
+      free(file->s);
+    }
+}
+
 /*
 ** Get all tetriminos from dir tetriminos
 */
 void		initialize_files(t_list *list)
 {
-  struct dirent	*dirent;
+  t_files	file;
   t_parser	parser;
-  DIR		*dir;
-  char		*s;
-  char		*link;
-  int		fd;
 
   init_parser(&parser);
-  if ((dir = opendir("./tetriminos/")) == NULL)
+  if ((file.dir = opendir("./tetriminos/")) == NULL)
     exit_tetris("Error with opendir", -1);
-  while ((dirent = readdir(dir)))
-    if (dirent->d_type == DT_REG)
-      {
-	fd = open((link = concat("./tetriminos/", dirent->d_name)), O_RDONLY);
-	parser.name = separate_name(dirent->d_name);
-	while ((s = get_next_line(fd)))
-	  {
-	    parser_tetriminos(&parser, list, s);
-	    free(s);
-	  }
-	free(link);
-	close(fd);
-     }
-  closedir(dir);
+  while ((file.dirent = readdir(file.dir)))
+    {
+      if (file.dirent->d_type == DT_REG)
+	{
+	  initialize_parser(&file, &parser, list);
+	  free(file.link);
+	  close(file.fd);
+	}
+    }
+  closedir(file.dir);
 }
 
 void		exit_tetris(char *str, int constant)
