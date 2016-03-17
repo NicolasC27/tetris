@@ -5,7 +5,7 @@
 ## Login   <cheval_8@epitech.net>
 ##
 ## Started on  Wed Feb 24 16:02:04 2016 Chevalier Nicolas
-## Last update Tue Mar 15 16:44:07 2016 romain samuel
+## Last update Wed Mar 16 23:54:06 2016 Chevalier Nicolas
 ##
 
 
@@ -40,9 +40,10 @@ LIB		+=	-Ilib/include -Llib/ -lmyutils
 LIBMYUTILS_MAKE	=	make -C lib/
 LIBMYUTILS	=	lib/libmyutils.a
 
-CFLAGS		=	-W -Wall -Werror -Wextra
-CFLAGS		+=	-Wno-overlength-strings
+# CFLAGS		=	-W -Wall -Werror -Wextra
+# CFLAGS		+=	-Wno-overlength-strings
 CFLAGS		+=	-Iinclude/
+CFLAGS		+=	-g
 CFLAGS		+=	-D_BSD_SOURCE -D_POSIX_SOURCE
 CFLAGS		+=	$(LIB)
 
@@ -51,7 +52,7 @@ LDFLAGS		=	$(LIB)
 all:		$(LIBMYUTILS) $(NAME)
 
 $(NAME):	$(MOD)
-		gcc $(MOD) -o $(NAME) $(LDFLAGS) -lncurses
+		@cc $(MOD) -o $(NAME) $(LDFLAGS) -lncurses
 
 $(LIBMYUTILS):
 	 	$(LIBMYUTILS_MAKE)

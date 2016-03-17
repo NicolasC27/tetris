@@ -5,7 +5,7 @@
 ** Login   <cheval_8@epitech.net>
 **
 ** Started on  Sat Mar  5 17:16:51 2016 Chevalier Nicolas
-** Last update Mon Mar 14 20:02:22 2016 Chevalier Nicolas
+** Last update Tue Mar 15 22:08:04 2016 Chevalier Nicolas
 */
 
 #include	"tetris.h"
@@ -24,10 +24,11 @@ void		push_back(t_list *list, t_parser *parser)
     exit_tetris("Error with malloc", -1);
   tmp->name = parser->name;
   tmp->coord = parser->tmp;
-  tmp->next = list->first;
   tmp->width = parser->line;
   tmp->height = parser->colums;
   tmp->color = parser->color;
+  tmp->valid = parser->valid;
+  tmp->prev = list->last;
   tmp->next = NULL;
   if (list->last)
     list->last->next = tmp;
@@ -44,10 +45,11 @@ void		push_front(t_list *list, t_parser *parser)
     exit_tetris("Error with malloc", -1);
   tmp->name = parser->name;
   tmp->coord = parser->tmp;
-  tmp->next = list->first;
   tmp->width = parser->line;
   tmp->height = parser->colums;
   tmp->color = parser->color;
+  tmp->valid = parser->valid;
+  tmp->next = list->first;
   tmp->prev = NULL;
   if (list->first)
     list->first->prev = tmp;

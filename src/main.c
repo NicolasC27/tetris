@@ -5,11 +5,10 @@
 ** Login   <cheval_8@epitech.net>
 **
 ** Started on  Wed Feb 24 16:03:44 2016 Chevalier Nicolas
-** Last update Tue Mar 15 18:02:14 2016 Chevalier Nicolas
+** Last update Wed Mar 16 23:50:24 2016 Chevalier Nicolas
 */
 
 #include	<sys/types.h>
-#include	<dirent.h>
 #include	<fcntl.h>
 #include	"tetris.h"
 #include	"gnl.h"
@@ -62,35 +61,59 @@ char		*separate_name(char *dirent)
   return (name);
 }
 
+void		count_height(t_files *file, t_parser *parser)
+{
+  char		*tmp;
+  int		fd;
+
+  parser->count_height = -1;
+  fd = file->fd;
+  while ((tmp = get_next_line(fd)))
+    {
+      parser->count_height += 1;
+      free(tmp);
+    }
+  close(fd);
+  file->fd = open((file->link = concat("./tetriminos/", file->dirent->d_name)),
+  		 O_RDONLY);
+}
+
+void		initialize_parser(t_files *file, t_parser *parser, t_list *list)
+{
+  file->fd = open((file->link = concat("./tetriminos/", file->dirent->d_name)),
+		 O_RDONLY);
+  parser->name = separate_name(file->dirent->d_name);
+  count_height(file, parser);
+  parser->valid = 1;
+  while ((file->s = get_next_line(file->fd)))
+    {
+      if (parser->valid == 1)
+	parser_tetriminos(parser, list, file->s);
+      free(file->s);
+    }
+}
+
 /*
 ** Get all tetriminos from dir tetriminos
 */
 void		initialize_files(t_list *list)
 {
-  struct dirent	*dirent;
+  t_files	file;
   t_parser	parser;
-  DIR		*dir;
-  char		*s;
-  char		*link;
-  int		fd;
 
   init_parser(&parser);
-  if ((dir = opendir("./tetriminos/")) == NULL)
+  if ((file.dir = opendir("./tetriminos/")) == NULL)
     exit_tetris("Error with opendir", -1);
-  while ((dirent = readdir(dir)))
-    if (dirent->d_type == DT_REG)
-      {
-	fd = open((link = concat("./tetriminos/", dirent->d_name)), O_RDONLY);
-	parser.name = separate_name(dirent->d_name);
-	while ((s = get_next_line(fd)))
-	  {
-	    parser_tetriminos(&parser, list, s);
-	    free(s);
-	  }
-	free(link);
-	close(fd);
-     }
-  closedir(dir);
+  while ((file.dirent = readdir(file.dir)))
+    {
+      if (file.dirent->d_type == DT_REG)
+	{
+	  initialize_parser(&file, &parser, list);
+	  free(file.link);
+	  close(file.fd);
+	}
+    }
+  closedir(file.dir);
 }
 
 void		exit_tetris(char *str, int constant)
@@ -114,7 +137,7 @@ int		main(int argc, char **argv)
     mode_debug(&game, &list);
   debug_display_list(list);
   game.list = list;
-  /* initialize_game(&game); */
+  initialize_game(&game);
   my_free(&game, &list);
   endwin();
   return (0);

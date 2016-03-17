@@ -5,7 +5,7 @@
 ** Login   <cheval_8@epitech.net>
 **
 ** Started on  Wed Feb 24 16:04:04 2016 Chevalier Nicolas
-** Last update Tue Mar 15 16:42:32 2016 romain samuel
+// Last update Wed Mar 16 23:49:57 2016 Chevalier Nicolas
 */
 
 #ifndef TETRIS_H_
@@ -18,6 +18,7 @@
 # include <stdlib.h>
 # include <ncurses.h>
 # include <curses.h>
+# include <dirent.h>
 # include <string.h>
 # include <time.h>
 # include "lib.h"
@@ -90,14 +91,17 @@ typedef struct		s_list
 
 typedef struct		s_parser
 {
-  char			*name;
-  int			**tmp;
   int			tmp_colums;
+  int			**tmp;
   int			first;
   int			colums;
   int			color;
   int			line;
   int			star;
+  int			star_line;
+  int			count_height;
+  bool			valid;
+  char			*name;
 }			t_parser;
 
 typedef struct		s_compartment
@@ -126,6 +130,15 @@ typedef struct		s_tetris
   int			help;
   bool			debug;
 }			t_tetris;
+
+typedef struct		s_files
+{
+  struct dirent		*dirent;
+  DIR			*dir;
+  char			*s;
+  char			*link;
+  int			fd;
+}			t_files;
 
 typedef struct		s_flags
 {
