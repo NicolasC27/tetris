@@ -5,7 +5,7 @@
 ** Login   <cheval_8@epitech.net>
 **
 ** Started on  Fri Mar  4 15:57:57 2016 Chevalier Nicolas
-** Last update Thu Mar 17 02:08:26 2016 Chevalier Nicolas
+** Last update Thu Mar 17 02:43:38 2016 Chevalier Nicolas
 */
 
 #include <stdbool.h>
@@ -76,6 +76,11 @@ int		 search_star(t_parser *parser, char *str)
     }
   if (count > parser->star_line)
     parser->star_line = count;
+  if (parser->star_line > parser->line)
+    {
+      parser->valid = 0;
+      return (0);
+    }
   return (1);
 }
 
@@ -147,14 +152,12 @@ int		parser_tetriminos(t_parser *parser, t_list *list, char *str)
 	  {
 	    parser->valid = 0;
 	    put_int_tab(parser, &loop, list);
-	    return (0);
 	  }
       }
   if (!(search_star(parser, str)))
-    {
-     put_int_tab(parser, &loop, list);
-      return (0);
-    }
+    put_int_tab(parser, &loop, list);
+  if (parser->valid == 0)
+    return (0);
   parser->first += 1;
   loop++;
   put_int_tab(parser, &loop, list);

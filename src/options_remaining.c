@@ -5,7 +5,7 @@
 ** Login   <cheval_8@epitech.net>
 **
 ** Started on  Thu Mar 10 19:38:42 2016 Chevalier Nicolas
-** Last update Tue Mar 15 15:30:20 2016 Chevalier Nicolas
+** Last update Thu Mar 17 02:53:25 2016 Chevalier Nicolas
 */
 
 #include "tetris.h"
@@ -37,7 +37,6 @@ int			is_keypause(char *options, t_tetris *game, char **argv, int *i)
   (void)(**argv);
   (void)(*i);
   game->keys->keypause = options;
-  my_putstr(game->keys->keypause);
   return (0);
 }
 
