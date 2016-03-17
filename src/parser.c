@@ -5,7 +5,7 @@
 ** Login   <cheval_8@epitech.net>
 **
 ** Started on  Fri Mar  4 15:57:57 2016 Chevalier Nicolas
-** Last update Thu Mar 17 15:29:38 2016 romain samuel
+** Last update Thu Mar 17 16:35:46 2016 Chevalier Nicolas
 */
 
 #include <stdbool.h>
@@ -54,6 +54,11 @@ int		 search_star(t_parser *parser, char *str)
   i = -1;
   if (parser->first > 0 && parser->first < parser->colums + 1)
     {
+      if (parser->color == 0)
+	{
+	  parser->valid = 0;
+	  return (0);
+	}
       if (parser->first == 1)
 	parser->tmp = create_tab(parser);
       while (str[++i])
@@ -73,13 +78,13 @@ int		 search_star(t_parser *parser, char *str)
 	  count++;
 	}
     }
-  /*if (count > parser->star_line)
+  if (count > parser->star_line)
     parser->star_line = count;
   if (parser->star_line > parser->line)
     {
       parser->valid = 0;
       return (0);
-      }*/
+      }
   return (1);
 }
 
@@ -96,11 +101,11 @@ int		put_int_tab(t_parser *parser, int *loop, t_list *list)
     push_back(list, parser);
   else if ((parser->colums == height - 1))
     {
-      /*if ((parser->valid != 0) && (parser->star_line != parser->line))
+      if ((parser->valid != 0) && (parser->star_line != parser->line))
 	{
 	  parser->valid = 0;
 	  put_int_tab(parser, loop, list);
-	  }*/
+	  }
       if (parser->valid != 0)
 	push_back(list, parser);
     }
@@ -110,6 +115,7 @@ int		put_int_tab(t_parser *parser, int *loop, t_list *list)
       parser->tmp_colums = 0;
       parser->star = 0;
       parser->star_line = 0;
+      parser->color = 0;
       (*loop) = 0;
     }
 }
@@ -144,15 +150,22 @@ int		parser_tetriminos(t_parser *parser, t_list *list, char *str)
   i = -1;
   parser->valid = 1;
   if (parser->first == 0)
-    while (str[++i] != '\0')
-      {
-	nb = my_getnbr(&str[i]);
-	if (!(parser_error(parser, nb, i, str)))
-	  {
-	    parser->valid = 0;
-	    put_int_tab(parser, &loop, list);
-	  }
-      }
+    {
+      parser->star_line = 0;
+      while (str[++i] != '\0')
+	{
+	  nb = my_getnbr(&str[i]);
+	  my_putchar('(');
+	  my_put_nbr(i);
+	  my_putchar(')');
+	  if (!(parser_error(parser, nb, i, str)))
+	    {
+	      parser->valid = 0;
+	      put_int_tab(parser, &loop, list);
+	      return (0);
+	    }
+	}
+    }
   if (!(search_star(parser, str)))
     put_int_tab(parser, &loop, list);
   if (parser->valid == 0)
