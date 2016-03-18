@@ -5,7 +5,7 @@
 ** Login   <cheval_8@epitech.net>
 **
 ** Started on  Wed Feb 24 16:03:44 2016 Chevalier Nicolas
-** Last update Fri Mar 18 20:10:35 2016 Chevalier Nicolas
+** Last update Fri Mar 18 21:17:35 2016 Chevalier Nicolas
 */
 
 #include	<sys/types.h>
@@ -56,11 +56,13 @@ void		initialize_parser(t_files *file, t_parser *parser, t_list *list)
 /*
 ** Get all tetriminos from dir tetriminos
 */
-void		initialize_files(t_list *list)
+int		initialize_files(t_list *list)
 {
+  int		count;
   t_files	file;
   t_parser	parser;
 
+  count = 0;
   init_parser(&parser);
   if ((file.dir = opendir("./tetriminos/")) == NULL)
     exit_tetris("Error with opendir", -1);
@@ -71,9 +73,11 @@ void		initialize_files(t_list *list)
 	  initialize_parser(&file, &parser, list);
 	  free(file.link);
 	  close(file.fd);
+	  count++;
 	}
     }
   closedir(file.dir);
+  return ((count != 0) ? (1) : (0));
 }
 
 void		exit_tetris(char *str, int constant)
@@ -86,20 +90,22 @@ int		main(int argc, char **argv, char **env)
 {
   t_tetris	game;
   t_list	list;
+  bool		files;
 
+  files = true;
   initialize_struct(&game);
   initialize_value(&game, argv[0]);
-  /* exit (0); */
-  /* return (0); */
   if (argc > 1)
     options(&game, argc, argv);
   init_list(&list);
-  initialize_files(&list);
+  if (!(initialize_files(&list)))
+      files = false;
   if (game.debug == true)
     mode_debug(&game, list);
-  /* debug_display_list(list); */
+  debug_display_list(list);
   game.list = list;
-  initialize_game(&game);
+  if (files == true)
+    initialize_game(&game);
   my_free(&game, &list);
   endwin();
   return (0);

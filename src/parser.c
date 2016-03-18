@@ -5,7 +5,7 @@
 ** Login   <cheval_8@epitech.net>
 **
 ** Started on  Fri Mar  4 15:57:57 2016 Chevalier Nicolas
-** Last update Fri Mar 18 02:36:22 2016 Chevalier Nicolas
+** Last update Fri Mar 18 20:49:51 2016 Chevalier Nicolas
 */
 
 #include <stdbool.h>
@@ -78,6 +78,8 @@ int		 search_star(t_parser *parser, char *str)
 	  count++;
 	}
     }
+  while (str[--i] == ' ')
+    count--;
   if (count > parser->star_line)
     parser->star_line = count;
   if (parser->star_line > parser->line)

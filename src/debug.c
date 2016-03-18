@@ -5,7 +5,7 @@
 ** Login   <cheval_8@epitech.net>
 **
 ** Started on  Sat Mar  5 17:22:19 2016 Chevalier Nicolas
-** Last update Fri Mar 18 20:05:33 2016 Chevalier Nicolas
+** Last update Fri Mar 18 20:30:44 2016 Chevalier Nicolas
 */
 
 #include	<stdlib.h>
@@ -13,12 +13,15 @@
 
 void		display_keys(char *key)
 {
+  int		i;
+
+  i = 0;
   if (key[0] == 27)
     my_putstr("^E");
   else
     my_putchar(key[0]);
-  my_putchar(key[1]);
-  my_putchar(key[2]);
+  while (key[++i])
+    my_putchar(key[i]);
 }
 
 /*
