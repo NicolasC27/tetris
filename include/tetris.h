@@ -5,7 +5,7 @@
 ** Login   <cheval_8@epitech.net>
 **
 ** Started on  Wed Feb 24 16:04:04 2016 Chevalier Nicolas
-// Last update Fri Mar 18 01:56:35 2016 Chevalier Nicolas
+// Last update Fri Mar 18 02:26:05 2016 Chevalier Nicolas
 */
 
 #ifndef TETRIS_H_
@@ -162,10 +162,14 @@ typedef struct		s_flags
 int			mode(int, int);
 
 /*
+** file_utils.c
+*/
+char			*separate_name(char *);
+void			count_height(t_files *, t_parser *);
+
+/*
 ** sort_list.c
 */
-// int			compare_string(char *, char *);
-// void			sorting_insertion(t_tetriminos **, t_tetriminos *);
 t_tetriminos		*sort_list(t_tetriminos *);
 
 /*

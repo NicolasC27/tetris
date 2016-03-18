@@ -5,11 +5,12 @@
 ** Login   <cheval_8@epitech.net>
 **
 ** Started on  Wed Feb 24 16:03:44 2016 Chevalier Nicolas
-** Last update Fri Mar 18 01:56:25 2016 Chevalier Nicolas
+** Last update Fri Mar 18 20:10:35 2016 Chevalier Nicolas
 */
 
 #include	<sys/types.h>
 #include	<fcntl.h>
+#include	<termcap.h>
 #include	"tetris.h"
 #include	"gnl.h"
 
@@ -35,48 +36,6 @@ int		initialize_ncurses()
   curs_set(0);
   timeout(0);
   return (0);
-}
-
-/*
-** Remove the end of the filename (".tetrimino")
-*/
-char		*separate_name(char *dirent)
-{
-  char		*name;
-  int		i;
-  int		nb;
-
-  i = -1;
-  nb = 0;
-  while (dirent[++i] && dirent[i] != '.')
-    nb++;
-  if ((name = malloc(sizeof(*name) * (nb + 1))) == NULL)
-    return (NULL);
-  i = 0;
-  while (i < nb + 1)
-    name[i++] = '\0';
-  i = -1;
-  while (++i < nb)
-    name[i] = dirent[i];
-  name[i] = '\0';
-  return (name);
-}
-
-void		count_height(t_files *file, t_parser *parser)
-{
-  char		*tmp;
-  int		fd;
-
-  parser->count_height = -1;
-  fd = file->fd;
-  while ((tmp = get_next_line(fd)))
-    {
-      parser->count_height += 1;
-      free(tmp);
-    }
-  close(fd);
-  file->fd = open((file->link = concat("./tetriminos/", file->dirent->d_name)),
-  		 O_RDONLY);
 }
 
 void		initialize_parser(t_files *file, t_parser *parser, t_list *list)
@@ -123,13 +82,15 @@ void		exit_tetris(char *str, int constant)
   exit ((constant == -1) ? (-1) : (0));
 }
 
-int		main(int argc, char **argv)
+int		main(int argc, char **argv, char **env)
 {
   t_tetris	game;
   t_list	list;
 
   initialize_struct(&game);
   initialize_value(&game, argv[0]);
+  /* exit (0); */
+  /* return (0); */
   if (argc > 1)
     options(&game, argc, argv);
   init_list(&list);

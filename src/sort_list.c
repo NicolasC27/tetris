@@ -5,7 +5,7 @@
 ** Login   <cheval_8@epitech.net>
 **
 ** Started on  Thu Mar 17 18:55:42 2016 Chevalier Nicolas
-** Last update Thu Mar 17 23:22:18 2016 Chevalier Nicolas
+** Last update Fri Mar 18 02:37:29 2016 Chevalier Nicolas
 */
 
 #include	"tetris.h"
@@ -66,7 +66,5 @@ t_tetriminos	*sort_list(t_tetriminos *list)
       sorting_insertion(&tmp3, tmp);
       tmp = tmp2;
     }
-  /* my_putstr(tmp->next->name); */
-  /* tmp = tmp->next; */
   return (tmp3);
 }

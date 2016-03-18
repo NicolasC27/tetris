@@ -5,11 +5,21 @@
 ** Login   <cheval_8@epitech.net>
 **
 ** Started on  Sat Mar  5 17:22:19 2016 Chevalier Nicolas
-** Last update Thu Mar 17 23:31:48 2016 Chevalier Nicolas
+** Last update Fri Mar 18 20:05:33 2016 Chevalier Nicolas
 */
 
 #include	<stdlib.h>
 #include	"tetris.h"
+
+void		display_keys(char *key)
+{
+  if (key[0] == 27)
+    my_putstr("^E");
+  else
+    my_putchar(key[0]);
+  my_putchar(key[1]);
+  my_putchar(key[2]);
+}
 
 /*
 ** Display shortcuts
@@ -18,13 +28,13 @@ void		shortcuts(t_tetris *game)
 {
   my_putstr(DEBUG);
   my_putstr("Key Left : ");
-  my_putstr(game->keys->keyleft);
+  display_keys(game->keys->keyleft);
   my_putstr("\nKey Right : ");
-  my_putstr(game->keys->keyright);
+  display_keys(game->keys->keyright);
   my_putstr("\nKey Turn : ");
-  my_putstr(game->keys->keyturn);
+  display_keys(game->keys->keyturn);
   my_putstr("\nKey Drop : ");
-  my_putstr(game->keys->keydrop);
+  display_keys(game->keys->keydrop);
   my_putstr("\nKey Quit : ");
   my_putstr(game->keys->keyquit);
   my_putstr("\nKey Pause : ");
