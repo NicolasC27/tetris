@@ -5,7 +5,7 @@
 ** Login   <cheval_8@epitech.net>
 **
 ** Started on  Sat Mar  5 17:22:19 2016 Chevalier Nicolas
-** Last update Thu Mar 17 03:53:00 2016 Chevalier Nicolas
+** Last update Thu Mar 17 23:31:48 2016 Chevalier Nicolas
 */
 
 #include	<stdlib.h>
@@ -109,12 +109,14 @@ void		shape_list(t_tetriminos *tmp)
 ** Firstly, it display shortcuts
 ** Secondly, it goes into shape_list
 */
-void		mode_debug(t_tetris *game, t_list *list)
+void		mode_debug(t_tetris *game, t_list list)
 {
   t_tetriminos	*tmp;
+  t_tetriminos	*tmp2;
+  char		buff[10];
   int		nb;
 
-  tmp = list->first;
+  tmp = list.first;
   nb = 0;
   while (tmp)
    {
@@ -122,14 +124,18 @@ void		mode_debug(t_tetris *game, t_list *list)
      tmp = tmp->next;
    }
   shortcuts(game);
-  tmp = list->first;
   my_putstr("\nTetriminos : ");
   my_put_nbr(nb);
-  my_putchar('\n');
-  while (tmp)
+  my_putstr("\n");
+  tmp2 = list.first;
+  tmp2 = sort_list(tmp2);
+  while (tmp2)
     {
-      shape_list(tmp);
-      tmp = tmp->next;
-    };
-  exit (0);
+      shape_list(tmp2);
+      tmp2 = tmp2->next;
+    }
+  mode(0, 0);
+  my_putstr("Press a key to start Tetris\n");
+  read(0, buff, 10);
+  mode(1, 0);
 }

@@ -5,7 +5,7 @@
 ** Login   <cheval_8@epitech.net>
 **
 ** Started on  Fri Mar  4 15:57:57 2016 Chevalier Nicolas
-** Last update Thu Mar 17 16:35:46 2016 Chevalier Nicolas
+** Last update Thu Mar 17 21:20:30 2016 Chevalier Nicolas
 */
 
 #include <stdbool.h>
@@ -98,7 +98,7 @@ int		put_int_tab(t_parser *parser, int *loop, t_list *list)
 
   height = (*loop);
   if (parser->valid == 0)
-    push_back(list, parser);
+    push_front(list, parser);
   else if ((parser->colums == height - 1))
     {
       if ((parser->valid != 0) && (parser->star_line != parser->line))
@@ -107,7 +107,7 @@ int		put_int_tab(t_parser *parser, int *loop, t_list *list)
 	  put_int_tab(parser, loop, list);
 	  }
       if (parser->valid != 0)
-	push_back(list, parser);
+	push_front(list, parser);
     }
   if (parser->valid == 0 || parser->colums == height - 1)
     {
@@ -155,9 +155,6 @@ int		parser_tetriminos(t_parser *parser, t_list *list, char *str)
       while (str[++i] != '\0')
 	{
 	  nb = my_getnbr(&str[i]);
-	  my_putchar('(');
-	  my_put_nbr(i);
-	  my_putchar(')');
 	  if (!(parser_error(parser, nb, i, str)))
 	    {
 	      parser->valid = 0;

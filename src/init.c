@@ -5,7 +5,7 @@
 ** Login   <cheval_8@epitech.net>
 **
 ** Started on  Wed Feb 24 19:00:31 2016 Chevalier Nicolas
-** Last update Thu Mar 17 01:29:25 2016 romain samuel
+** Last update Fri Mar 18 02:04:49 2016 Chevalier Nicolas
 */
 
 #include	"tetris.h"
@@ -13,8 +13,9 @@
 /*
 ** Initialize default value of game
 */
-void		initialize_value(t_tetris *game)
+void		initialize_value(t_tetris *game, char *name)
 {
+  game->binary_name = name;
   game->scene->rows = ROWS;
   game->scene->colums = COL;
   game->scene->level = 1;
@@ -22,10 +23,10 @@ void		initialize_value(t_tetris *game)
   game->scene->highscore = 0;
   game->keys->keyquit = "q";
   game->keys->keyright = "^EOC";
-  game->keys->keyleft = "^E0D";
-  game->keys->keydrop = "^E0A";
-  game->keys->keyturn = "^E0A";
-  game->keys->keypause = "p";
+  game->keys->keyleft = "^EOD";
+  game->keys->keydrop = "^EOA";
+  game->keys->keyturn = "^EOB";
+  game->keys->keypause = "(space)";
   game->scene->boolnext = true;
   game->scene->line = 0;
   game->debug = false;

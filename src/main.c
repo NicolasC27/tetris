@@ -5,7 +5,7 @@
 ** Login   <cheval_8@epitech.net>
 **
 ** Started on  Wed Feb 24 16:03:44 2016 Chevalier Nicolas
-** Last update Thu Mar 17 15:23:02 2016 romain samuel
+** Last update Fri Mar 18 01:56:25 2016 Chevalier Nicolas
 */
 
 #include	<sys/types.h>
@@ -28,7 +28,7 @@ int		initialize_ncurses()
       init_pair(i, COLOR_BLACK, i);
       i++;
       }
-  /*cbreak();*/
+  /* cbreak(); */
   halfdelay(2);
   noecho();
   keypad(stdscr, TRUE);
@@ -129,14 +129,14 @@ int		main(int argc, char **argv)
   t_list	list;
 
   initialize_struct(&game);
-  initialize_value(&game);
+  initialize_value(&game, argv[0]);
   if (argc > 1)
     options(&game, argc, argv);
   init_list(&list);
   initialize_files(&list);
   if (game.debug == true)
-    mode_debug(&game, &list);
-  debug_display_list(list);
+    mode_debug(&game, list);
+  /* debug_display_list(list); */
   game.list = list;
   initialize_game(&game);
   my_free(&game, &list);

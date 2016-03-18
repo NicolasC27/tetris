@@ -5,7 +5,7 @@
 ** Login   <cheval_8@epitech.net>
 **
 ** Started on  Wed Feb 24 16:04:04 2016 Chevalier Nicolas
-** Last update Thu Mar 17 16:05:12 2016 romain samuel
+// Last update Fri Mar 18 01:56:35 2016 Chevalier Nicolas
 */
 
 #ifndef TETRIS_H_
@@ -29,7 +29,7 @@
 # define ROWS		20
 # define COL		10
 # define DEBUG		"*** DEBUG MODE ***\n"
-# define HELP		"Usage: ./tetris [options]\nOptions:\n\
+# define HELP		"\nOptions:\n\
 --help			Display this help\n\
 -l --level={num}	Start Tetris at level num\n\
 -kl --key-left={K}	Move tetrimino on LEFT with key K\n\
@@ -137,6 +137,7 @@ typedef struct		s_tetris
   t_game		game;
   int		        **tmp;
   int			help;
+  char			*binary_name;
   bool			debug;
 }			t_tetris;
 
@@ -154,6 +155,18 @@ typedef struct		s_flags
   char			*flag;
   int			(*redirection)(char *, t_tetris *, char **, int *);
 }			t_flags;
+
+/*
+** mode.c
+*/
+int			mode(int, int);
+
+/*
+** sort_list.c
+*/
+// int			compare_string(char *, char *);
+// void			sorting_insertion(t_tetriminos **, t_tetriminos *);
+t_tetriminos		*sort_list(t_tetriminos *);
 
 /*
 ** delete_line.c
@@ -186,7 +199,6 @@ int			display_scores(t_tetris *s, time_t timer);
 ** options.c
 */
 void			options(t_tetris *, int, char **);
-int			mode(int);
 
 /*
 ** copy_coord_tab.c
@@ -212,7 +224,7 @@ void			debug_display_list(t_list );
 /*
 ** init.c
 */
-void			initialize_value(t_tetris *);
+void			initialize_value(t_tetris *, char *);
 t_windows		*initialize_windows(t_tetris *);
 t_scene			*initialize_scene(t_tetris *);
 void			initialize_struct(t_tetris *);
@@ -324,7 +336,7 @@ int			is_debug(char *, t_tetris *, char **, int *);
 /*
 ** debug.c
 */
-void			mode_debug(t_tetris *, t_list *);
+void			mode_debug(t_tetris *, t_list );
 
 /*
 ** rotations.c
