@@ -5,12 +5,12 @@
 ** Login   <cheval_8@epitech.net>
 **
 ** Started on  Wed Feb 24 19:00:31 2016 Chevalier Nicolas
-** Last update Sat Mar 19 14:46:34 2016 Chevalier Nicolas
+** Last update Sat Mar 19 14:51:17 2016 Chevalier Nicolas
 */
 
 #include	"tetris.h"
 
-char		*my_getenv(char **env, char *str)
+char		*my_getterm(char **env)
 {
   int		i;
   int		j;
@@ -20,11 +20,9 @@ char		*my_getenv(char **env, char *str)
     {
       j = -1;
       if (env[i][++j] == 'T')
-	{
-	  if (env[i][j + 1] == 'E' && env[i][j + 2] == 'R' && env[i][j + 3] == 'M'
-	      && env[i][j + 4] == '=')
-	    return (&env[i][j + 5]);
-	}
+	if (env[i][j + 1] == 'E' && env[i][j + 2] == 'R' && env[i][j + 3] == 'M'
+	    && env[i][j + 4] == '=')
+	  return (&env[i][j + 5]);
       i++;
     }
   return (0);
@@ -37,7 +35,7 @@ void		initialize_value(t_tetris *game, char *name, char **env)
 {
   char		bp[1024];
 
-  if (tgetent(bp, my_getenv(env, "TERM")) <= 0)
+  if (tgetent(bp, my_getterm(env)) <= 0)
     exit_tetris("Error with term\n", -1);
   game->binary_name = name;
   game->scene->rows = ROWS;
