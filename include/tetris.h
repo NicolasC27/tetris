@@ -5,7 +5,7 @@
 ** Login   <cheval_8@epitech.net>
 **
 ** Started on  Wed Feb 24 16:04:04 2016 Chevalier Nicolas
-// Last update Sat Mar 19 14:39:38 2016 Chevalier Nicolas
+// Last update Sat Mar 19 19:08:03 2016 Chevalier Nicolas
 */
 
 #ifndef TETRIS_H_
@@ -94,21 +94,6 @@ typedef struct		s_list
   t_tetriminos		*last;
 }		        t_list;
 
-typedef struct		s_parser
-{
-  int			tmp_colums;
-  int			**tmp;
-  int			first;
-  int			colums;
-  int			color;
-  int			line;
-  int			star;
-  int			star_line;
-  int			count_height;
-  bool			valid;
-  char			*name;
-}			t_parser;
-
 typedef struct		s_compartment
 {
   int			color;
@@ -141,6 +126,21 @@ typedef struct		s_tetris
   bool			debug;
 }			t_tetris;
 
+typedef struct		s_parser
+{
+  int			tmp_colums;
+  int			**tmp;
+  int			first;
+  int			colums;
+  int			color;
+  int			line;
+  int			star;
+  int			star_line;
+  int			count_height;
+  bool			valid;
+  char			*name;
+}			t_parser;
+
 typedef struct		s_files
 {
   struct dirent		*dirent;
@@ -157,64 +157,6 @@ typedef struct		s_flags
 }			t_flags;
 
 /*
-** handle_keyboard.c
-*/
-int			handle_keyboard(t_tetris *);
-
-/*
-** mode.c
-*/
-int			mode(int, int);
-
-/*
-** file_utils.c
-*/
-char			*separate_name(char *);
-void			count_height(t_files *, t_parser *);
-
-/*
-** sort_list.c
-*/
-t_tetriminos		*sort_list(t_tetriminos *);
-
-/*
-** delete_line.c
-*/
-int			del_line(t_tetris *s, int line);
-
-/*
-** utils_op.c
-*/
-char			*str(char *);
-char			*get_arg_options(char **, int *);
-
-/*
-** display_tetris.c
-*/
-void			display_t_letter(WINDOW *win, int x, int color);
-void			display_e_letter(WINDOW *win, int x, int color);
-void			display_r_letter(WINDOW *win, int x, int color);
-void			display_i_letter(WINDOW *win, int x, int color);
-void			display_s_letter(WINDOW *win, int x, int color);
-
-/*
-** display_scores.c
-*/
-int			my_intlen(int nb);
-int			display_timer(t_tetris *s, time_t timer);
-int			display_scores(t_tetris *s, time_t timer);
-
-/*
-** options.c
-*/
-void			options(t_tetris *, int, char **);
-
-/*
-** copy_coord_tab.c
-*/
-int			**copy_coord_tab(t_tetriminos *tetri);
-
-/*
 ** check_complete_line.c
 */
 int			check_complete_line(t_tetris *s, t_compartment *line);
@@ -226,42 +168,59 @@ int			check_complete_lines(t_tetris *s);
 void			clear_next(t_tetris *s);
 
 /*
+** copy_coord_tab.c
+*/
+int			**copy_coord_tab(t_tetriminos *tetri);
+
+/*
 ** debug.c
+*/
+void			mode_debug(t_tetris *, t_list );
+
+/*
+** debug_code.c
 */
 void			debug_display_list(t_list );
 
 /*
-** init.c
+** delete_line.c
 */
-void			initialize_value(t_tetris *, char *, char **);
-t_windows		*initialize_windows(t_tetris *);
-t_scene			*initialize_scene(t_tetris *);
-void			initialize_struct(t_tetris *);
+int			del_line(t_tetris *s, int line);
 
 /*
-** list.c
+** display_scores.c
 */
-void			init_list(t_list *);
-void			push_back(t_list *, t_parser *);
-void			push_front(t_list *, t_parser *);
-void			init_parser(t_parser *);
+int			my_intlen(int);
+int			display_timer(t_tetris *, time_t);
+int			display_scores(t_tetris *, time_t);
 
 /*
 ** display.c
 */
 void			display_scene(t_tetris *);
 void			display_score(t_tetris *);
-void			display_name(t_tetris *game);
-void			display_next(t_tetris *game);
+void			display_name(t_tetris *);
+void			display_next(t_tetris *);
 
 /*
 ** display_matrix.c
 */
-void			display_compartment(WINDOW *win,
-					    t_compartment **matrix,
-					    int i,
-					    int j);
-void			display_matrix(t_tetris *s, t_compartment **matrix);
+void			display_compartment(WINDOW *, t_compartment **, int, int);
+void			display_matrix(t_tetris *, t_compartment **);
+
+/*
+** display_tetris.c
+*/
+void			display_t_letter(WINDOW *win, int x, int color);
+void			display_e_letter(WINDOW *win, int x, int color);
+void			display_r_letter(WINDOW *win, int x, int color);
+void			display_i_letter(WINDOW *win, int x, int color);
+void			display_s_letter(WINDOW *win, int x, int color);
+
+/*
+** display_termitrino.c
+*/
+void			display_tetrimino(WINDOW *, t_tetriminos);
 
 /*
 ** fill_matrix_with_tetrimino.c
@@ -269,14 +228,20 @@ void			display_matrix(t_tetris *s, t_compartment **matrix);
 int			fill_matrix_with_tetrimino(t_tetris *s);
 
 /*
-** display_termitrino.c
+** free.c
 */
-void			display_tetrimino(WINDOW *win, t_tetriminos tetri);
+void			my_free(t_tetris *, t_list *);
 
 /*
-** move_tetrimino.c
+** handle_keyboard.c
 */
-int			move_tetrimino(t_tetris *s, int x, int y);
+int			handle_keyboard(t_tetris *);
+
+/*
+** file_utils.c
+*/
+char			*separate_name(char *);
+void			count_height(t_files *, t_parser *);
 
 /*
 ** game.c
@@ -291,41 +256,18 @@ int			get_max_termitrino_width(t_tetriminos *root);
 int			get_max_termitrino_height(t_tetriminos *root);
 
 /*
-** my_puterr.c
-*/
-int			my_puterr(char *str);
-
-/*
 ** get_next_tetrimino.c
 */
 void			get_next_tetrimino(t_tetris *s);
 int			get_current_tetrimino(t_tetris *s);
 
 /*
-** init_tetrimino_pos.c
+** init.c
 */
-int			init_tetrimino_pos(t_tetris *s);
-
-/*
-** initialize_game.c
-*/
-void			initialize_game(t_tetris *game);
-
-/*
-** parser.c
-*/
-int			parser_tetriminos(t_parser *, t_list *, char *);
-
-/*
-** free.c
-*/
-void			my_free(t_tetris *, t_list *);
-
-/*
-** main.c
-*/
-int			initialize_ncurses();
-void			exit_tetris(char *, int);
+void			initialize_value(t_tetris *, char *, char **);
+t_windows		*initialize_windows(t_tetris *);
+t_scene			*initialize_scene(t_tetris *);
+void			initialize_struct(t_tetris *);
 
 /*
 ** input_functions.c
@@ -337,7 +279,30 @@ int			rotate(t_tetris *);
 int			pause_game(t_tetris *);
 
 /*
-** options
+** initialize_game.c
+*/
+void			initialize_game(t_tetris *game);
+
+/*
+** init_tetrimino_pos.c
+*/
+int			init_tetrimino_pos(t_tetris *s);
+
+/*
+** list.c
+*/
+void			init_list(t_list *);
+void			push_back(t_list *, t_parser *);
+void			push_front(t_list *, t_parser *);
+void			init_parser(t_parser *);
+
+/*
+** mode.c
+*/
+int			mode(int, int);
+
+/*
+** options flag
 */
 int			is_help(char *, t_tetris *, char **, int *);
 int			is_level(char *, t_tetris *, char **, int *);
@@ -352,13 +317,45 @@ int			is_next(char *, t_tetris *, char **, int *);
 int			is_debug(char *, t_tetris *, char **, int *);
 
 /*
-** debug.c
+** options.c
 */
-void			mode_debug(t_tetris *, t_list );
+void			options(t_tetris *, int, char **);
+
+/*
+** main.c
+*/
+int			initialize_ncurses();
+void			exit_tetris(char *, int);
+
+/*
+** move_tetrimino.c
+*/
+int			move_tetrimino(t_tetris *s, int x, int y);
+
+/*
+** my_puterr.c
+*/
+int			my_puterr(char *str);
+
+/*
+** parser.c
+*/
+int			parser_tetriminos(t_parser *, t_list *, char *, t_tetris *);
 
 /*
 ** rotations.c
 */
 int			rotate_tetrimino(t_tetriminos tetri);
+
+/*
+** sort_list.c
+*/
+t_tetriminos		*sort_list(t_tetriminos *);
+
+/*
+** utils_op.c
+*/
+char			*str(char *);
+char			*get_arg_options(char **, int *);
 
 #endif /* !TETRIS_H_ */

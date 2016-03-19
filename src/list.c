@@ -5,7 +5,7 @@
 ** Login   <cheval_8@epitech.net>
 **
 ** Started on  Sat Mar  5 17:16:51 2016 Chevalier Nicolas
-** Last update Tue Mar 15 22:08:04 2016 Chevalier Nicolas
+** Last update Sat Mar 19 19:06:20 2016 Chevalier Nicolas
 */
 
 #include	"tetris.h"
@@ -28,6 +28,7 @@ void		push_back(t_list *list, t_parser *parser)
   tmp->height = parser->colums;
   tmp->color = parser->color;
   tmp->valid = parser->valid;
+  tmp->valid_scene = parser->valid_scene;
   tmp->prev = list->last;
   tmp->next = NULL;
   if (list->last)
@@ -49,6 +50,7 @@ void		push_front(t_list *list, t_parser *parser)
   tmp->height = parser->colums;
   tmp->color = parser->color;
   tmp->valid = parser->valid;
+  tmp->valid_scene = parser->valid_scene;
   tmp->next = list->first;
   tmp->prev = NULL;
   if (list->first)

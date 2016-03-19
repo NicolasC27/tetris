@@ -5,7 +5,7 @@
 ** Login   <cheval_8@epitech.net>
 **
 ** Started on  Fri Mar  4 15:57:57 2016 Chevalier Nicolas
-** Last update Fri Mar 18 20:49:51 2016 Chevalier Nicolas
+** Last update Sat Mar 19 19:08:40 2016 Chevalier Nicolas
 */
 
 #include <stdbool.h>
@@ -94,7 +94,7 @@ int		 search_star(t_parser *parser, char *str)
 ** End line
 ** Put informations in the list
 */
-int		put_int_tab(t_parser *parser, int *loop, t_list *list)
+int		put_int_tab(t_parser *parser, int *loop, t_list *list, t_tetris *game)
 {
   int		height;
 
@@ -103,11 +103,13 @@ int		put_int_tab(t_parser *parser, int *loop, t_list *list)
     push_front(list, parser);
   else if ((parser->colums == height - 1))
     {
-      if ((parser->valid != 0) && (parser->star_line != parser->line))
+      if ((parser->valid != 0 && parser->star_line != parser->line) ||
+	  ((parser->colums > game->scene->rows)
+	   || (parser->line > game->scene->colums)))
 	{
 	  parser->valid = 0;
-	  put_int_tab(parser, loop, list);
-	  }
+	  put_int_tab(parser, loop, list, game);
+	}
       if (parser->valid != 0)
 	push_front(list, parser);
     }
@@ -143,7 +145,8 @@ int		parser_error(t_parser *parser, int nb, int i, char *str)
   return (1);
 }
 
-int		parser_tetriminos(t_parser *parser, t_list *list, char *str)
+int		parser_tetriminos(t_parser *parser, t_list *list, char *str,
+				  t_tetris *game)
 {
   static int	loop;
   int		i;
@@ -160,17 +163,17 @@ int		parser_tetriminos(t_parser *parser, t_list *list, char *str)
 	  if (!(parser_error(parser, nb, i, str)))
 	    {
 	      parser->valid = 0;
-	      put_int_tab(parser, &loop, list);
+	      put_int_tab(parser, &loop, list, game);
 	      return (0);
 	    }
 	}
     }
   if (!(search_star(parser, str)))
-    put_int_tab(parser, &loop, list);
+    put_int_tab(parser, &loop, list, game);
   if (parser->valid == 0)
     return (0);
   parser->first += 1;
   loop++;
-  put_int_tab(parser, &loop, list);
+  put_int_tab(parser, &loop, list, game);
   return (1);
 }

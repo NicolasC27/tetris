@@ -5,7 +5,7 @@
 ** Login   <cheval_8@epitech.net>
 **
 ** Started on  Wed Feb 24 16:03:44 2016 Chevalier Nicolas
-** Last update Sat Mar 19 14:37:40 2016 Chevalier Nicolas
+** Last update Sat Mar 19 22:52:39 2016 Chevalier Nicolas
 */
 
 #include	<sys/types.h>
@@ -38,7 +38,8 @@ int		initialize_ncurses()
   return (0);
 }
 
-void		initialize_parser(t_files *file, t_parser *parser, t_list *list)
+void		initialize_parser(t_files *file, t_parser *parser, t_list *list,
+				  t_tetris *game)
 {
   file->fd = open((file->link = concat("./tetriminos/", file->dirent->d_name)),
 		 O_RDONLY);
@@ -48,7 +49,7 @@ void		initialize_parser(t_files *file, t_parser *parser, t_list *list)
   while ((file->s = get_next_line(file->fd)))
     {
       if (parser->valid == 1)
-	parser_tetriminos(parser, list, file->s);
+	parser_tetriminos(parser, list, file->s, game);
       free(file->s);
     }
 }
@@ -56,7 +57,7 @@ void		initialize_parser(t_files *file, t_parser *parser, t_list *list)
 /*
 ** Get all tetriminos from dir tetriminos
 */
-int		initialize_files(t_list *list)
+int		initialize_files(t_list *list, t_tetris *game)
 {
   int		count;
   t_files	file;
@@ -70,7 +71,7 @@ int		initialize_files(t_list *list)
     {
       if (file.dirent->d_type == DT_REG)
 	{
-	  initialize_parser(&file, &parser, list);
+	  initialize_parser(&file, &parser, list, game);
 	  free(file.link);
 	  close(file.fd);
 	  count++;
@@ -98,14 +99,17 @@ int		main(int argc, char **argv, char **env)
   if (argc > 1)
     options(&game, argc, argv);
   init_list(&list);
-  if (!(initialize_files(&list)))
+  if (!(initialize_files(&list, &game)))
       files = false;
   if (game.debug == true)
     mode_debug(&game, list);
-  /* debug_display_list(list); */
+  debug_display_list(list);
   game.list = list;
   if (files == true)
-    initialize_game(&game);
+    if ((ROWS + 2 > tgetnum("lines")) || (53 > tgetnum("cols")))
+      my_putstr("Terminall too small\n");
+    else
+      initialize_game(&game);
   my_free(&game, &list);
   endwin();
   return (0);

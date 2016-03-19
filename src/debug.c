@@ -5,7 +5,7 @@
 ** Login   <cheval_8@epitech.net>
 **
 ** Started on  Sat Mar  5 17:22:19 2016 Chevalier Nicolas
-** Last update Sat Mar 19 02:57:53 2016 Chevalier Nicolas
+** Last update Sat Mar 19 19:07:48 2016 Chevalier Nicolas
 */
 
 #include	<stdlib.h>
@@ -16,13 +16,10 @@ void		display_keys(char *key)
   int		i;
 
   i = -1;
-  if (key[0] == 27)
-    {
-      my_putstr("^E");
-      i++;
-    }
   while (key[++i])
-    if (key[i] == 32)
+    if (key[i] == 27)
+      my_putstr("^E");
+    else if (key[i] == 32)
       my_putstr("(space)");
     else
       my_putchar(key[i]);
