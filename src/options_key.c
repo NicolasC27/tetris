@@ -5,7 +5,7 @@
 ** Login   <cheval_8@epitech.net>
 **
 ** Started on  Thu Mar 10 19:33:35 2016 Chevalier Nicolas
-** Last update Sat Mar 19 14:25:19 2016 Chevalier Nicolas
+** Last update Sat Mar 19 15:02:41 2016 Chevalier Nicolas
 */
 
 #include <term.h>
@@ -13,30 +13,40 @@
 
 int			is_keyleft(char *options, t_tetris *game, char **argv, int *i)
 {
+  if (options[0] == '\0')
+    is_help(options, game, argv, i);
   game->keys->keyleft = options;
   return (0);
 }
 
 int			is_keyright(char *options, t_tetris *game, char **argv, int *i)
 {
+  if (options[0] == '\0')
+    is_help(options, game, argv, i);
   game->keys->keyright = options;
   return (0);
 }
 
 int			is_keyturn(char *options, t_tetris *game, char **argv, int *i)
 {
+  if (options[0] == '\0')
+    is_help(options, game, argv, i);
   game->keys->keyturn = options;
   return (0);
 }
 
 int			is_keydrop(char *options, t_tetris *game, char **argv, int *i)
 {
+  if (options[0] == '\0')
+    is_help(options, game, argv, i);
   game->keys->keydrop = options;
   return (0);
 }
 
 int			is_keyquit(char *options, t_tetris *game, char **argv, int *i)
 {
+  if (options[0] == '\0')
+    is_help(options, game, argv, i);
   game->keys->keyquit = options;
   return (0);
 }
