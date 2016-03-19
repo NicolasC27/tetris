@@ -5,7 +5,7 @@
 ** Login   <cheval_8@epitech.net>
 **
 ** Started on  Wed Feb 24 16:03:44 2016 Chevalier Nicolas
-** Last update Sat Mar 19 03:20:14 2016 Chevalier Nicolas
+** Last update Sat Mar 19 14:37:40 2016 Chevalier Nicolas
 */
 
 #include	<sys/types.h>
@@ -94,7 +94,7 @@ int		main(int argc, char **argv, char **env)
 
   files = true;
   initialize_struct(&game);
-  initialize_value(&game, argv[0]);
+  initialize_value(&game, argv[0], env);
   if (argc > 1)
     options(&game, argc, argv);
   init_list(&list);

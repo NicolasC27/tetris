@@ -5,7 +5,7 @@
 ** Login   <cheval_8@epitech.net>
 **
 ** Started on  Wed Feb 24 16:04:04 2016 Chevalier Nicolas
-// Last update Sat Mar 19 02:26:31 2016 Chevalier Nicolas
+// Last update Sat Mar 19 14:39:38 2016 Chevalier Nicolas
 */
 
 #ifndef TETRIS_H_
@@ -233,7 +233,7 @@ void			debug_display_list(t_list );
 /*
 ** init.c
 */
-void			initialize_value(t_tetris *, char *);
+void			initialize_value(t_tetris *, char *, char **);
 t_windows		*initialize_windows(t_tetris *);
 t_scene			*initialize_scene(t_tetris *);
 void			initialize_struct(t_tetris *);
