@@ -5,7 +5,7 @@
 ** Login   <cheval_8@epitech.net>
 **
 ** Started on  Thu Mar 17 19:06:26 2016 Chevalier Nicolas
-** Last update Thu Mar 17 19:09:39 2016 Chevalier Nicolas
+** Last update Sat Mar 19 02:44:12 2016 Chevalier Nicolas
 */
 
 #include <termios.h>
@@ -13,7 +13,7 @@
 #include <sys/stat.h>
 #include "tetris.h"
 
-int		mode(int i, int option)
+int	mode(int i, int option)
 {
   static struct termios	oldT;
   static struct termios	newT;

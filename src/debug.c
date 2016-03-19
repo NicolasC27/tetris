@@ -5,7 +5,7 @@
 ** Login   <cheval_8@epitech.net>
 **
 ** Started on  Sat Mar  5 17:22:19 2016 Chevalier Nicolas
-** Last update Fri Mar 18 20:30:44 2016 Chevalier Nicolas
+** Last update Sat Mar 19 01:15:56 2016 Chevalier Nicolas
 */
 
 #include	<stdlib.h>
@@ -15,13 +15,19 @@ void		display_keys(char *key)
 {
   int		i;
 
-  i = 0;
+  i = -1;
   if (key[0] == 27)
-    my_putstr("^E");
-  else
-    my_putchar(key[0]);
+    {
+      my_putstr("^E");
+      i++;
+    }
   while (key[++i])
-    my_putchar(key[i]);
+    {
+      if (key[i] == ' ')
+	my_putstr("(space)");
+      else
+	my_putchar(key[i]);
+    }
 }
 
 /*
@@ -39,9 +45,9 @@ void		shortcuts(t_tetris *game)
   my_putstr("\nKey Drop : ");
   display_keys(game->keys->keydrop);
   my_putstr("\nKey Quit : ");
-  my_putstr(game->keys->keyquit);
+  display_keys(game->keys->keyquit);
   my_putstr("\nKey Pause : ");
-  my_putstr(game->keys->keypause);
+  display_keys(game->keys->keypause);
   my_putstr("\nNext : ");
   my_putstr((game->scene->boolnext) ? "Yes" : "No");
   my_putstr("\nLevel : ");

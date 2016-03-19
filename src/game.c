@@ -5,12 +5,12 @@
 ** Login   <samuel_r@epitech.net>
 **
 ** Started on  Mon Mar 14 01:53:41 2016 romain samuel
-** Last update Thu Mar 17 15:59:07 2016 romain samuel
+** Last update Sat Mar 19 02:46:10 2016 Chevalier Nicolas
 */
 
 #include "tetris.h"
 
-int	create_compartments(t_tetris *s)
+int		create_compartments(t_tetris *s)
 {
   int	i;
   int	j;
@@ -59,20 +59,6 @@ int		time_drop(t_tetris *s)
     return (0);
 }
 
-int		handle_keyboard_input(t_tetris *s)
-{
-  int		key;
-
-  if ((key = wgetch(s->windows->name)) == -1)
-    return (0);
-  else
-    {
-      wprintw(s->windows->name, "%c", key);
-      wrefresh(s->windows->name);
-    }
-  return (0);
-}
-
 int		main_loop(t_tetris *s)
 {
   time_t	new_time;
@@ -80,7 +66,7 @@ int		main_loop(t_tetris *s)
   s->game.save_time = s->game.stime;
   while (42)
     {
-      handle_keyboard_input(s);
+      handle_keyboard(s);
       new_time = time(NULL) - s->game.stime;
       if (new_time > s->game.save_time)
 	{
@@ -95,7 +81,7 @@ int		main_loop(t_tetris *s)
   return (0);
 }
 
-int	game(t_tetris *s)
+int		game(t_tetris *s)
 {
   srand(time(NULL));
   s->game.stime = time(NULL);

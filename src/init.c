@@ -5,7 +5,7 @@
 ** Login   <cheval_8@epitech.net>
 **
 ** Started on  Wed Feb 24 19:00:31 2016 Chevalier Nicolas
-** Last update Fri Mar 18 20:19:14 2016 Chevalier Nicolas
+** Last update Sat Mar 19 02:45:27 2016 Chevalier Nicolas
 */
 
 #include	"tetris.h"
@@ -18,7 +18,7 @@ void		initialize_value(t_tetris *game, char *name)
   char		bp[1024];
 
   if (tgetent(bp, getenv("TERM")) <= 0)
-    exit (0);
+    exit_tetris("Error with term\n", -1);
   game->binary_name = name;
   game->scene->rows = ROWS;
   game->scene->colums = COL;
@@ -30,7 +30,7 @@ void		initialize_value(t_tetris *game, char *name)
   game->keys->keydrop = tigetstr("kcud1");
   game->keys->keyturn = tigetstr("kcuu1");
   game->keys->keyquit = "q";
-  game->keys->keypause = "(space)";
+  game->keys->keypause = " ";
   game->scene->boolnext = true;
   game->scene->line = 0;
   game->debug = false;

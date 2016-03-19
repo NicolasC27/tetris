@@ -5,7 +5,7 @@
 ** Login   <cheval_8@epitech.net>
 **
 ** Started on  Wed Feb 24 16:04:04 2016 Chevalier Nicolas
-// Last update Fri Mar 18 02:26:05 2016 Chevalier Nicolas
+// Last update Sat Mar 19 02:26:31 2016 Chevalier Nicolas
 */
 
 #ifndef TETRIS_H_
@@ -155,6 +155,11 @@ typedef struct		s_flags
   char			*flag;
   int			(*redirection)(char *, t_tetris *, char **, int *);
 }			t_flags;
+
+/*
+** handle_keyboard.c
+*/
+int			handle_keyboard(t_tetris *);
 
 /*
 ** mode.c
@@ -321,6 +326,15 @@ void			my_free(t_tetris *, t_list *);
 */
 int			initialize_ncurses();
 void			exit_tetris(char *, int);
+
+/*
+** input_functions.c
+*/
+int			move_to_right(t_tetris *);
+int			move_to_left(t_tetris *);
+int			move_down(t_tetris *);
+int			rotate(t_tetris *);
+int			pause_game(t_tetris *);
 
 /*
 ** options

@@ -5,7 +5,7 @@
 ** Login   <samuel_r@epitech.net>
 **
 ** Started on  Thu Mar 17 16:40:00 2016 romain samuel
-** Last update Fri Mar 18 09:52:30 2016 romain samuel
+** Last update Sat Mar 19 01:21:54 2016 Chevalier Nicolas
 */
 
 #include "tetris.h"
@@ -45,18 +45,14 @@ int	rotate(t_tetris *s)
 int	pause_game(t_tetris *s)
 {
   char	buff[10];
+  int	len;
   int	i;
 
   while (1)
-    {
-      if (read(0, buff, 10) > 0)
-	if (my_strncmp(buff, s->keys->keytab[5], 9) == 0)
+    if ((len = read(0, buff, 10)) > 0)
+      {
+	buff[len] = '\0';
+	if (my_strncmp(buff, s->keys->keypause, 0))
 	  return (0);
-      i = 0;
-      while (i < 10)
-	{
-	  buff[i] = 0;
-	  i++;
-	}
-    }
+      }
 }

@@ -5,7 +5,7 @@
 ## Login   <cheval_8@epitech.net>
 ##
 ## Started on  Wed Feb 24 16:02:04 2016 Chevalier Nicolas
-## Last update Fri Mar 18 02:26:17 2016 Chevalier Nicolas
+## Last update Sat Mar 19 02:06:32 2016 Chevalier Nicolas
 ##
 
 
@@ -41,6 +41,8 @@ SRC		=	main.c \
 		 	sort_list.c \
 			mode.c \
 			file_utils.c \
+			input_functions.c \
+			handle_keys.c \
 			rotation.c
 
 MOD		=	$(addprefix src/, $(SRC:.c=.o))

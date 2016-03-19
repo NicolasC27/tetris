@@ -5,7 +5,7 @@
 ** Login   <cheval_8@epitech.net>
 **
 ** Started on  Wed Feb 24 16:03:44 2016 Chevalier Nicolas
-** Last update Fri Mar 18 21:17:35 2016 Chevalier Nicolas
+** Last update Sat Mar 19 00:58:07 2016 Chevalier Nicolas
 */
 
 #include	<sys/types.h>
@@ -29,7 +29,7 @@ int		initialize_ncurses()
       init_pair(i, COLOR_BLACK, i);
       i++;
       }
-  /* cbreak(); */
+  cbreak();
   halfdelay(2);
   noecho();
   keypad(stdscr, TRUE);
