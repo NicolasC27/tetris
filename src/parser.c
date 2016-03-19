@@ -5,7 +5,7 @@
 ** Login   <cheval_8@epitech.net>
 **
 ** Started on  Fri Mar  4 15:57:57 2016 Chevalier Nicolas
-** Last update Sat Mar 19 19:08:40 2016 Chevalier Nicolas
+** Last update Sun Mar 20 00:07:11 2016 Chevalier Nicolas
 */
 
 #include <stdbool.h>
@@ -55,26 +55,14 @@ int		 search_star(t_parser *parser, char *str)
   if (parser->first > 0 && parser->first < parser->colums + 1)
     {
       if (parser->color == 0)
-	{
-	  parser->valid = 0;
-	  return (0);
-	}
+	return (0);
       if (parser->first == 1)
 	parser->tmp = create_tab(parser);
       while (str[++i])
 	{
 	  if (str[i] != ' ' && str[i] != '*')
-	    {
-	      parser->valid = 0;
-	      return (0);
-	    }
-	  if (str[i] == '*')
-	    {
-	      parser->tmp[parser->tmp_colums][0] = parser->first;
-	      parser->tmp[parser->tmp_colums][1] = i + 1;
-	      parser->tmp_colums += 1;
-	      parser->star += 1;
-	    }
+	    return (0);
+	  check_star(parser, str, i);
 	  count++;
 	}
     }
@@ -82,12 +70,7 @@ int		 search_star(t_parser *parser, char *str)
     count--;
   if (count > parser->star_line)
     parser->star_line = count;
-  if (parser->star_line > parser->line)
-    {
-      parser->valid = 0;
-      return (0);
-      }
-  return (1);
+  return ((parser->star_line > parser->line) ? 0 : 1);
 }
 
 /*
@@ -102,17 +85,15 @@ int		put_int_tab(t_parser *parser, int *loop, t_list *list, t_tetris *game)
   if (parser->valid == 0)
     push_front(list, parser);
   else if ((parser->colums == height - 1))
-    {
-      if ((parser->valid != 0 && parser->star_line != parser->line) ||
-	  ((parser->colums > game->scene->rows)
-	   || (parser->line > game->scene->colums)))
-	{
-	  parser->valid = 0;
-	  put_int_tab(parser, loop, list, game);
-	}
-      if (parser->valid != 0)
-	push_front(list, parser);
-    }
+    if ((parser->valid != 0 && parser->star_line != parser->line) ||
+	((parser->colums > game->scene->rows)
+	 || (parser->line > game->scene->colums)))
+      {
+	parser->valid = 0;
+	put_int_tab(parser, loop, list, game);
+      }
+    else if (parser->valid != 0)
+      push_front(list, parser);
   if (parser->valid == 0 || parser->colums == height - 1)
     {
       parser->first = 0;
@@ -153,25 +134,18 @@ int		parser_tetriminos(t_parser *parser, t_list *list, char *str,
   int		nb;
 
   i = -1;
-  parser->valid = 1;
   if (parser->first == 0)
     {
       parser->star_line = 0;
       while (str[++i] != '\0')
 	{
 	  nb = my_getnbr(&str[i]);
-	  if (!(parser_error(parser, nb, i, str)))
-	    {
-	      parser->valid = 0;
-	      put_int_tab(parser, &loop, list, game);
-	      return (0);
-	    }
+	  if (!(parser->valid = parser_error(parser, nb, i, str)))
+	    return (put_int_tab(parser, &loop, list, game));
 	}
     }
-  if (!(search_star(parser, str)))
-    put_int_tab(parser, &loop, list, game);
-  if (parser->valid == 0)
-    return (0);
+  if (!(parser->valid = search_star(parser, str)))
+    return (put_int_tab(parser, &loop, list, game));
   parser->first += 1;
   loop++;
   put_int_tab(parser, &loop, list, game);

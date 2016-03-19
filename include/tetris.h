@@ -5,7 +5,7 @@
 ** Login   <cheval_8@epitech.net>
 **
 ** Started on  Wed Feb 24 16:04:04 2016 Chevalier Nicolas
-// Last update Sat Mar 19 19:08:03 2016 Chevalier Nicolas
+// Last update Sun Mar 20 00:14:53 2016 Chevalier Nicolas
 */
 
 #ifndef TETRIS_H_
@@ -341,6 +341,11 @@ int			my_puterr(char *str);
 ** parser.c
 */
 int			parser_tetriminos(t_parser *, t_list *, char *, t_tetris *);
+
+/*
+** parser2.c
+*/
+void		        check_star(t_parser *, char *, int);
 
 /*
 ** rotations.c
