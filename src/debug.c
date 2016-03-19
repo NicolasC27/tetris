@@ -5,7 +5,7 @@
 ** Login   <cheval_8@epitech.net>
 **
 ** Started on  Sat Mar  5 17:22:19 2016 Chevalier Nicolas
-** Last update Sat Mar 19 01:15:56 2016 Chevalier Nicolas
+** Last update Sat Mar 19 02:57:53 2016 Chevalier Nicolas
 */
 
 #include	<stdlib.h>
@@ -22,12 +22,10 @@ void		display_keys(char *key)
       i++;
     }
   while (key[++i])
-    {
-      if (key[i] == ' ')
-	my_putstr("(space)");
-      else
-	my_putchar(key[i]);
-    }
+    if (key[i] == 32)
+      my_putstr("(space)");
+    else
+      my_putchar(key[i]);
 }
 
 /*

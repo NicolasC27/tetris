@@ -5,7 +5,7 @@
 ** Login   <cheval_8@epitech.net>
 **
 ** Started on  Mon Mar  7 18:15:23 2016 Chevalier Nicolas
-** Last update Sat Mar 19 01:56:18 2016 Chevalier Nicolas
+** Last update Sat Mar 19 03:17:21 2016 Chevalier Nicolas
 */
 
 #include	<unistd.h>
@@ -56,7 +56,7 @@ int		list_option(t_tetris *game, char **argv, int *i)
   while (++x < 20)
     if ((nb = my_strncmp(c, flags[x].flag, 0)))
       {
-	if (!my_strncmp(c, "-debug", 0))
+	if (!my_strncmp(c, "-debug", 0) && !my_strncmp(c, "-without-next", 0))
 	  options = get_arg_options(argv, i);
 	else
 	  options = "\0";

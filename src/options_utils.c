@@ -5,7 +5,7 @@
 ** Login   <cheval_8@epitech.net>
 **
 ** Started on  Fri Mar 11 18:16:57 2016 Chevalier Nicolas
-** Last update Fri Mar 18 00:50:48 2016 Chevalier Nicolas
+** Last update Sat Mar 19 03:16:09 2016 Chevalier Nicolas
 */
 
 #include "tetris.h"
@@ -42,7 +42,7 @@ char		*get_arg_options(char **argv, int *i)
   while (argv[y][++x] && argv[y][x] != '=');
   if (argv[y][x] && argv[y][x] == '=')
     x++;
-  else if (!(my_strncmp(argv[y], "-d", 0)))
+  else if (!(my_strncmp(argv[y], "-d", 0)) && !(my_strncmp(argv[y], "-w", 0)))
     {
       (*i)++;
       y++;

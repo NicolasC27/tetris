@@ -5,7 +5,7 @@
 ** Login   <cheval_8@epitech.net>
 **
 ** Started on  Wed Feb 24 16:03:44 2016 Chevalier Nicolas
-** Last update Sat Mar 19 00:58:07 2016 Chevalier Nicolas
+** Last update Sat Mar 19 03:20:14 2016 Chevalier Nicolas
 */
 
 #include	<sys/types.h>
@@ -102,7 +102,7 @@ int		main(int argc, char **argv, char **env)
       files = false;
   if (game.debug == true)
     mode_debug(&game, list);
-  debug_display_list(list);
+  /* debug_display_list(list); */
   game.list = list;
   if (files == true)
     initialize_game(&game);
