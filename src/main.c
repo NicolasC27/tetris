@@ -5,7 +5,7 @@
 ** Login   <cheval_8@epitech.net>
 **
 ** Started on  Wed Feb 24 16:03:44 2016 Chevalier Nicolas
-** Last update Sun Mar 20 20:08:44 2016 Chevalier Nicolas
+** Last update Sun Mar 20 23:37:50 2016 Chevalier Nicolas
 */
 
 #include	<sys/stat.h>
@@ -99,20 +99,6 @@ void		exit_tetris(char *str, int constant)
   exit ((constant == -1) ? (-1) : (0));
 }
 
-int		check_one_valid(t_list *list)
-{
-  t_tetriminos	*tmp;
-
-  tmp = list->first;
-  while (tmp)
-    {
-      if (tmp->valid == true)
-	return (1);
-      tmp = tmp->next;
-    }
-  return (0);
-}
-
 int		main(int argc, char **argv, char **env)
 {
   t_tetris	game;
@@ -125,11 +111,9 @@ int		main(int argc, char **argv, char **env)
   if (argc > 1)
     options(&game, argc, argv);
   init_list(&list);
-  if (!(initialize_files(&list, &game)))
-    files = false;
+  files = (!(initialize_files(&list, &game))) ? false : true;
   if (game.debug == true)
     mode_debug(&game, list);
-  /* debug_display_list(list); */
   game.list = list;
   if (files == true)
     {

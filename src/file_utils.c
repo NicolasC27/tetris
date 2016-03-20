@@ -5,7 +5,7 @@
 ** Login   <cheval_8@epitech.net>
 **
 ** Started on  Fri Mar 18 02:22:36 2016 Chevalier Nicolas
-** Last update Sun Mar 20 20:09:17 2016 Chevalier Nicolas
+** Last update Sun Mar 20 22:59:07 2016 Chevalier Nicolas
 */
 
 #include <sys/types.h>
@@ -104,30 +104,16 @@ char		**my_realloctab(char **ptr, size_t size)
 */
 void		count_height(t_files *file, t_parser *parser)
 {
-  /* char		**tmp; */
   char		*s;
   int		fd;
 
   parser->count_height = -1;
   fd = file->fd;
-  /* i = 0; */
-  /* if ((tmp = malloc(sizeof((*tmp)) * 10)) == NULL) */
-  /*   exit_tetris("Problem with malloc\n", -1); */
   while ((s = get_next_line(fd)))
     {
       parser->count_height += 1;
       free(s);
-      /*  i += 1; */
-      /* tmp[i] = '\0'; */
-      /* if (i >= 9) */
-      /* 	tmp = my_realloctab(tmp, 10 * sizeof(char *)); */
     }
-  /* while (i > 0) */
-  /*   check_space(tmp, parser, --i); */
-  /* i = 0; */
-  /* while (tmp[i]) */
-  /*   free(tmp[i++]); */
-  /* free(tmp); */
   close(fd);
   file->fd = open((file->link = concat("./tetriminos/", file->dirent->d_name)),
   		 O_RDONLY);

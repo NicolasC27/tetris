@@ -5,7 +5,7 @@
 ** Login   <cheval_8@epitech.net>
 **
 ** Started on  Fri Mar  4 15:57:57 2016 Chevalier Nicolas
-** Last update Sun Mar 20 19:56:52 2016 Chevalier Nicolas
+** Last update Sun Mar 20 23:32:37 2016 Chevalier Nicolas
 */
 
 #include <stdbool.h>
@@ -88,7 +88,7 @@ int		put_int_tab(t_parser *parser, int *loop, t_list *list, t_tetris *game)
     {
       if ((parser->valid != 0 && parser->star_line != parser->line) ||
 	  ((parser->colums > game->scene->rows)
-	   || (parser->line > game->scene->colums))|| (parser->color > 7))
+	   || (parser->line > game->scene->colums)) || (parser->color > 7))
 	{
 	  parser->valid = 0;
 	  put_int_tab(parser, loop, list, game);
@@ -98,36 +98,38 @@ int		put_int_tab(t_parser *parser, int *loop, t_list *list, t_tetris *game)
     }
   if (parser->valid == 0 || parser->colums == height - 1)
     {
-      parser->first = 0;
-      parser->tmp_colums = 0;
-      parser->star = 0;
-      parser->star_line = 0;
-      parser->color = 0;
+      init_variable(parser);
       (*loop) = 0;
     }
   return (0);
 }
 
-int		parser_error(t_parser *parser, int nb, int i, char *str)
+int		parser_error(t_parser *parser, int nb, int *i, char *str)
 {
-  if (i % 2 == 0)
+  static int	s;
+
+  if (*i == 0)
+    s = 0;
+  (nb > 9) ? check_nb(nb, i) : (0);
+ if (s % 2 == 0)
     {
-      if (nb == 0 || nb > 9)
-	return (0);
-      else if (i == 0)
+      if ((nb == 0 && s == 0) || (nb == 0 && s == 2))
+      	return (0);
+      if (s == 0)
 	parser->line = nb;
-      else if (i == 2)
+      else if (s == 2)
 	{
 	  if (nb != parser->count_height)
 	    return (0);
 	  parser->colums = nb;
 	}
-      else if (i == 4)
+      else if (s == 4)
 	parser->color = nb;
     }
-  if (i % 2 == 1)
-    if (str[i] != ' ')
+  if (s % 2 == 1)
+    if (str[*i] != ' ')
       return (0);
+  s++;
   return (1);
 }
 
@@ -146,7 +148,7 @@ int		parser_tetriminos(t_parser *parser, t_list *list, char *str,
       while (str[++i] != '\0')
 	{
 	  nb = my_getnbr(&str[i]);
-	  if (!(parser->valid = parser_error(parser, nb, i, str)))
+	  if (!(parser->valid = parser_error(parser, nb, &i, str)))
 	    return (put_int_tab(parser, &loop, list, game));
 	}
     }

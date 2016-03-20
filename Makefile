@@ -5,13 +5,14 @@
 ## Login   <cheval_8@epitech.net>
 ##
 ## Started on  Wed Feb 24 16:02:04 2016 Chevalier Nicolas
-## Last update Sun Mar 20 20:08:30 2016 Chevalier Nicolas
+## Last update Sun Mar 20 22:53:57 2016 Chevalier Nicolas
 ##
 
 
 NAME		=	tetris
 
 SRC		=	main.c \
+			main_utils.c \
 			check_complete_line.c \
 			clear_next.c \
 			clear_matrix.c \

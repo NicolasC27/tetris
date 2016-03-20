@@ -5,7 +5,7 @@
 ** Login   <cheval_8@epitech.net>
 **
 ** Started on  Wed Feb 24 16:04:04 2016 Chevalier Nicolas
-** Last update Sun Mar 20 20:36:32 2016 romain samuel
+// Last update Sun Mar 20 23:28:57 2016 Chevalier Nicolas
 */
 
 #ifndef TETRIS_H_
@@ -345,6 +345,11 @@ int			initialize_ncurses();
 void			exit_tetris(char *, int);
 
 /*
+** main_utils.c
+*/
+int			check_one_valid(t_list *);
+
+/*
 ** manage_highscore.c
 */
 void			manage_highscore(t_tetris *s);
@@ -368,6 +373,8 @@ int			parser_tetriminos(t_parser *, t_list *, char *, t_tetris *);
 ** parser2.c
 */
 void		        check_star(t_parser *, char *, int);
+void			init_variable(t_parser *);
+int			check_nb(int, int *);
 
 /*
 ** quit_game.c
