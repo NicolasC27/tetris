@@ -5,7 +5,7 @@
 ** Login   <cheval_8@epitech.net>
 **
 ** Started on  Fri Mar 18 02:22:36 2016 Chevalier Nicolas
-** Last update Fri Mar 18 02:26:49 2016 Chevalier Nicolas
+** Last update Sun Mar 20 17:19:27 2016 Chevalier Nicolas
 */
 
 #include <sys/types.h>
@@ -24,7 +24,12 @@ char		*separate_name(char *dirent)
 
   i = -1;
   nb = 0;
-  while (dirent[++i] && dirent[i] != '.')
+  if (dirent[0] == '.')
+    {
+      nb++;
+      i++;
+    }
+  while (dirent[++i] && !(my_strncmp(&dirent[i], ".tetrimino", 0)))
     nb++;
   if ((name = malloc(sizeof(*name) * (nb + 1))) == NULL)
     return (NULL);
@@ -39,20 +44,88 @@ char		*separate_name(char *dirent)
 }
 
 /*
+** Check space at end of file
+*/
+int		check_space(char **tmp, t_parser *parser, int i)
+{
+ int		j;
+
+ while (--i != 0)
+   if (tmp[i][0] == '\0')
+     parser->count_height -= 1;
+   else if (tmp[i][0] == ' ')
+     {
+       j = 0;
+       while (tmp[i][j])
+	 {
+	   my_putchar(tmp[i][j]);
+	   if (tmp[i][j] != ' ')
+	     break ;
+	   if (tmp[i][j + 1] && tmp[i][j + 1] == '\0')
+	     parser->count_height -= 1;
+	   j++;
+	 }
+       my_putchar('\n');
+     }
+   else
+     return (0);
+  return (0);
+}
+
+int		my_strlen_tab(char **old)
+{
+  int		i;
+  int		nb;
+
+  i = -1;
+  nb = 0;
+  while (old[++i])
+    nb++;
+  return (nb);
+}
+
+char		**my_realloctab(char **ptr, size_t size)
+{
+  char		**new;
+  int		i;
+
+  i = -1;
+  if ((new = malloc(sizeof(char *) * size)) == NULL)
+    return (NULL);
+  while (ptr[++i])
+    new[i] = ptr[i];
+  new[i] = '\0';
+  return (new);
+}
+/*
 ** Count line of file
 */
 void		count_height(t_files *file, t_parser *parser)
 {
-  char		*tmp;
+  char		**tmp;
+  char		*s;
   int		fd;
+  int		i;
 
   parser->count_height = -1;
   fd = file->fd;
-  while ((tmp = get_next_line(fd)))
+  i = 0;
+  /* if ((tmp = malloc(sizeof((*tmp)) * 10)) == NULL) */
+  /*   exit_tetris("Problem with malloc\n", -1); */
+  while ((s = get_next_line(fd)))
     {
       parser->count_height += 1;
-      free(tmp);
+      free(s);
+      /* i += 1; */
+      /* tmp[i] = '\0'; */
+      /* if (i >= 9) */
+      /* 	tmp = my_realloctab(tmp, 5 * sizeof(char *)); */
     }
+  /* check_space(tmp, parser, i); */
+  /* i = 0; */
+  /* while (tmp[i]) */
+  /*   free(tmp[i++]); */
+  /* free(tmp); */
   close(fd);
   file->fd = open((file->link = concat("./tetriminos/", file->dirent->d_name)),
   		 O_RDONLY);

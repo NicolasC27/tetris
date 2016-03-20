@@ -5,7 +5,7 @@
 ** Login   <cheval_8@epitech.net>
 **
 ** Started on  Thu Mar 10 19:38:42 2016 Chevalier Nicolas
-** Last update Sat Mar 19 03:14:02 2016 Chevalier Nicolas
+** Last update Sun Mar 20 01:27:11 2016 Chevalier Nicolas
 */
 
 #include "tetris.h"
@@ -14,6 +14,7 @@ int			is_help(char *options, t_tetris *game, char **argv, int *i)
 {
   (void)(*options);
   (void)(*i);
+  (void)(**argv);
   my_putstr("Usage: ");
   my_putstr(game->binary_name);
   my_putstr(" [options]");

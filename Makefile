@@ -5,7 +5,7 @@
 ## Login   <cheval_8@epitech.net>
 ##
 ## Started on  Wed Feb 24 16:02:04 2016 Chevalier Nicolas
-## Last update Sun Mar 20 01:56:07 2016 romain samuel
+## Last update Sun Mar 20 15:10:52 2016 Chevalier Nicolas
 ##
 
 
@@ -15,7 +15,6 @@ SRC		=	main.c \
 			check_complete_line.c \
 			clear_next.c \
 			clear_matrix.c \
-			free_matrix.c \
 			manage_highscore.c \
 			my_puterr.c \
 			create_matrix.c \
@@ -36,6 +35,7 @@ SRC		=	main.c \
 			move_tetrimino.c \
 			parser.c \
 			debug.c \
+			debug2.c \
 			list.c \
 			free.c \
 			options.c \

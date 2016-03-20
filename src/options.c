@@ -5,11 +5,11 @@
 ** Login   <cheval_8@epitech.net>
 **
 ** Started on  Mon Mar  7 18:15:23 2016 Chevalier Nicolas
-** Last update Sat Mar 19 03:17:21 2016 Chevalier Nicolas
+** Last update Sun Mar 20 01:16:43 2016 Chevalier Nicolas
 */
 
-#include	<unistd.h>
-#include	"tetris.h"
+#include <unistd.h>
+#include "tetris.h"
 
 static t_flags	flags[] =
 {
@@ -72,10 +72,8 @@ void		options(t_tetris *game, int argc, char **argv)
 
   i = 0;
   while (++i < argc)
-    {
-      if (argv[i][0] != '-')
-	flags[0].redirection(NULL, game, argv, &i);
-      if (!(list_option(game, &argv[i], &i)))
-	flags[0].redirection(NULL, game, argv, &i);
-    }
+    if (argv[i][0] != '-')
+      flags[0].redirection(NULL, game, argv, &i);
+    else if (!(list_option(game, &argv[i], &i)))
+      flags[0].redirection(NULL, game, argv, &i);
 }

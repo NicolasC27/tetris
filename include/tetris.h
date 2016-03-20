@@ -5,7 +5,7 @@
 ** Login   <cheval_8@epitech.net>
 **
 ** Started on  Wed Feb 24 16:04:04 2016 Chevalier Nicolas
-** Last update Sun Mar 20 01:36:55 2016 romain samuel
+// Last update Sun Mar 20 03:01:44 2016 Chevalier Nicolas
 */
 
 #ifndef TETRIS_H_
@@ -188,6 +188,11 @@ int			create_compartments(t_tetris *s);
 void			mode_debug(t_tetris *, t_list );
 
 /*
+** debug2.c
+*/
+int			width_line(int **, int, int);
+
+/*
 ** debug_code.c
 */
 void			debug_display_list(t_list );
@@ -241,6 +246,7 @@ int			fill_matrix_with_tetrimino(t_tetris *s);
 ** free.c
 */
 void			my_free(t_tetris *, t_list *);
+void			free_matrix(t_tetris *);
 
 /*
 ** handle_keyboard.c
@@ -365,7 +371,7 @@ void		        check_star(t_parser *, char *, int);
 /*
 ** quit_game.c
 */
-int			quit_game(t_tetris *s);
+int			quit_game();
 
 /*
 ** rotations.c

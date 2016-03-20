@@ -5,15 +5,15 @@
 ** Login   <samuel_r@epitech.net>
 **
 ** Started on  Tue Mar 15 15:26:53 2016 romain samuel
-** Last update Sun Mar 20 01:39:30 2016 romain samuel
+** Last update Sun Mar 20 03:10:34 2016 Chevalier Nicolas
 */
 
 #include "tetris.h"
 
-void		initialize_game(t_tetris *s)
+void	initialize_game(t_tetris *s)
 {
-  int		max_width;
-  int		max_height;
+  int	max_width;
+  int	max_height;
 
   max_width = get_max_termitrino_width(s->list.first);
   max_height = get_max_termitrino_height(s->list.first);
@@ -24,7 +24,7 @@ void		initialize_game(t_tetris *s)
   s->windows->name = newwin(6, 23, 0, 0);
   if (s->scene->boolnext == true)
     {
-      s->windows->next = newwin(2 + max_width, 2 + max_height,
+      s->windows->next = newwin(2 + max_width, 4 + max_height,
 				0, 29 + s->scene->colums);
       display_next(s);
     }

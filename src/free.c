@@ -5,10 +5,23 @@
 ** Login   <cheval_8@epitech.net>
 **
 ** Started on  Sat Mar  5 18:37:19 2016 Chevalier Nicolas
-** Last update Sun Mar 20 02:18:26 2016 romain samuel
+** Last update Sun Mar 20 18:02:38 2016 Chevalier Nicolas
 */
 
 #include "tetris.h"
+
+void		free_matrix(t_tetris *s)
+{
+  int		y;
+
+  y = 0;
+  while (y < s->scene->rows)
+    {
+      free(s->game.scene[y]);
+      y++;
+    }
+  free(s->game.scene);
+}
 
 void		free_tab(t_tetriminos *tmp)
 {
@@ -26,15 +39,16 @@ void		my_free(t_tetris *game, t_list *list)
   t_tetriminos	*tmp;
   t_tetriminos	*tmp2;
 
-  /*tmp2 = list->first;
+  tmp2 = list->first;
   while (tmp2)
     {
       tmp = tmp2;
-      free_tab(tmp);
+      if (tmp->valid == true)
+	free_tab(tmp);
       tmp2 = tmp2->next;
       free(tmp->name);
       free(tmp);
-      }*/
+    }
   list->first = NULL;
   list->last = NULL;
   free(game->windows);

@@ -5,9 +5,10 @@
 ** Login   <cheval_8@epitech.net>
 **
 ** Started on  Wed Feb 24 16:03:44 2016 Chevalier Nicolas
-** Last update Sun Mar 20 02:17:26 2016 romain samuel
+** Last update Sun Mar 20 18:03:10 2016 Chevalier Nicolas
 */
 
+#include	<sys/stat.h>
 #include	<sys/types.h>
 #include	<fcntl.h>
 #include	<termcap.h>
@@ -41,16 +42,25 @@ int		initialize_ncurses()
 void		initialize_parser(t_files *file, t_parser *parser, t_list *list,
 				  t_tetris *game)
 {
+  struct stat	buff;
+
   file->fd = open((file->link = concat("./tetriminos/", file->dirent->d_name)),
-		 O_RDONLY);
+		  O_RDONLY);
   parser->name = separate_name(file->dirent->d_name);
   count_height(file, parser);
   parser->valid = 1;
-  while ((file->s = get_next_line(file->fd)))
+  lstat(file->link, &buff);
+  if (buff.st_size != 0)
+    while ((file->s = get_next_line(file->fd)))
+      {
+	if (parser->valid == 1)
+	  parser_tetriminos(parser, list, file->s, game);
+	free(file->s);
+      }
+  else
     {
-      if (parser->valid == 1)
-	parser_tetriminos(parser, list, file->s, game);
-      free(file->s);
+      file->s = "invalid";
+      parser_tetriminos(parser, list, file->s, game);
     }
 }
 
@@ -87,6 +97,19 @@ void		exit_tetris(char *str, int constant)
   exit ((constant == -1) ? (-1) : (0));
 }
 
+int		check_one_valid(t_list *list)
+{
+  t_tetriminos	*tmp;
+
+  tmp = list->first;
+  while (tmp)
+    {
+      if (tmp->valid == true)
+	return (1);
+      tmp = tmp->next;
+    }
+  return (0);
+}
 int		main(int argc, char **argv, char **env)
 {
   t_tetris	game;
@@ -100,16 +123,19 @@ int		main(int argc, char **argv, char **env)
     options(&game, argc, argv);
   init_list(&list);
   if (!(initialize_files(&list, &game)))
-      files = false;
+    files = false;
   if (game.debug == true)
     mode_debug(&game, list);
   debug_display_list(list);
   game.list = list;
   if (files == true)
-    if ((ROWS + 2 > tgetnum("lines")) || (53 > tgetnum("cols")))
-      my_puterr("Terminal too small\n");
-    else
-      initialize_game(&game);
+    {
+      if ((game.scene->rows + 2 > (tgetnum("lines")))
+  	  || (game.scene->colums + 43 > (tgetnum("cols"))))
+  	my_puterr("Terminal too small\n");
+      else if ((check_one_valid(&list)) == 1)
+	initialize_game(&game);
+    }
   my_free(&game, &list);
   endwin();
   return (0);

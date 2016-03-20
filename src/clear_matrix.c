@@ -5,15 +5,15 @@
 ** Login   <samuel_r@epitech.net>
 **
 ** Started on  Sun Mar 20 00:17:22 2016 romain samuel
-** Last update Sun Mar 20 00:19:16 2016 romain samuel
+** Last update Sun Mar 20 03:09:52 2016 Chevalier Nicolas
 */
 
 #include "tetris.h"
 
-int		clear_matrix(t_tetris *s)
+int	clear_matrix(t_tetris *s)
 {
-  int		y;
-  int		x;
+  int	y;
+  int	x;
 
   y = 0;
   while (y < s->scene->rows)

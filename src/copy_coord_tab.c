@@ -5,18 +5,18 @@
 ** Login   <samuel_r@epitech.net>
 **
 ** Started on  Wed Mar 16 16:30:03 2016 romain samuel
-** Last update Wed Mar 16 16:43:41 2016 romain samuel
+** Last update Sun Mar 20 03:10:00 2016 Chevalier Nicolas
 */
 
 #include "tetris.h"
 
 int	**copy_coord_tab(t_tetriminos *tetri)
 {
-  int		**tab;
-  int		i;
-  int		lines;
-  int		colums;
-  int		a;
+  int	**tab;
+  int	i;
+  int	lines;
+  int	colums;
+  int	a;
 
   colums = 3;
   lines = (tetri->height * tetri->width) + 1;

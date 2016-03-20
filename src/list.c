@@ -5,10 +5,10 @@
 ** Login   <cheval_8@epitech.net>
 **
 ** Started on  Sat Mar  5 17:16:51 2016 Chevalier Nicolas
-** Last update Sat Mar 19 23:13:54 2016 Chevalier Nicolas
+** Last update Sun Mar 20 01:17:49 2016 Chevalier Nicolas
 */
 
-#include	"tetris.h"
+#include "tetris.h"
 
 void		init_list(t_list *list)
 {

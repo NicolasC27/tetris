@@ -5,12 +5,12 @@
 ** Login   <samuel_r@epitech.net>
 **
 ** Started on  Sun Mar 20 01:22:00 2016 romain samuel
-** Last update Sun Mar 20 01:22:19 2016 romain samuel
+** Last update Sun Mar 20 03:08:07 2016 Chevalier Nicolas
 */
 
 #include "tetris.h"
 
-int		time_drop(t_tetris *s)
+int	time_drop(t_tetris *s)
 {
   if (move_tetrimino(s, 0, 1) == -1)
     {

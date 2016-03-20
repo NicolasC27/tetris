@@ -5,7 +5,7 @@
 ** Login   <samuel_r@epitech.net>
 **
 ** Started on  Wed Mar 16 18:40:32 2016 romain samuel
-** Last update Sun Mar 20 00:02:51 2016 romain samuel
+** Last update Sun Mar 20 02:59:08 2016 Chevalier Nicolas
 */
 
 #include "tetris.h"
@@ -39,8 +39,6 @@ int	display_timer(t_tetris *s, time_t timer)
 
 int	display_scores(t_tetris *s, time_t timer)
 {
-  int	len;
-
   display_score(s);
   wmove(s->windows->score, 2, 20 - (my_intlen(s->scene->highscore)));
   wprintw(s->windows->score, "%d", s->scene->highscore);

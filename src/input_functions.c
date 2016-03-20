@@ -5,7 +5,7 @@
 ** Login   <samuel_r@epitech.net>
 **
 ** Started on  Thu Mar 17 16:40:00 2016 romain samuel
-** Last update Sat Mar 19 15:41:28 2016 romain samuel
+** Last update Sun Mar 20 03:01:52 2016 Chevalier Nicolas
 */
 
 #include "tetris.h"
@@ -52,7 +52,6 @@ int	pause_game(t_tetris *s)
 {
   char	buff[10];
   int	len;
-  int	i;
 
   while (1)
     if ((len = read(0, buff, 10)) > 0)

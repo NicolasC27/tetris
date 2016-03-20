@@ -5,11 +5,11 @@
 ** Login   <cheval_8@epitech.net>
 **
 ** Started on  Sat Mar  5 17:22:19 2016 Chevalier Nicolas
-** Last update Sat Mar 19 19:07:48 2016 Chevalier Nicolas
+** Last update Sun Mar 20 01:17:04 2016 Chevalier Nicolas
 */
 
-#include	<stdlib.h>
-#include	"tetris.h"
+#include <stdlib.h>
+#include "tetris.h"
 
 void		display_keys(char *key)
 {
@@ -28,7 +28,7 @@ void		display_keys(char *key)
 /*
 ** Display shortcuts
 */
-void		shortcuts(t_tetris *game)
+void		shortcuts(t_tetris *game, int nb)
 {
   my_putstr(DEBUG);
   my_putstr("Key Left : ");
@@ -51,17 +51,9 @@ void		shortcuts(t_tetris *game)
   my_put_nbr(game->scene->rows);
   my_putstr("*");
   my_put_nbr(game->scene->colums);
-}
-
-/*
-** Calcul width line for display
-*/
-int		width_line(int **tmp, int a, int nb)
-{
-  a = 0;
-  while (tmp[a][0] != '\0' && tmp[a][0] == nb)
-    a++;
-  return (tmp[a - 1][1]);
+  my_putstr("\nTetriminos : ");
+  my_put_nbr(nb);
+  my_putchar('\n');
 }
 
 /*
@@ -137,10 +129,7 @@ void		mode_debug(t_tetris *game, t_list list)
      nb++;
      tmp = tmp->next;
    }
-  shortcuts(game);
-  my_putstr("\nTetriminos : ");
-  my_put_nbr(nb);
-  my_putstr("\n");
+  shortcuts(game, nb);
   tmp2 = list.first;
   tmp2 = sort_list(tmp2);
   while (tmp2)

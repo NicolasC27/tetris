@@ -5,7 +5,7 @@
 ** Login   <cheval_8@epitech.net>
 **
 ** Started on  Mon Mar 14 18:34:37 2016 Chevalier Nicolas
-** Last update Tue Mar 15 15:32:14 2016 Chevalier Nicolas
+** Last update Sun Mar 20 16:22:55 2016 Chevalier Nicolas
 */
 
 #include "tetris.h"
@@ -43,16 +43,17 @@ void		debug_display_list(t_list list)
       a = 0;
       i = 0;
       my_putchar('{');
-      while (tmp->coord[a][i] != '\0')
-	{
-	  my_putchar('{');
-	  aff_list(tmp->coord[a]);
-	  my_putchar('}');
-	  if (tmp->coord[a + 1][0])
-	    my_putchar(',');
-	  i = 0;
-	  a++;
-	}
+      if (tmp->valid == true)
+	while (tmp->coord[a][i])
+	  {
+	    my_putchar('{');
+	    aff_list(tmp->coord[a]);
+	    my_putchar('}');
+	    if (tmp->coord[a + 1][0])
+	      my_putchar(',');
+	    i = 0;
+	    a++;
+	  }
       my_putchar('}');
       my_putchar('\n');
       tmp = tmp->next;

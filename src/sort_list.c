@@ -5,10 +5,10 @@
 ** Login   <cheval_8@epitech.net>
 **
 ** Started on  Thu Mar 17 18:55:42 2016 Chevalier Nicolas
-** Last update Fri Mar 18 02:37:29 2016 Chevalier Nicolas
+** Last update Sun Mar 20 00:47:00 2016 Chevalier Nicolas
 */
 
-#include	"tetris.h"
+#include "tetris.h"
 
 int		compare_string(char *str1, char *str2)
 {

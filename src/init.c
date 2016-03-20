@@ -5,10 +5,11 @@
 ** Login   <cheval_8@epitech.net>
 **
 ** Started on  Wed Feb 24 19:00:31 2016 Chevalier Nicolas
-** Last update Sat Mar 19 22:44:53 2016 Chevalier Nicolas
+** Last update Sun Mar 20 03:08:49 2016 Chevalier Nicolas
 */
 
-#include	"tetris.h"
+#include <term.h>
+#include "tetris.h"
 
 char		*my_getterm(char **env)
 {
@@ -34,8 +35,6 @@ char		*my_getterm(char **env)
 void		initialize_value(t_tetris *game, char *name, char **env)
 {
   char		bp[1024];
-  int		line;
-  int		cols;
 
   if (tgetent(bp, my_getterm(env)) <= 0)
     exit_tetris("Error with term\n", -1);

@@ -5,15 +5,15 @@
 ** Login   <samuel_r@epitech.net>
 **
 ** Started on  Sun Mar 20 00:18:36 2016 romain samuel
-** Last update Sun Mar 20 00:19:16 2016 romain samuel
+** Last update Sun Mar 20 03:09:41 2016 Chevalier Nicolas
 */
 
 #include "tetris.h"
 
-int		create_compartments(t_tetris *s)
+int	create_compartments(t_tetris *s)
 {
-  int		i;
-  int		j;
+  int	i;
+  int	j;
 
   i = 0;
   if ((s->game.scene = malloc(sizeof(t_compartment *) * (s->scene->rows + 1)))
