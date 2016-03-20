@@ -5,99 +5,80 @@
 ** Login   <samuel_r@epitech.net>
 **
 ** Started on  Mon Mar 14 01:53:41 2016 romain samuel
-** Last update Sat Mar 19 02:46:10 2016 Chevalier Nicolas
+** Last update Sun Mar 20 01:22:17 2016 romain samuel
 */
 
 #include "tetris.h"
 
-int		create_compartments(t_tetris *s)
+int		get_level_time(t_scene *s)
 {
-  int	i;
-  int	j;
+  int		nb;
 
-  i = 0;
-  if ((s->game.scene = malloc(sizeof(t_compartment *) * (s->scene->rows + 1)))
-      == NULL)
-    return (-1);
-  while (i < s->scene->rows)
-    {
-      j = 0;
-      if ((s->game.scene[i] = malloc(sizeof(t_compartment)
-				     * (s->scene->colums))) == NULL)
-	return (-1);
-      while (j < s->scene->colums)
-	{
-	  s->game.scene[i][j].filled = false;
-	  s->game.scene[i][j].color = 0;
-	  j++;
-	}
-      i++;
-    }
-  return (0);
-}
-
-int		time_drop(t_tetris *s)
-{
-  if (move_tetrimino(s, 0, 1) == -1)
-    {
-      fill_matrix_with_tetrimino(s);
-      if (get_current_tetrimino(s) == -1)
-	return (-2);
-      get_next_tetrimino(s);
-      clear_next(s);
-      display_tetrimino(s->windows->next, *s->game.next);
-      if (init_tetrimino_pos(s) == -1)
-	return (-2);
-      if (check_complete_lines(s) > 0)
-	{
-	  /*changer score*/
-	  return (-1);
-	}
-      return (-1);
-    }
+  if (s->level > 9)
+    nb = 9;
   else
-    return (0);
+    nb = s->level;
+  return (10 - nb);
 }
 
 int		main_loop(t_tetris *s)
 {
   time_t	new_time;
+  int		i;
 
+  i = 0;
   s->game.save_time = s->game.stime;
   while (42)
     {
       handle_keyboard(s);
       new_time = time(NULL) - s->game.stime;
-      if (new_time > s->game.save_time)
+      if (i > get_level_time(s->scene))
 	{
+	  i = 0;
 	  if (time_drop(s) == -2)
-	    return (-1);
+	    return (0);
 	  display_matrix(s, s->game.scene);
 	  display_tetrimino(s->windows->scene, s->game.current);
 	  display_scores(s, new_time);
 	}
       s->game.save_time = new_time;
+      i++;
     }
   return (0);
+}
+
+int		game_loop(t_tetris *s)
+{
+  while (42)
+    {
+      clear_matrix(s);
+      display_matrix(s, s->game.scene);
+      manage_highscore(s);
+      s->game.stime = time(NULL);
+      get_next_tetrimino(s);
+      if (get_current_tetrimino(s) == -1)
+	return (-1);
+      get_next_tetrimino(s);
+      if (s->scene->boolnext == true)
+	{
+	  clear_next(s);
+	  display_tetrimino(s->windows->next, *s->game.next);
+	}
+      init_tetrimino_pos(s);
+      display_tetrimino(s->windows->scene, s->game.current);
+      display_scores(s, 0);
+      if (main_loop(s) == -1)
+	return (-1);
+    }
 }
 
 int		game(t_tetris *s)
 {
   srand(time(NULL));
-  s->game.stime = time(NULL);
   wrefresh(s->windows->name);
   if (create_compartments(s) == -1)
     return (-1);
-  get_next_tetrimino(s);
-  if (get_current_tetrimino(s) == -1)
-    return (-1);
-  get_next_tetrimino(s);
-  clear_next(s);
-  display_tetrimino(s->windows->next, *s->game.next);
-  init_tetrimino_pos(s);
-  display_tetrimino(s->windows->scene, s->game.current);
-  display_scores(s, 0);
-  if (main_loop(s) == -1)
-    return (-1);
+  game_loop(s);
+  free_matrix(s);
   return (0);
 }

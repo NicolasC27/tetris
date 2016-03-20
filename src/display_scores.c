@@ -5,7 +5,7 @@
 ** Login   <samuel_r@epitech.net>
 **
 ** Started on  Wed Mar 16 18:40:32 2016 romain samuel
-** Last update Thu Mar 17 16:00:44 2016 romain samuel
+** Last update Sun Mar 20 00:02:51 2016 romain samuel
 */
 
 #include "tetris.h"
@@ -17,7 +17,7 @@ int	my_intlen(int nb)
 
   i = 1;
   div = 10;
-  while (nb / div > 1)
+  while (nb / div >= 1)
     {
       div *= 10;
       i++;
@@ -41,6 +41,7 @@ int	display_scores(t_tetris *s, time_t timer)
 {
   int	len;
 
+  display_score(s);
   wmove(s->windows->score, 2, 20 - (my_intlen(s->scene->highscore)));
   wprintw(s->windows->score, "%d", s->scene->highscore);
   wmove(s->windows->score, 3, 20 - (my_intlen(s->scene->points)));

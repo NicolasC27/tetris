@@ -5,7 +5,7 @@
 ** Login   <samuel_r@epitech.net>
 **
 ** Started on  Mon Mar 14 19:57:11 2016 romain samuel
-** Last update Wed Mar 16 14:48:06 2016 romain samuel
+** Last update Sat Mar 19 15:51:48 2016 romain samuel
 */
 
 #include "tetris.h"
@@ -21,7 +21,7 @@ int	rotate_tetrimino(t_tetriminos tetri)
   while (tetri.coord[i][0] != 0)
     {
       b1 = tetri.simple_coord[i][1];
-      b2 = tetri.height - tetri.simple_coord[i][0];
+      b2 = tetri.height + 1 - tetri.simple_coord[i][0];
       tetri.simple_coord[i][0] = b1;
       tetri.simple_coord[i][1] = b2;
       tetri.coord[i][0] = tetri.simple_coord[i][0] + tetri.y_translation;

@@ -5,7 +5,7 @@
 ** Login   <samuel_r@epitech.net>
 **
 ** Started on  Tue Mar 15 15:26:53 2016 romain samuel
-** Last update Sat Mar 19 19:35:34 2016 Chevalier Nicolas
+** Last update Sun Mar 20 01:20:36 2016 romain samuel
 */
 
 #include "tetris.h"
@@ -15,9 +15,9 @@ void		initialize_game(t_tetris *s)
   int		max_width;
   int		max_height;
 
-  initialize_ncurses();
   max_width = get_max_termitrino_width(s->list.first);
   max_height = get_max_termitrino_height(s->list.first);
+  initialize_ncurses();
   s->windows->scene = newwin(s->scene->rows + 2,
 				s->scene->colums + 2, 0, 25);
   s->windows->score = newwin(11, 23, 8, 0);

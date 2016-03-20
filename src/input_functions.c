@@ -5,7 +5,7 @@
 ** Login   <samuel_r@epitech.net>
 **
 ** Started on  Thu Mar 17 16:40:00 2016 romain samuel
-** Last update Sat Mar 19 01:21:54 2016 Chevalier Nicolas
+** Last update Sat Mar 19 15:41:28 2016 romain samuel
 */
 
 #include "tetris.h"
@@ -13,18 +13,24 @@
 int	move_to_right(t_tetris *s)
 {
   move_tetrimino(s, 1, 0);
+  display_matrix(s, s->game.scene);
+  display_tetrimino(s->windows->scene, s->game.current);
   return (0);
 }
 
 int	move_to_left(t_tetris *s)
 {
   move_tetrimino(s, -1, 0);
+  display_matrix(s, s->game.scene);
+  display_tetrimino(s->windows->scene, s->game.current);
   return (0);
 }
 
 int	move_down(t_tetris *s)
 {
   move_tetrimino(s, 0, 1);
+  display_matrix(s, s->game.scene);
+  display_tetrimino(s->windows->scene, s->game.current);
   return (0);
 }
 

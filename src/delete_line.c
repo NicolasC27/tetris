@@ -5,7 +5,7 @@
 ** Login   <samuel_r@epitech.net>
 **
 ** Started on  Tue Mar 15 19:33:41 2016 romain samuel
-** Last update Tue Mar 15 20:33:19 2016 romain samuel
+** Last update Sat Mar 19 21:27:33 2016 romain samuel
 */
 
 #include "tetris.h"
@@ -21,13 +21,10 @@ int	sandpile(t_tetris *s, int line)
       x = 0;
       while (x < s->scene->colums)
 	{
-	  if (s->game.scene[y + 1][x].filled == false)
-	    {
-	      s->game.scene[y + 1][x].filled = true;
-	      s->game.scene[y][x].filled = false;
-	      s->game.scene[y + 1][x].color = s->game.scene[y][x].color;
-	      s->game.scene[y][x].color = 0;
-	    }
+	  s->game.scene[y + 1][x].filled = s->game.scene[y][x].filled;
+	  s->game.scene[y][x].filled = false;
+	  s->game.scene[y + 1][x].color = s->game.scene[y][x].color;
+	  s->game.scene[y][x].color = 0;
 	  x++;
 	}
       y--;

@@ -5,7 +5,7 @@
 ** Login   <samuel_r@epitech.net>
 **
 ** Started on  Mon Mar 14 17:53:37 2016 romain samuel
-** Last update Thu Mar 17 02:26:07 2016 romain samuel
+** Last update Sun Mar 20 01:16:46 2016 romain samuel
 */
 
 #include "tetris.h"
@@ -18,6 +18,8 @@ void	display_compartment(WINDOW *win, t_compartment **matrix, int i, int j)
     color = 0;
   else
     color = matrix[i][j].color;
+  if (color > 7)
+    color = 1;
   wattron(win, COLOR_PAIR(color));
   mvwaddch(win, i + 1, j + 1, ' ');
   wattroff(win, COLOR_PAIR(color));

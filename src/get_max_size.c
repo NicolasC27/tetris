@@ -5,7 +5,7 @@
 ** Login   <samuel_r@epitech.net>
 **
 ** Started on  Mon Mar 14 19:32:27 2016 romain samuel
-** Last update Thu Mar 17 15:28:28 2016 romain samuel
+** Last update Sun Mar 20 01:07:08 2016 romain samuel
 */
 
 #include "tetris.h"
@@ -16,7 +16,7 @@ int		get_max_termitrino_width(t_tetriminos *root)
   t_tetriminos	*it;
 
   max = 0;
-  it = root->next;
+  it = root;
   while (it != NULL)
     {
       if (it->valid == true && it->width > max)

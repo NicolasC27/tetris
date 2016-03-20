@@ -5,7 +5,7 @@
 ## Login   <cheval_8@epitech.net>
 ##
 ## Started on  Wed Feb 24 16:02:04 2016 Chevalier Nicolas
-## Last update Sun Mar 20 00:08:35 2016 Chevalier Nicolas
+## Last update Sun Mar 20 01:22:31 2016 romain samuel
 ##
 
 
@@ -14,6 +14,10 @@ NAME		=	tetris
 SRC		=	main.c \
 			check_complete_line.c \
 			clear_next.c \
+			clear_matrix.c \
+			free_matrix.c \
+			manage_highscore.c \
+			create_matrix.c \
 			copy_coord_tab.c \
 			init.c \
 			delete_line.c \
@@ -44,7 +48,8 @@ SRC		=	main.c \
 			input_functions.c \
 			handle_keys.c \
 			parser2.c \
-			rotation.c
+			rotation.c \
+			time_drop.c
 
 MOD		=	$(addprefix src/, $(SRC:.c=.o))
 

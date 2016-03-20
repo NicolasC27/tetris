@@ -5,7 +5,7 @@
 ** Login   <cheval_8@epitech.net>
 **
 ** Started on  Fri Feb 26 15:37:26 2016 Chevalier Nicolas
-** Last update Thu Mar 17 16:03:45 2016 romain samuel
+** Last update Sun Mar 20 00:01:21 2016 romain samuel
 */
 
 #include	"tetris.h"
@@ -23,6 +23,7 @@ void		display_name(t_tetris *game)
 
 void		display_score(t_tetris *game)
 {
+  wclear(game->windows->score);
   wprintw(game->windows->score,
 	  "\n\n   High Score\n   Score\n\n   Lines\n   Level\n\n   Timer:\n\n");
   box(game->windows->score, 0, 0);

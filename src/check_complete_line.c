@@ -5,7 +5,7 @@
 ** Login   <samuel_r@epitech.net>
 **
 ** Started on  Tue Mar 15 18:12:34 2016 romain samuel
-** Last update Thu Mar 17 15:47:27 2016 romain samuel
+** Last update Sat Mar 19 23:43:54 2016 romain samuel
 */
 
 #include "tetris.h"
@@ -40,6 +40,9 @@ int	check_complete_lines(t_tetris *s)
 	}
       y++;
     }
-  s->scene->points += (10 * nb * nb) * (s->scene->level / 2);
+  s->scene->points += 10 * nb;
+  if ((s->scene->line / 10) != ((s->scene->line + nb) / 10))
+    s->scene->level++;
+  s->scene->line += nb;
   return (nb);
 }

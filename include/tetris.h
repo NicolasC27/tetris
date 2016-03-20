@@ -5,7 +5,7 @@
 ** Login   <cheval_8@epitech.net>
 **
 ** Started on  Wed Feb 24 16:04:04 2016 Chevalier Nicolas
-// Last update Sun Mar 20 00:14:53 2016 Chevalier Nicolas
+** Last update Sun Mar 20 01:23:09 2016 romain samuel
 */
 
 #ifndef TETRIS_H_
@@ -163,6 +163,11 @@ int			check_complete_line(t_tetris *s, t_compartment *line);
 int			check_complete_lines(t_tetris *s);
 
 /*
+** clear_matrix.c
+*/
+int			clear_matrix(t_tetris *s);
+
+/*
 ** clear_next.c
 */
 void			clear_next(t_tetris *s);
@@ -171,6 +176,11 @@ void			clear_next(t_tetris *s);
 ** copy_coord_tab.c
 */
 int			**copy_coord_tab(t_tetriminos *tetri);
+
+/*
+** create_matrix.c
+*/
+int			create_compartments(t_tetris *s);
 
 /*
 ** debug.c
@@ -328,6 +338,11 @@ int			initialize_ncurses();
 void			exit_tetris(char *, int);
 
 /*
+** manage_highscore.c
+*/
+void			manage_highscore(t_tetris *s);
+
+/*
 ** move_tetrimino.c
 */
 int			move_tetrimino(t_tetris *s, int x, int y);
@@ -356,6 +371,11 @@ int			rotate_tetrimino(t_tetriminos tetri);
 ** sort_list.c
 */
 t_tetriminos		*sort_list(t_tetriminos *);
+
+/*
+** time_drop.c
+*/
+int			time_drop(t_tetris *s);
 
 /*
 ** utils_op.c
