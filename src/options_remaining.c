@@ -5,7 +5,7 @@
 ** Login   <cheval_8@epitech.net>
 **
 ** Started on  Thu Mar 10 19:38:42 2016 Chevalier Nicolas
-** Last update Sun Mar 20 01:27:11 2016 Chevalier Nicolas
+** Last update Sun Mar 20 20:25:26 2016 Chevalier Nicolas
 */
 
 #include "tetris.h"
@@ -36,9 +36,17 @@ int			is_level(char *options, t_tetris *game, char **argv, int *i)
 
 int			is_keypause(char *options, t_tetris *game, char **argv, int *i)
 {
-  (void)(**argv);
-  (void)(*i);
-  game->keys->keypause = options;
+  if (options[0] == '\0')
+    is_help(options, game, argv, i);
+  if (!my_strncmp(game->keys->keyquit, options, 0)
+      && !my_strncmp(game->keys->keypause, options, 0)
+      && !my_strncmp(game->keys->keyquit, options, 0)
+      && !my_strncmp(game->keys->keyleft, options, 0)
+      && !my_strncmp(game->keys->keydrop, options, 0)
+      && !my_strncmp(game->keys->keyturn, options, 0))
+    game->keys->keypause = options;
+  else
+    is_help(options, game, argv, i);
   return (0);
 }
 

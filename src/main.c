@@ -5,7 +5,7 @@
 ** Login   <cheval_8@epitech.net>
 **
 ** Started on  Wed Feb 24 16:03:44 2016 Chevalier Nicolas
-** Last update Sun Mar 20 18:03:10 2016 Chevalier Nicolas
+** Last update Sun Mar 20 20:08:44 2016 Chevalier Nicolas
 */
 
 #include	<sys/stat.h>
@@ -39,14 +39,15 @@ int		initialize_ncurses()
   return (0);
 }
 
-void		initialize_parser(t_files *file, t_parser *parser, t_list *list,
+int		initialize_parser(t_files *file, t_parser *parser, t_list *list,
 				  t_tetris *game)
 {
   struct stat	buff;
 
   file->fd = open((file->link = concat("./tetriminos/", file->dirent->d_name)),
 		  O_RDONLY);
-  parser->name = separate_name(file->dirent->d_name);
+  if ((parser->name = separate_name(file->dirent->d_name)) == NULL)
+    return (0);
   count_height(file, parser);
   parser->valid = 1;
   lstat(file->link, &buff);
@@ -62,6 +63,7 @@ void		initialize_parser(t_files *file, t_parser *parser, t_list *list,
       file->s = "invalid";
       parser_tetriminos(parser, list, file->s, game);
     }
+  return (1);
 }
 
 /*
@@ -81,10 +83,10 @@ int		initialize_files(t_list *list, t_tetris *game)
     {
       if (file.dirent->d_type == DT_REG)
 	{
-	  initialize_parser(&file, &parser, list, game);
+	  if (initialize_parser(&file, &parser, list, game))
+	    count++;
 	  free(file.link);
 	  close(file.fd);
-	  count++;
 	}
     }
   closedir(file.dir);
@@ -110,6 +112,7 @@ int		check_one_valid(t_list *list)
     }
   return (0);
 }
+
 int		main(int argc, char **argv, char **env)
 {
   t_tetris	game;
@@ -126,7 +129,7 @@ int		main(int argc, char **argv, char **env)
     files = false;
   if (game.debug == true)
     mode_debug(&game, list);
-  debug_display_list(list);
+  /* debug_display_list(list); */
   game.list = list;
   if (files == true)
     {
@@ -134,7 +137,7 @@ int		main(int argc, char **argv, char **env)
   	  || (game.scene->colums + 43 > (tgetnum("cols"))))
   	my_puterr("Terminal too small\n");
       else if ((check_one_valid(&list)) == 1)
-	initialize_game(&game);
+  	initialize_game(&game);
     }
   my_free(&game, &list);
   endwin();

@@ -5,7 +5,7 @@
 ** Login   <cheval_8@epitech.net>
 **
 ** Started on  Fri Mar  4 15:57:57 2016 Chevalier Nicolas
-** Last update Sun Mar 20 16:18:46 2016 Chevalier Nicolas
+** Last update Sun Mar 20 19:56:52 2016 Chevalier Nicolas
 */
 
 #include <stdbool.h>
@@ -54,7 +54,7 @@ int		 search_star(t_parser *parser, char *str)
   i = -1;
   if (parser->first > 0 && parser->first < parser->colums + 1)
     {
-      if (parser->color == 0)
+      if (parser->color < 0)
 	return (0);
       if (parser->first == 1)
 	parser->tmp = create_tab(parser);
@@ -88,7 +88,7 @@ int		put_int_tab(t_parser *parser, int *loop, t_list *list, t_tetris *game)
     {
       if ((parser->valid != 0 && parser->star_line != parser->line) ||
 	  ((parser->colums > game->scene->rows)
-	   || (parser->line > game->scene->colums)))
+	   || (parser->line > game->scene->colums))|| (parser->color > 7))
 	{
 	  parser->valid = 0;
 	  put_int_tab(parser, loop, list, game);
@@ -141,6 +141,7 @@ int		parser_tetriminos(t_parser *parser, t_list *list, char *str,
   i = -1;
   if (parser->first == 0)
     {
+      parser->color = -1;
       parser->star_line = 0;
       while (str[++i] != '\0')
 	{
