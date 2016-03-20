@@ -5,7 +5,7 @@
 ## Login   <cheval_8@epitech.net>
 ##
 ## Started on  Wed Feb 24 16:02:04 2016 Chevalier Nicolas
-## Last update Sun Mar 20 01:22:31 2016 romain samuel
+## Last update Sun Mar 20 01:56:07 2016 romain samuel
 ##
 
 
@@ -17,6 +17,7 @@ SRC		=	main.c \
 			clear_matrix.c \
 			free_matrix.c \
 			manage_highscore.c \
+			my_puterr.c \
 			create_matrix.c \
 			copy_coord_tab.c \
 			init.c \
@@ -44,6 +45,7 @@ SRC		=	main.c \
 			debug_code.c \
 		 	sort_list.c \
 			mode.c \
+			quit_game.c \
 			file_utils.c \
 			input_functions.c \
 			handle_keys.c \

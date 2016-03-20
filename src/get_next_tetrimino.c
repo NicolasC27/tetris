@@ -5,7 +5,7 @@
 ** Login   <samuel_r@epitech.net>
 **
 ** Started on  Mon Mar 14 17:08:16 2016 romain samuel
-** Last update Sun Mar 20 00:34:52 2016 romain samuel
+** Last update Sun Mar 20 02:16:55 2016 romain samuel
 */
 
 #include "tetris.h"
@@ -46,8 +46,27 @@ void		get_next_tetrimino(t_tetris *s)
   s->game.next = it;
 }
 
+void	free_coords(int **coord, int **simple_coord)
+{
+  int	i;
+
+  i = 0;
+  while (coord[i][0] != 0 && simple_coord[i][0] != 0)
+    {
+      free(coord[i]);
+      free(simple_coord[i]);
+      i++;
+    }
+  free(coord[i]);
+  free(simple_coord[i]);
+  free(coord);
+  free(simple_coord);
+}
+
 int	get_current_tetrimino(t_tetris *s)
 {
+  if (s->game.current.coord && s->game.current.simple_coord)
+    free_coords(s->game.current.coord, s->game.current.simple_coord);
   s->game.current.name = s->game.next->name;
   if ((s->game.current.coord = copy_coord_tab(s->game.next)) == NULL)
     return (-1);

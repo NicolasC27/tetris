@@ -5,7 +5,7 @@
 ** Login   <cheval_8@epitech.net>
 **
 ** Started on  Wed Feb 24 16:03:44 2016 Chevalier Nicolas
-** Last update Sun Mar 20 00:27:47 2016 romain samuel
+** Last update Sun Mar 20 02:17:26 2016 romain samuel
 */
 
 #include	<sys/types.h>
@@ -83,7 +83,7 @@ int		initialize_files(t_list *list, t_tetris *game)
 
 void		exit_tetris(char *str, int constant)
 {
-  my_putstr(str);
+  my_puterr(str);
   exit ((constant == -1) ? (-1) : (0));
 }
 
@@ -107,7 +107,7 @@ int		main(int argc, char **argv, char **env)
   game.list = list;
   if (files == true)
     if ((ROWS + 2 > tgetnum("lines")) || (53 > tgetnum("cols")))
-      my_putstr("Terminall too small\n");
+      my_puterr("Terminal too small\n");
     else
       initialize_game(&game);
   my_free(&game, &list);
