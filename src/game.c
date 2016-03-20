@@ -5,7 +5,7 @@
 ** Login   <samuel_r@epitech.net>
 **
 ** Started on  Mon Mar 14 01:53:41 2016 romain samuel
-** Last update Sun Mar 20 02:13:04 2016 romain samuel
+** Last update Sun Mar 20 18:26:39 2016 romain samuel
 */
 
 #include "tetris.h"
@@ -50,27 +50,24 @@ int		main_loop(t_tetris *s)
 
 int		game_loop(t_tetris *s)
 {
-  while (42)
+  clear_matrix(s);
+  display_matrix(s, s->game.scene);
+  manage_highscore(s);
+  s->game.stime = time(NULL);
+  get_next_tetrimino(s);
+  if (get_current_tetrimino(s) == -1)
+    return (-1);
+  get_next_tetrimino(s);
+  if (s->scene->boolnext == true)
     {
-      clear_matrix(s);
-      display_matrix(s, s->game.scene);
-      manage_highscore(s);
-      s->game.stime = time(NULL);
-      get_next_tetrimino(s);
-      if (get_current_tetrimino(s) == -1)
-	return (-1);
-      get_next_tetrimino(s);
-      if (s->scene->boolnext == true)
-	{
-	  clear_next(s);
-	  display_tetrimino(s->windows->next, *s->game.next);
-	}
-      init_tetrimino_pos(s);
-      display_tetrimino(s->windows->scene, s->game.current);
-      display_scores(s, 0);
-      if (main_loop(s) == -1)
-	return (0);
+      clear_next(s);
+      display_tetrimino(s->windows->next, *s->game.next);
     }
+  init_tetrimino_pos(s);
+  display_tetrimino(s->windows->scene, s->game.current);
+  display_scores(s, 0);
+  if (main_loop(s) == -1)
+    return (0);
 }
 
 int		game(t_tetris *s)
