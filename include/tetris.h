@@ -5,7 +5,7 @@
 ** Login   <cheval_8@epitech.net>
 **
 ** Started on  Wed Feb 24 16:04:04 2016 Chevalier Nicolas
-// Last update Sun Mar 20 03:01:44 2016 Chevalier Nicolas
+** Last update Sun Mar 20 20:36:32 2016 romain samuel
 */
 
 #ifndef TETRIS_H_
@@ -66,6 +66,7 @@ typedef struct		s_scene
   int			colums;
   int			points;
   int			level;
+  int			start_level;
   int			timer;
   int			highscore;
   bool			boolnext;
